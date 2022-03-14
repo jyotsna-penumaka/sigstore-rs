@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;home&#x2F;runner&#x2F;.cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;pem-rfc7468-0.2.4&#x2F;src&#x2F;decoder.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>decoder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;home&#x2F;runner&#x2F;.cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;pem-rfc7468-0.3.1&#x2F;src&#x2F;decoder.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>decoder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a class="sidebar-logo" href="../../pem_rfc7468/index.html"><div class="logo-container"><img src="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo.svg" alt="logo"></div>
         </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../pem_rfc7468/index.html"><img src="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
@@ -254,6 +254,64 @@
 <span id="252">252</span>
 <span id="253">253</span>
 <span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
+<span id="277">277</span>
+<span id="278">278</span>
+<span id="279">279</span>
+<span id="280">280</span>
+<span id="281">281</span>
+<span id="282">282</span>
+<span id="283">283</span>
+<span id="284">284</span>
+<span id="285">285</span>
+<span id="286">286</span>
+<span id="287">287</span>
+<span id="288">288</span>
+<span id="289">289</span>
+<span id="290">290</span>
+<span id="291">291</span>
+<span id="292">292</span>
+<span id="293">293</span>
+<span id="294">294</span>
+<span id="295">295</span>
+<span id="296">296</span>
+<span id="297">297</span>
+<span id="298">298</span>
+<span id="299">299</span>
+<span id="300">300</span>
+<span id="301">301</span>
+<span id="302">302</span>
+<span id="303">303</span>
+<span id="304">304</span>
+<span id="305">305</span>
+<span id="306">306</span>
+<span id="307">307</span>
+<span id="308">308</span>
+<span id="309">309</span>
+<span id="310">310</span>
+<span id="311">311</span>
+<span id="312">312</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Decoder for PEM encapsulated data.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! From RFC 7468 Section 2:</span>
@@ -269,12 +327,9 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">alloc::vec::Vec</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::{
-    <span class="ident">grammar</span>, <span class="ident">Error</span>, <span class="prelude-ty">Result</span>, <span class="ident">BASE64_WRAP_WIDTH</span>, <span class="ident">POST_ENCAPSULATION_BOUNDARY</span>,
-    <span class="ident">PRE_ENCAPSULATION_BOUNDARY</span>,
-};
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">grammar</span>, <span class="ident">Error</span>, <span class="prelude-ty">Result</span>, <span class="ident">POST_ENCAPSULATION_BOUNDARY</span>, <span class="ident">PRE_ENCAPSULATION_BOUNDARY</span>};
 <span class="kw">use</span> <span class="ident">base64ct</span>::{<span class="ident">Base64</span>, <span class="ident">Encoding</span>};
-<span class="kw">use</span> <span class="ident">core</span>::{<span class="ident">convert::TryFrom</span>, <span class="ident">str</span>};
+<span class="kw">use</span> <span class="ident">core::str</span>;
 
 <span class="doccomment">/// Decode a PEM document according to RFC 7468&#39;s &quot;Strict&quot; grammar.</span>
 <span class="doccomment">///</span>
@@ -282,10 +337,7 @@
 <span class="doccomment">/// the decoded label and the portion of the provided buffer containing the</span>
 <span class="doccomment">/// decoded message.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="lifetime">&#39;i</span>, <span class="lifetime">&#39;o</span><span class="op">&gt;</span>(<span class="ident">pem</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;i</span> [<span class="ident">u8</span>], <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;o</span> <span class="kw-2">mut</span> [<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;i</span> <span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;o</span> [<span class="ident">u8</span>])<span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">encapsulation</span> <span class="op">=</span> <span class="ident">Encapsulation::try_from</span>(<span class="ident">pem</span>)<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">label</span> <span class="op">=</span> <span class="ident">encapsulation</span>.<span class="ident">label</span>();
-    <span class="kw">let</span> <span class="ident">decoded_bytes</span> <span class="op">=</span> <span class="ident">encapsulation</span>.<span class="ident">decode</span>(<span class="ident">buf</span>)<span class="question-mark">?</span>;
-    <span class="prelude-val">Ok</span>((<span class="ident">label</span>, <span class="ident">decoded_bytes</span>))
+    <span class="ident">Decoder::new</span>().<span class="ident">decode</span>(<span class="ident">pem</span>, <span class="ident">buf</span>)
 }
 
 <span class="doccomment">/// Decode a PEM document according to RFC 7468&#39;s &quot;Strict&quot; grammar, returning</span>
@@ -293,19 +345,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)]</span>
 <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)))]</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode_vec</span>(<span class="ident">pem</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">encapsulation</span> <span class="op">=</span> <span class="ident">Encapsulation::try_from</span>(<span class="ident">pem</span>)<span class="question-mark">?</span>;
-    <span class="kw">let</span> <span class="ident">label</span> <span class="op">=</span> <span class="ident">encapsulation</span>.<span class="ident">label</span>();
-
-    <span class="comment">// count all chars (gives over-estimation, due to whitespace)</span>
-    <span class="kw">let</span> <span class="ident">max_len</span> <span class="op">=</span> <span class="ident">encapsulation</span>.<span class="ident">encapsulated_text</span>.<span class="ident">len</span>() <span class="op">*</span> <span class="number">3</span> <span class="op">/</span> <span class="number">4</span>;
-
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0u8</span>; <span class="ident">max_len</span>];
-    <span class="kw">let</span> <span class="ident">decoded_len</span> <span class="op">=</span> <span class="ident">encapsulation</span>.<span class="ident">decode</span>(<span class="kw-2">&amp;mut</span> <span class="ident">result</span>)<span class="question-mark">?</span>.<span class="ident">len</span>();
-
-    <span class="comment">// Actual encoded length can be slightly shorter than estimated</span>
-    <span class="comment">// TODO(tarcieri): more reliable length estimation</span>
-    <span class="ident">result</span>.<span class="ident">truncate</span>(<span class="ident">decoded_len</span>);
-    <span class="prelude-val">Ok</span>((<span class="ident">label</span>, <span class="ident">result</span>))
+    <span class="ident">Decoder::new</span>().<span class="ident">decode_vec</span>(<span class="ident">pem</span>)
 }
 
 <span class="doccomment">/// Decode the encapsulation boundaries of a PEM document according to RFC 7468&#39;s &quot;Strict&quot; grammar.</span>
@@ -313,6 +353,67 @@
 <span class="doccomment">/// On success, returning the decoded label.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode_label</span>(<span class="ident">pem</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span> {
     <span class="prelude-val">Ok</span>(<span class="ident">Encapsulation::try_from</span>(<span class="ident">pem</span>)<span class="question-mark">?</span>.<span class="ident">label</span>())
+}
+
+<span class="doccomment">/// PEM decoder.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This type provides a degree of configurability for how PEM is decoded.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">Eq</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Decoder</span> {
+    <span class="doccomment">/// Number of characters at which to line-wrap Base64-encoded data</span>
+    <span class="doccomment">/// (default `64`).</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Must be a multiple of `4`, or otherwise decoding operations will return</span>
+    <span class="doccomment">/// `Error::Base64`.</span>
+    <span class="comment">// TODO(tarcieri): support for wrap widths which aren&#39;t multiples of 4?</span>
+    <span class="kw">pub</span> <span class="ident">wrap_width</span>: <span class="ident">usize</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">Decoder</span> {
+    <span class="doccomment">/// Create a new [`Decoder`] with the default options.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::default</span>()
+    }
+
+    <span class="doccomment">/// Decode a PEM document according to RFC 7468&#39;s &quot;Strict&quot; grammar.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// On success, writes the decoded document into the provided buffer, returning</span>
+    <span class="doccomment">/// the decoded label and the portion of the provided buffer containing the</span>
+    <span class="doccomment">/// decoded message.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="lifetime">&#39;i</span>, <span class="lifetime">&#39;o</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pem</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;i</span> [<span class="ident">u8</span>], <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;o</span> <span class="kw-2">mut</span> [<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;i</span> <span class="ident">str</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;o</span> [<span class="ident">u8</span>])<span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">encapsulation</span> <span class="op">=</span> <span class="ident">Encapsulation::try_from</span>(<span class="ident">pem</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">label</span> <span class="op">=</span> <span class="ident">encapsulation</span>.<span class="ident">label</span>();
+        <span class="kw">let</span> <span class="ident">decoded_bytes</span> <span class="op">=</span> <span class="ident">encapsulation</span>.<span class="ident">decode</span>(<span class="self">self</span>, <span class="ident">buf</span>)<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>((<span class="ident">label</span>, <span class="ident">decoded_bytes</span>))
+    }
+
+    <span class="doccomment">/// Decode a PEM document according to RFC 7468&#39;s &quot;Strict&quot; grammar, returning</span>
+    <span class="doccomment">/// the result as a [`Vec`] upon success.</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg_attr</span>(<span class="ident">docsrs</span>, <span class="ident">doc</span>(<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;alloc&quot;</span>)))]</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decode_vec</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">pem</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>)<span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">encapsulation</span> <span class="op">=</span> <span class="ident">Encapsulation::try_from</span>(<span class="ident">pem</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">label</span> <span class="op">=</span> <span class="ident">encapsulation</span>.<span class="ident">label</span>();
+
+        <span class="comment">// count all chars (gives over-estimation, due to whitespace)</span>
+        <span class="kw">let</span> <span class="ident">max_len</span> <span class="op">=</span> <span class="ident">encapsulation</span>.<span class="ident">encapsulated_text</span>.<span class="ident">len</span>() <span class="op">*</span> <span class="number">3</span> <span class="op">/</span> <span class="number">4</span>;
+
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0u8</span>; <span class="ident">max_len</span>];
+        <span class="kw">let</span> <span class="ident">decoded_len</span> <span class="op">=</span> <span class="ident">encapsulation</span>.<span class="ident">decode</span>(<span class="self">self</span>, <span class="kw-2">&amp;mut</span> <span class="ident">result</span>)<span class="question-mark">?</span>.<span class="ident">len</span>();
+
+        <span class="comment">// Actual encoded length can be slightly shorter than estimated</span>
+        <span class="comment">// TODO(tarcieri): more reliable length estimation</span>
+        <span class="ident">result</span>.<span class="ident">truncate</span>(<span class="ident">decoded_len</span>);
+        <span class="prelude-val">Ok</span>((<span class="ident">label</span>, <span class="ident">result</span>))
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">Decoder</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() -&gt; <span class="self">Self</span> {
+        <span class="self">Self</span> {
+            <span class="ident">wrap_width</span>: <span class="ident"><span class="kw">crate</span>::BASE64_WRAP_WIDTH</span>,
+        }
+    }
 }
 
 <span class="doccomment">/// PEM encapsulation parser.</span>
@@ -401,19 +502,29 @@
 
     <span class="doccomment">/// Get an iterator over the (allegedly) Base64-encoded lines of the</span>
     <span class="doccomment">/// encapsulated text.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encapsulated_text</span>(<span class="self">self</span>) -&gt; <span class="ident">Lines</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-        <span class="ident">Lines</span> {
-            <span class="ident">is_start</span>: <span class="bool-val">true</span>,
-            <span class="ident">bytes</span>: <span class="self">self</span>.<span class="ident">encapsulated_text</span>,
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">encapsulated_text</span>(<span class="self">self</span>, <span class="ident">wrap_width</span>: <span class="ident">usize</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Lines</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="kw">if</span> (<span class="ident">wrap_width</span> <span class="op">&gt;</span> <span class="number">0</span>) <span class="op">&amp;&amp;</span> (<span class="ident">wrap_width</span> <span class="op">%</span> <span class="number">4</span> <span class="op">==</span> <span class="number">0</span>) {
+            <span class="prelude-val">Ok</span>(<span class="ident">Lines</span> {
+                <span class="ident">bytes</span>: <span class="self">self</span>.<span class="ident">encapsulated_text</span>,
+                <span class="ident">is_start</span>: <span class="bool-val">true</span>,
+                <span class="ident">wrap_width</span>,
+            })
+        } <span class="kw">else</span> {
+            <span class="prelude-val">Err</span>(<span class="ident">Error::Base64</span>)
         }
     }
 
     <span class="doccomment">/// Decode the &quot;encapsulated text&quot;, i.e. Base64-encoded data which lies between</span>
     <span class="doccomment">/// the pre/post-encapsulation boundaries.</span>
-    <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="lifetime">&#39;o</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;o</span> <span class="kw-2">mut</span> [<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;o</span> [<span class="ident">u8</span>]<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">decode</span><span class="op">&lt;</span><span class="lifetime">&#39;o</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">decoder</span>: <span class="kw-2">&amp;</span><span class="ident">Decoder</span>, <span class="ident">buf</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;o</span> <span class="kw-2">mut</span> [<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;o</span> [<span class="ident">u8</span>]<span class="op">&gt;</span> {
+        <span class="comment">// Ensure wrap width is supported.</span>
+        <span class="kw">if</span> (<span class="ident">decoder</span>.<span class="ident">wrap_width</span> <span class="op">==</span> <span class="number">0</span>) <span class="op">|</span><span class="op">|</span> (<span class="ident">decoder</span>.<span class="ident">wrap_width</span> <span class="op">%</span> <span class="number">4</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>) {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::Base64</span>);
+        }
+
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out_len</span> <span class="op">=</span> <span class="number">0</span>;
 
-        <span class="kw">for</span> <span class="ident">line</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">encapsulated_text</span>() {
+        <span class="kw">for</span> <span class="ident">line</span> <span class="kw">in</span> <span class="self">self</span>.<span class="ident">encapsulated_text</span>(<span class="ident">decoder</span>.<span class="ident">wrap_width</span>)<span class="question-mark">?</span> {
             <span class="kw">let</span> <span class="ident">line</span> <span class="op">=</span> <span class="ident">line</span><span class="question-mark">?</span>;
 
             <span class="kw">match</span> <span class="ident">Base64::decode</span>(<span class="ident">line</span>, <span class="kw-2">&amp;mut</span> <span class="ident">buf</span>[<span class="ident">out_len</span>..]) {
@@ -445,24 +556,28 @@
 
 <span class="doccomment">/// Iterator over the lines in the encapsulated text.</span>
 <span class="kw">struct</span> <span class="ident">Lines</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="doccomment">/// true if no lines have been read</span>
-    <span class="ident">is_start</span>: <span class="ident">bool</span>,
     <span class="doccomment">/// Remaining data being iterated over.</span>
     <span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>],
+
+    <span class="doccomment">/// `true` if no lines have been read.</span>
+    <span class="ident">is_start</span>: <span class="ident">bool</span>,
+
+    <span class="doccomment">/// Base64 line-wrapping width in bytes.</span>
+    <span class="ident">wrap_width</span>: <span class="ident">usize</span>,
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Iterator</span> <span class="kw">for</span> <span class="ident">Lines</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">type</span> <span class="ident">Item</span> <span class="op">=</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]<span class="op">&gt;</span>;
 
     <span class="kw">fn</span> <span class="ident">next</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident"><span class="self">Self</span>::Item</span><span class="op">&gt;</span> {
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="ident">BASE64_WRAP_WIDTH</span> {
-            <span class="kw">let</span> (<span class="ident">line</span>, <span class="ident">rest</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">split_at</span>(<span class="ident">BASE64_WRAP_WIDTH</span>);
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="self">self</span>.<span class="ident">wrap_width</span> {
+            <span class="kw">let</span> (<span class="ident">line</span>, <span class="ident">rest</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">split_at</span>(<span class="self">self</span>.<span class="ident">wrap_width</span>);
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">rest</span>) <span class="op">=</span> <span class="ident">grammar::strip_leading_eol</span>(<span class="ident">rest</span>) {
                 <span class="self">self</span>.<span class="ident">is_start</span> <span class="op">=</span> <span class="bool-val">false</span>;
                 <span class="self">self</span>.<span class="ident">bytes</span> <span class="op">=</span> <span class="ident">rest</span>;
                 <span class="prelude-val">Some</span>(<span class="prelude-val">Ok</span>(<span class="ident">line</span>))
             } <span class="kw">else</span> {
-                <span class="comment">// if bytes remaining does not split at BASE64_WRAP_WIDTH such</span>
+                <span class="comment">// if bytes remaining does not split at `wrap_width` such</span>
                 <span class="comment">// that the next char(s) in the rest is vertical whitespace</span>
                 <span class="comment">// then attribute the error generically as `EncapsulatedText`</span>
                 <span class="comment">// unless we are at the first line and the line contains a colon</span>
@@ -488,6 +603,7 @@
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Encapsulation</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::BASE64_WRAP_WIDTH</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">pkcs8_example</span>() {
@@ -495,7 +611,7 @@
         <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">Encapsulation::parse</span>(<span class="ident">pem</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">result</span>.<span class="ident">label</span>, <span class="string">&quot;PRIVATE KEY&quot;</span>);
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lines</span> <span class="op">=</span> <span class="ident">result</span>.<span class="ident">encapsulated_text</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">lines</span> <span class="op">=</span> <span class="ident">result</span>.<span class="ident">encapsulated_text</span>(<span class="ident">BASE64_WRAP_WIDTH</span>).<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(
             <span class="ident">lines</span>.<span class="ident">next</span>().<span class="ident">unwrap</span>().<span class="ident">unwrap</span>(),
             <span class="kw-2">&amp;</span>[

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;home&#x2F;runner&#x2F;.cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;der-0.4.5&#x2F;src&#x2F;asn1&#x2F;integer.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>integer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;home&#x2F;runner&#x2F;.cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;der-0.5.1&#x2F;src&#x2F;asn1&#x2F;integer.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>integer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a class="sidebar-logo" href="../../../der/index.html"><div class="logo-container"><img src="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo.svg" alt="logo"></div>
         </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../der/index.html"><img src="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
@@ -227,30 +227,82 @@
 <span id="225">225</span>
 <span id="226">226</span>
 <span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
+<span id="251">251</span>
+<span id="252">252</span>
+<span id="253">253</span>
+<span id="254">254</span>
+<span id="255">255</span>
+<span id="256">256</span>
+<span id="257">257</span>
+<span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
+<span id="263">263</span>
+<span id="264">264</span>
+<span id="265">265</span>
+<span id="266">266</span>
+<span id="267">267</span>
+<span id="268">268</span>
+<span id="269">269</span>
+<span id="270">270</span>
+<span id="271">271</span>
+<span id="272">272</span>
+<span id="273">273</span>
+<span id="274">274</span>
+<span id="275">275</span>
+<span id="276">276</span>
 </pre><pre class="rust"><code><span class="doccomment">//! ASN.1 `INTEGER` support.</span>
 
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">mod</span> <span class="ident">bigint</span>;
 <span class="kw">mod</span> <span class="ident">int</span>;
 <span class="kw">mod</span> <span class="ident">uint</span>;
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">asn1::Any</span>, <span class="ident">Encodable</span>, <span class="ident">Encoder</span>, <span class="ident">Error</span>, <span class="ident">Length</span>, <span class="prelude-ty">Result</span>, <span class="ident">Tag</span>, <span class="ident">Tagged</span>};
-<span class="kw">use</span> <span class="ident">core::convert::TryFrom</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">asn1::Any</span>, <span class="ident">ByteSlice</span>, <span class="ident">DecodeValue</span>, <span class="ident">Decoder</span>, <span class="ident">EncodeValue</span>, <span class="ident">Encoder</span>, <span class="ident">Error</span>, <span class="ident">FixedTag</span>, <span class="ident">Length</span>,
+    <span class="prelude-ty">Result</span>, <span class="ident">Tag</span>, <span class="ident">ValueOrd</span>,
+};
+<span class="kw">use</span> <span class="ident">core</span>::{<span class="ident">cmp::Ordering</span>, <span class="ident">mem</span>};
 
 <span class="macro">macro_rules!</span> <span class="ident">impl_int_encoding</span> {
     ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span>:<span class="ident">ty</span> =&gt; <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span>:<span class="ident">ty</span>),<span class="op">+</span>) =&gt; {
         $(
-            <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span> {
-                <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+            <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">DecodeValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span> {
+                <span class="kw">fn</span> <span class="ident">decode_value</span>(<span class="ident">decoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Decoder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">length</span>: <span class="ident">Length</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+                    <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">ByteSlice::decode_value</span>(<span class="ident">decoder</span>, <span class="ident">length</span>)<span class="question-mark">?</span>.<span class="ident">as_bytes</span>();
 
-                <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">any</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">is_highest_bit_set</span>(<span class="ident">any</span>.<span class="ident">as_bytes</span>()) {
-                        <span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span><span class="op">&gt;</span><span class="ident">::from_be_bytes</span>(<span class="ident">int::decode_array</span>(<span class="ident">any</span>)<span class="question-mark">?</span>) <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span>
+                    <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">is_highest_bit_set</span>(<span class="ident">bytes</span>) {
+                        <span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span><span class="op">&gt;</span><span class="ident">::from_be_bytes</span>(<span class="ident">int::decode_to_array</span>(<span class="ident">bytes</span>)<span class="question-mark">?</span>) <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span>
                     } <span class="kw">else</span> {
-                        <span class="ident"><span class="self">Self</span>::from_be_bytes</span>(<span class="ident">uint::decode_array</span>(<span class="ident">any</span>)<span class="question-mark">?</span>)
+                        <span class="ident"><span class="self">Self</span>::from_be_bytes</span>(<span class="ident">uint::decode_to_array</span>(<span class="ident">bytes</span>)<span class="question-mark">?</span>)
                     };
 
                     <span class="comment">// Ensure we compute the same encoded length as the original any value</span>
-                    <span class="kw">if</span> <span class="ident">any</span>.<span class="ident">encoded_len</span>()<span class="question-mark">?</span> <span class="op">!</span><span class="op">=</span> <span class="ident">result</span>.<span class="ident">encoded_len</span>()<span class="question-mark">?</span> {
+                    <span class="kw">if</span> <span class="ident">length</span> <span class="op">!</span><span class="op">=</span> <span class="ident">result</span>.<span class="ident">value_len</span>()<span class="question-mark">?</span> {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident"><span class="self">Self</span>::TAG</span>.<span class="ident">non_canonical_error</span>());
                     }
 
@@ -258,26 +310,40 @@
                 }
             }
 
-            <span class="kw">impl</span> <span class="ident">Encodable</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span> {
-                <span class="kw">fn</span> <span class="ident">encoded_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Length</span><span class="op">&gt;</span> {
+            <span class="kw">impl</span> <span class="ident">EncodeValue</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span> {
+                <span class="kw">fn</span> <span class="ident">value_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Length</span><span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="kw-2">*</span><span class="self">self</span> <span class="op">&lt;</span> <span class="number">0</span> {
-                        <span class="ident">int::encoded_len</span>(<span class="kw-2">&amp;</span>(<span class="kw-2">*</span><span class="self">self</span> <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span>).<span class="ident">to_be_bytes</span>())<span class="question-mark">?</span>.<span class="ident">for_tlv</span>()
+                        <span class="ident">int::encoded_len</span>(<span class="kw-2">&amp;</span>(<span class="kw-2">*</span><span class="self">self</span> <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span>).<span class="ident">to_be_bytes</span>())
                     } <span class="kw">else</span> {
-                        <span class="ident">uint::encoded_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">to_be_bytes</span>())<span class="question-mark">?</span>.<span class="ident">for_tlv</span>()
+                        <span class="ident">uint::encoded_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">to_be_bytes</span>())
                     }
                 }
 
-                <span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">encoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Encoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+                <span class="kw">fn</span> <span class="ident">encode_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">encoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Encoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
                     <span class="kw">if</span> <span class="kw-2">*</span><span class="self">self</span> <span class="op">&lt;</span> <span class="number">0</span> {
-                        <span class="ident">int::encode</span>(<span class="ident">encoder</span>, <span class="kw-2">&amp;</span>(<span class="kw-2">*</span><span class="self">self</span> <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span>).<span class="ident">to_be_bytes</span>())
+                        <span class="ident">int::encode_bytes</span>(<span class="ident">encoder</span>, <span class="kw-2">&amp;</span>(<span class="kw-2">*</span><span class="self">self</span> <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span>).<span class="ident">to_be_bytes</span>())
                     } <span class="kw">else</span> {
-                        <span class="ident">uint::encode</span>(<span class="ident">encoder</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">to_be_bytes</span>())
+                        <span class="ident">uint::encode_bytes</span>(<span class="ident">encoder</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">to_be_bytes</span>())
                     }
                 }
             }
 
-            <span class="kw">impl</span> <span class="ident">Tagged</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span> {
+            <span class="kw">impl</span> <span class="ident">FixedTag</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span> {
                 <span class="kw">const</span> <span class="ident">TAG</span>: <span class="ident">Tag</span> <span class="op">=</span> <span class="ident">Tag::Integer</span>;
+            }
+
+            <span class="kw">impl</span> <span class="ident">ValueOrd</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span> {
+                <span class="kw">fn</span> <span class="ident">value_cmp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Ordering</span><span class="op">&gt;</span> {
+                    <span class="ident">value_cmp</span>(<span class="kw-2">*</span><span class="self">self</span>, <span class="kw-2">*</span><span class="ident">other</span>)
+                }
+            }
+
+            <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span> {
+                <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+
+                <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">any</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+                    <span class="ident">any</span>.<span class="ident">decode_into</span>()
+                }
             }
         )<span class="op">+</span>
     };
@@ -286,14 +352,13 @@
 <span class="macro">macro_rules!</span> <span class="ident">impl_uint_encoding</span> {
     ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span>:<span class="ident">ty</span>),<span class="op">+</span>) =&gt; {
         $(
-            <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span> {
-                <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
-
-                <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">any</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::from_be_bytes</span>(<span class="ident">uint::decode_array</span>(<span class="ident">any</span>)<span class="question-mark">?</span>);
+            <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">DecodeValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span> {
+                <span class="kw">fn</span> <span class="ident">decode_value</span>(<span class="ident">decoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Decoder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">length</span>: <span class="ident">Length</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+                    <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">ByteSlice::decode_value</span>(<span class="ident">decoder</span>, <span class="ident">length</span>)<span class="question-mark">?</span>.<span class="ident">as_bytes</span>();
+                    <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::from_be_bytes</span>(<span class="ident">uint::decode_to_array</span>(<span class="ident">bytes</span>)<span class="question-mark">?</span>);
 
                     <span class="comment">// Ensure we compute the same encoded length as the original any value</span>
-                    <span class="kw">if</span> <span class="ident">any</span>.<span class="ident">encoded_len</span>()<span class="question-mark">?</span> <span class="op">!</span><span class="op">=</span> <span class="ident">result</span>.<span class="ident">encoded_len</span>()<span class="question-mark">?</span> {
+                    <span class="kw">if</span> <span class="ident">length</span> <span class="op">!</span><span class="op">=</span> <span class="ident">result</span>.<span class="ident">value_len</span>()<span class="question-mark">?</span> {
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident"><span class="self">Self</span>::TAG</span>.<span class="ident">non_canonical_error</span>());
                     }
 
@@ -301,18 +366,32 @@
                 }
             }
 
-            <span class="kw">impl</span> <span class="ident">Encodable</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span> {
-                <span class="kw">fn</span> <span class="ident">encoded_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Length</span><span class="op">&gt;</span> {
-                    <span class="ident">uint::encoded_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">to_be_bytes</span>())<span class="question-mark">?</span>.<span class="ident">for_tlv</span>()
+            <span class="kw">impl</span> <span class="ident">EncodeValue</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span> {
+                <span class="kw">fn</span> <span class="ident">value_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Length</span><span class="op">&gt;</span> {
+                    <span class="ident">uint::encoded_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">to_be_bytes</span>())
                 }
 
-                <span class="kw">fn</span> <span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">encoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Encoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
-                    <span class="ident">uint::encode</span>(<span class="ident">encoder</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">to_be_bytes</span>())
+                <span class="kw">fn</span> <span class="ident">encode_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">encoder</span>: <span class="kw-2">&amp;mut</span> <span class="ident">Encoder</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+                    <span class="ident">uint::encode_bytes</span>(<span class="ident">encoder</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">to_be_bytes</span>())
                 }
             }
 
-            <span class="kw">impl</span> <span class="ident">Tagged</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span> {
+            <span class="kw">impl</span> <span class="ident">FixedTag</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span> {
                 <span class="kw">const</span> <span class="ident">TAG</span>: <span class="ident">Tag</span> <span class="op">=</span> <span class="ident">Tag::Integer</span>;
+            }
+
+            <span class="kw">impl</span> <span class="ident">ValueOrd</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span> {
+                <span class="kw">fn</span> <span class="ident">value_cmp</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">other</span>: <span class="kw-2">&amp;</span><span class="self">Self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Ordering</span><span class="op">&gt;</span> {
+                    <span class="ident">value_cmp</span>(<span class="kw-2">*</span><span class="self">self</span>, <span class="kw-2">*</span><span class="ident">other</span>)
+                }
+            }
+
+            <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span> {
+                <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+
+                <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">any</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+                    <span class="ident">any</span>.<span class="ident">decode_into</span>()
+                }
             }
         )<span class="op">+</span>
     };
@@ -328,6 +407,25 @@
         .<span class="ident">get</span>(<span class="number">0</span>)
         .<span class="ident">map</span>(<span class="op">|</span><span class="ident">byte</span><span class="op">|</span> <span class="ident">byte</span> <span class="op">&amp;</span> <span class="number">0b10000000</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>)
         .<span class="ident">unwrap_or</span>(<span class="bool-val">false</span>)
+}
+
+<span class="doccomment">/// Compare two integer values</span>
+<span class="kw">fn</span> <span class="ident">value_cmp</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">a</span>: <span class="ident">T</span>, <span class="ident">b</span>: <span class="ident">T</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Ordering</span><span class="op">&gt;</span>
+<span class="kw">where</span>
+    <span class="ident">T</span>: <span class="ident">Copy</span> <span class="op">+</span> <span class="ident">EncodeValue</span> <span class="op">+</span> <span class="ident">Sized</span>,
+{
+    <span class="kw">const</span> <span class="ident">MAX_INT_SIZE</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">16</span>;
+    <span class="macro">debug_assert!</span>(<span class="ident">mem::size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() <span class="op">&lt;</span><span class="op">=</span> <span class="ident">MAX_INT_SIZE</span>);
+
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf1</span> <span class="op">=</span> [<span class="number">0u8</span>; <span class="ident">MAX_INT_SIZE</span>];
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">encoder1</span> <span class="op">=</span> <span class="ident">Encoder::new</span>(<span class="kw-2">&amp;mut</span> <span class="ident">buf1</span>);
+    <span class="ident">a</span>.<span class="ident">encode_value</span>(<span class="kw-2">&amp;mut</span> <span class="ident">encoder1</span>)<span class="question-mark">?</span>;
+
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf2</span> <span class="op">=</span> [<span class="number">0u8</span>; <span class="ident">MAX_INT_SIZE</span>];
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">encoder2</span> <span class="op">=</span> <span class="ident">Encoder::new</span>(<span class="kw-2">&amp;mut</span> <span class="ident">buf2</span>);
+    <span class="ident">b</span>.<span class="ident">encode_value</span>(<span class="kw-2">&amp;mut</span> <span class="ident">encoder2</span>)<span class="question-mark">?</span>;
+
+    <span class="prelude-val">Ok</span>(<span class="ident">encoder1</span>.<span class="ident">finish</span>()<span class="question-mark">?</span>.<span class="ident">cmp</span>(<span class="ident">encoder2</span>.<span class="ident">finish</span>()<span class="question-mark">?</span>))
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>

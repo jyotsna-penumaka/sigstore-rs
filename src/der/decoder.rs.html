@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;home&#x2F;runner&#x2F;.cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;der-0.4.5&#x2F;src&#x2F;decoder.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>decoder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;home&#x2F;runner&#x2F;.cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;der-0.5.1&#x2F;src&#x2F;decoder.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>decoder.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a class="sidebar-logo" href="../../der/index.html"><div class="logo-container"><img src="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo.svg" alt="logo"></div>
         </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../der/index.html"><img src="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
@@ -352,22 +352,94 @@
 <span id="350">350</span>
 <span id="351">351</span>
 <span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
 </pre><pre class="rust"><code><span class="doccomment">//! DER decoder.</span>
 
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">asn1</span>::<span class="kw-2">*</span>, <span class="ident">Choice</span>, <span class="ident">Decodable</span>, <span class="ident">Error</span>, <span class="ident">ErrorKind</span>, <span class="ident">Length</span>, <span class="prelude-ty">Result</span>, <span class="ident">Tag</span>, <span class="ident">TagNumber</span>};
-<span class="kw">use</span> <span class="ident">core</span>::{
-    <span class="ident">cmp::Ordering</span>,
-    <span class="ident">convert</span>::{<span class="ident">TryFrom</span>, <span class="ident">TryInto</span>},
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">asn1</span>::<span class="kw-2">*</span>, <span class="ident">ByteSlice</span>, <span class="ident">Choice</span>, <span class="ident">Decodable</span>, <span class="ident">DecodeValue</span>, <span class="ident">Error</span>, <span class="ident">ErrorKind</span>, <span class="ident">FixedTag</span>, <span class="ident">Header</span>, <span class="ident">Length</span>,
+    <span class="prelude-ty">Result</span>, <span class="ident">Tag</span>, <span class="ident">TagMode</span>, <span class="ident">TagNumber</span>,
 };
 
 <span class="doccomment">/// DER decoder.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Decoder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Byte slice being decoded.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// In the event an error was previously encountered this will be set to</span>
     <span class="doccomment">/// `None` to prevent further decoding while in a bad state.</span>
-    <span class="ident">bytes</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]<span class="op">&gt;</span>,
+    <span class="ident">bytes</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ByteSlice</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// Position within the decoded slice.</span>
     <span class="ident">position</span>: <span class="ident">Length</span>,
@@ -375,11 +447,11 @@
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Decoder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Create a new decoder for the given byte slice.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="self">Self</span> {
-        <span class="self">Self</span> {
-            <span class="ident">bytes</span>: <span class="prelude-val">Some</span>(<span class="ident">bytes</span>),
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
+            <span class="ident">bytes</span>: <span class="prelude-val">Some</span>(<span class="ident">ByteSlice::new</span>(<span class="ident">bytes</span>)<span class="question-mark">?</span>),
             <span class="ident">position</span>: <span class="ident">Length::ZERO</span>,
-        }
+        })
     }
 
     <span class="doccomment">/// Decode a value which impls the [`Decodable`] trait.</span>
@@ -409,6 +481,45 @@
     <span class="doccomment">/// Did the decoding operation fail due to an error?</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">is_failed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">bool</span> {
         <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">is_none</span>()
+    }
+
+    <span class="doccomment">/// Get the position within the buffer.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">position</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">Length</span> {
+        <span class="self">self</span>.<span class="ident">position</span>
+    }
+
+    <span class="doccomment">/// Peek at the next byte in the decoder without modifying the cursor.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peek_byte</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">remaining</span>()
+            .<span class="ident">ok</span>()
+            .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">bytes</span><span class="op">|</span> <span class="ident">bytes</span>.<span class="ident">get</span>(<span class="number">0</span>).<span class="ident">cloned</span>())
+    }
+
+    <span class="doccomment">/// Peek at the next byte in the decoder and attempt to decode it as a</span>
+    <span class="doccomment">/// [`Tag`] value.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Does not modify the decoder&#39;s state.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peek_tag</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Tag</span><span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">peek_byte</span>() {
+            <span class="prelude-val">Some</span>(<span class="ident">byte</span>) =&gt; <span class="ident">byte</span>.<span class="ident">try_into</span>(),
+            <span class="prelude-val">None</span> =&gt; {
+                <span class="kw">let</span> <span class="ident">actual_len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">input_len</span>()<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">expected_len</span> <span class="op">=</span> (<span class="ident">actual_len</span> <span class="op">+</span> <span class="ident">Length::ONE</span>)<span class="question-mark">?</span>;
+                <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::Incomplete</span> {
+                    <span class="ident">expected_len</span>,
+                    <span class="ident">actual_len</span>,
+                }
+                .<span class="ident">into</span>())
+            }
+        }
+    }
+
+    <span class="doccomment">/// Peek forward in the decoder, attempting to decode a [`Header`] from</span>
+    <span class="doccomment">/// the data at the current position in the decoder.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Does not modify the decoder&#39;s state.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">peek_header</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Header</span><span class="op">&gt;</span> {
+        <span class="ident">Header::decode</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>.<span class="ident">clone</span>())
     }
 
     <span class="doccomment">/// Finish decoding, returning the given value if there is no</span>
@@ -479,40 +590,19 @@
 
     <span class="doccomment">/// Attempt to decode an ASN.1 `CONTEXT-SPECIFIC` field with the</span>
     <span class="doccomment">/// provided [`TagNumber`].</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// This method has the following behavior which is designed to simplify</span>
-    <span class="doccomment">/// handling of extension fields, which are denoted in an ASN.1 schema</span>
-    <span class="doccomment">/// using the `...` ellipsis extension marker:</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// - Skips over [`ContextSpecific`] fields with a tag number lower than</span>
-    <span class="doccomment">///   the current one, consuming and ignoring them.</span>
-    <span class="doccomment">/// - Returns `Ok(None)` if a [`ContextSpecific`] field with a higher tag</span>
-    <span class="doccomment">///   number is encountered. These fields are not consumed in this case,</span>
-    <span class="doccomment">///   allowing a field with a lower tag number to be omitted, then the</span>
-    <span class="doccomment">///   higher numbered field consumed as a follow-up.</span>
-    <span class="doccomment">/// - Returns `Ok(None)` if anything other than a [`ContextSpecific`] field</span>
-    <span class="doccomment">///   is encountered.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">context_specific</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">tag</span>: <span class="ident">TagNumber</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> {
-        <span class="kw">loop</span> {
-            <span class="kw">match</span> <span class="self">self</span>.<span class="ident">peek</span>().<span class="ident">map</span>(<span class="ident">Tag::try_from</span>).<span class="ident">transpose</span>()<span class="question-mark">?</span> {
-                <span class="prelude-val">Some</span>(<span class="ident">Tag::ContextSpecific</span>(<span class="ident">actual_tag</span>)) =&gt; {
-                    <span class="kw">match</span> <span class="ident">actual_tag</span>.<span class="ident">cmp</span>(<span class="kw-2">&amp;</span><span class="ident">tag</span>) {
-                        <span class="ident">Ordering::Less</span> =&gt; {
-                            <span class="comment">// Decode and ignore lower-numbered fields if</span>
-                            <span class="comment">// they parse correctly.</span>
-                            <span class="self">self</span>.<span class="ident">decode</span>::<span class="op">&lt;</span><span class="ident">ContextSpecific</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
-                        }
-                        <span class="ident">Ordering::Equal</span> =&gt; {
-                            <span class="kw">return</span> <span class="self">self</span>
-                                .<span class="ident">decode</span>::<span class="op">&lt;</span><span class="ident">ContextSpecific</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span><span class="op">&gt;</span>()
-                                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">cs</span><span class="op">|</span> <span class="prelude-val">Some</span>(<span class="ident">cs</span>.<span class="ident">value</span>))
-                        }
-                        <span class="ident">Ordering::Greater</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
-                    }
-                }
-                <span class="kw">_</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
-            }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">context_specific</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">tag_number</span>: <span class="ident">TagNumber</span>,
+        <span class="ident">tag_mode</span>: <span class="ident">TagMode</span>,
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">T</span>: <span class="ident">DecodeValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="op">+</span> <span class="ident">FixedTag</span>,
+    {
+        <span class="prelude-val">Ok</span>(<span class="kw">match</span> <span class="ident">tag_mode</span> {
+            <span class="ident">TagMode::Explicit</span> =&gt; <span class="ident">ContextSpecific</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::decode_explicit</span>(<span class="self">self</span>, <span class="ident">tag_number</span>)<span class="question-mark">?</span>,
+            <span class="ident">TagMode::Implicit</span> =&gt; <span class="ident">ContextSpecific</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="ident">::decode_implicit</span>(<span class="self">self</span>, <span class="ident">tag_number</span>)<span class="question-mark">?</span>,
         }
+        .<span class="ident">map</span>(<span class="op">|</span><span class="ident">field</span><span class="op">|</span> <span class="ident">field</span>.<span class="ident">value</span>))
     }
 
     <span class="doccomment">/// Attempt to decode an ASN.1 `GeneralizedTime`.</span>
@@ -568,17 +658,23 @@
     <span class="kw">where</span>
         <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="ident">Decoder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
     {
-        <span class="ident">Sequence::decode</span>(<span class="self">self</span>)<span class="question-mark">?</span>.<span class="ident">decode_nested</span>(<span class="ident">f</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
-            <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">take</span>();
-            <span class="ident">e</span>.<span class="ident">nested</span>(<span class="self">self</span>.<span class="ident">position</span>)
-        })
+        <span class="ident">Tag::try_from</span>(<span class="self">self</span>.<span class="ident">byte</span>()<span class="question-mark">?</span>)<span class="question-mark">?</span>.<span class="ident">assert_eq</span>(<span class="ident">Tag::Sequence</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">Length::decode</span>(<span class="self">self</span>)<span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">decode_nested</span>(<span class="ident">len</span>, <span class="ident">f</span>)
     }
 
     <span class="doccomment">/// Decode a single byte, updating the internal cursor.</span>
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">byte</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">bytes</span>(<span class="number">1u8</span>)<span class="question-mark">?</span> {
             [<span class="ident">byte</span>] =&gt; <span class="prelude-val">Ok</span>(<span class="kw-2">*</span><span class="ident">byte</span>),
-            <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="self">self</span>.<span class="ident">error</span>(<span class="ident">ErrorKind::Truncated</span>)),
+            <span class="kw">_</span> =&gt; {
+                <span class="kw">let</span> <span class="ident">actual_len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">input_len</span>()<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">expected_len</span> <span class="op">=</span> (<span class="ident">actual_len</span> <span class="op">+</span> <span class="ident">Length::ONE</span>)<span class="question-mark">?</span>;
+                <span class="prelude-val">Err</span>(<span class="self">self</span>.<span class="ident">error</span>(<span class="ident">ErrorKind::Incomplete</span> {
+                    <span class="ident">expected_len</span>,
+                    <span class="ident">actual_len</span>,
+                }))
+            }
         }
     }
 
@@ -593,20 +689,63 @@
             .<span class="ident">try_into</span>()
             .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">error</span>(<span class="ident">ErrorKind::Overflow</span>))<span class="question-mark">?</span>;
 
-        <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">remaining</span>()<span class="question-mark">?</span>
-            .<span class="ident">get</span>(..<span class="ident">len</span>.<span class="ident">try_into</span>()<span class="question-mark">?</span>)
-            .<span class="ident">ok_or</span>(<span class="ident">ErrorKind::Truncated</span>)<span class="question-mark">?</span>;
-
-        <span class="self">self</span>.<span class="ident">position</span> <span class="op">=</span> (<span class="self">self</span>.<span class="ident">position</span> <span class="op">+</span> <span class="ident">len</span>)<span class="question-mark">?</span>;
-        <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">remaining</span>()<span class="question-mark">?</span>.<span class="ident">get</span>(..<span class="ident">len</span>.<span class="ident">try_into</span>()<span class="question-mark">?</span>) {
+            <span class="prelude-val">Some</span>(<span class="ident">result</span>) =&gt; {
+                <span class="self">self</span>.<span class="ident">position</span> <span class="op">=</span> (<span class="self">self</span>.<span class="ident">position</span> <span class="op">+</span> <span class="ident">len</span>)<span class="question-mark">?</span>;
+                <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
+            }
+            <span class="prelude-val">None</span> =&gt; {
+                <span class="kw">let</span> <span class="ident">actual_len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">input_len</span>()<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">expected_len</span> <span class="op">=</span> (<span class="ident">actual_len</span> <span class="op">+</span> <span class="ident">len</span>)<span class="question-mark">?</span>;
+                <span class="prelude-val">Err</span>(<span class="self">self</span>.<span class="ident">error</span>(<span class="ident">ErrorKind::Incomplete</span> {
+                    <span class="ident">expected_len</span>,
+                    <span class="ident">actual_len</span>,
+                }))
+            }
+        }
     }
 
-    <span class="doccomment">/// Peek at the next byte in the decoder without modifying the cursor.</span>
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">peek</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">remaining</span>()
-            .<span class="ident">ok</span>()
-            .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">bytes</span><span class="op">|</span> <span class="ident">bytes</span>.<span class="ident">get</span>(<span class="number">0</span>).<span class="ident">cloned</span>())
+    <span class="doccomment">/// Get the length of the input, if decoding hasn&#39;t failed.</span>
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">input_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Length</span><span class="op">&gt;</span> {
+        <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">ok_or</span>(<span class="ident">ErrorKind::Failed</span>)<span class="question-mark">?</span>.<span class="ident">len</span>())
+    }
+
+    <span class="doccomment">/// Get the number of bytes still remaining in the buffer.</span>
+    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">remaining_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Length</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">remaining</span>()<span class="question-mark">?</span>.<span class="ident">len</span>().<span class="ident">try_into</span>()
+    }
+
+    <span class="doccomment">/// Create a nested decoder which operates over the provided [`Length`].</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The nested decoder is passed to the provided callback function which is</span>
+    <span class="doccomment">/// expected to decode a value of type `T` with it.</span>
+    <span class="kw">fn</span> <span class="ident">decode_nested</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="ident">length</span>: <span class="ident">Length</span>, <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;mut</span> <span class="self">Self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>,
+    {
+        <span class="kw">let</span> <span class="ident">start_pos</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">position</span>();
+        <span class="kw">let</span> <span class="ident">end_pos</span> <span class="op">=</span> (<span class="ident">start_pos</span> <span class="op">+</span> <span class="ident">length</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">bytes</span> {
+            <span class="prelude-val">Some</span>(<span class="ident">slice</span>) =&gt; {
+                <span class="ident">slice</span>
+                    .<span class="ident">as_bytes</span>()
+                    .<span class="ident">get</span>(..<span class="ident">end_pos</span>.<span class="ident">try_into</span>()<span class="question-mark">?</span>)
+                    .<span class="ident">ok_or</span>(<span class="ident">ErrorKind::Incomplete</span> {
+                        <span class="ident">expected_len</span>: <span class="ident">end_pos</span>,
+                        <span class="ident">actual_len</span>: <span class="self">self</span>.<span class="ident">input_len</span>()<span class="question-mark">?</span>,
+                    })<span class="question-mark">?</span>
+            }
+            <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="self">self</span>.<span class="ident">error</span>(<span class="ident">ErrorKind::Failed</span>)),
+        };
+
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">nested_decoder</span> <span class="op">=</span> <span class="self">Self</span> {
+            <span class="ident">bytes</span>: <span class="prelude-val">Some</span>(<span class="ident">ByteSlice::new</span>(<span class="ident">bytes</span>)<span class="question-mark">?</span>),
+            <span class="ident">position</span>: <span class="ident">start_pos</span>,
+        };
+
+        <span class="self">self</span>.<span class="ident">position</span> <span class="op">=</span> <span class="ident">end_pos</span>;
+        <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">f</span>(<span class="kw-2">&amp;mut</span> <span class="ident">nested_decoder</span>)<span class="question-mark">?</span>;
+        <span class="ident">nested_decoder</span>.<span class="ident">finish</span>(<span class="ident">result</span>)
     }
 
     <span class="doccomment">/// Obtain the remaining bytes in this decoder from the current cursor</span>
@@ -614,86 +753,75 @@
     <span class="kw">fn</span> <span class="ident">remaining</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">pos</span> <span class="op">=</span> <span class="ident">usize::try_from</span>(<span class="self">self</span>.<span class="ident">position</span>)<span class="question-mark">?</span>;
 
-        <span class="self">self</span>.<span class="ident">bytes</span>
-            .<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">b</span><span class="op">|</span> <span class="ident">b</span>.<span class="ident">get</span>(<span class="ident">pos</span>..))
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">ErrorKind::Truncated</span>.<span class="ident">at</span>(<span class="self">self</span>.<span class="ident">position</span>))
-    }
-
-    <span class="doccomment">/// Get the number of bytes still remaining in the buffer.</span>
-    <span class="kw">fn</span> <span class="ident">remaining_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Length</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">remaining</span>()<span class="question-mark">?</span>.<span class="ident">len</span>().<span class="ident">try_into</span>()
-    }
-}
-
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Decoder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">Decoder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-        <span class="ident">Decoder::new</span>(<span class="ident">bytes</span>)
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">bytes</span>.<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">slice</span><span class="op">|</span> <span class="ident">slice</span>.<span class="ident">as_bytes</span>().<span class="ident">get</span>(<span class="ident">pos</span>..)) {
+            <span class="prelude-val">Some</span>(<span class="ident">result</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">result</span>),
+            <span class="prelude-val">None</span> =&gt; {
+                <span class="kw">let</span> <span class="ident">actual_len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">input_len</span>()<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">expected_len</span> <span class="op">=</span> (<span class="ident">actual_len</span> <span class="op">+</span> <span class="ident">Length::ONE</span>)<span class="question-mark">?</span>;
+                <span class="prelude-val">Err</span>(<span class="ident">ErrorKind::Incomplete</span> {
+                    <span class="ident">expected_len</span>,
+                    <span class="ident">actual_len</span>,
+                }
+                .<span class="ident">at</span>(<span class="self">self</span>.<span class="ident">position</span>))
+            }
+        }
     }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="ident"><span class="kw">super</span>::Decoder</span>;
-    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Decodable</span>, <span class="ident">ErrorKind</span>, <span class="ident">Length</span>, <span class="ident">Tag</span>, <span class="ident">TagNumber</span>};
-    <span class="kw">use</span> <span class="ident">core::convert::TryFrom</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Decodable</span>, <span class="ident">ErrorKind</span>, <span class="ident">Length</span>, <span class="ident">Tag</span>};
     <span class="kw">use</span> <span class="ident">hex_literal::hex</span>;
 
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">context_specific_with_expected_field</span>() {
-        <span class="kw">let</span> <span class="ident">tag</span> <span class="op">=</span> <span class="ident">TagNumber::new</span>(<span class="number">0</span>);
-
-        <span class="comment">// Empty message</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="kw-2">&amp;</span>[]);
-        <span class="macro">assert_eq!</span>(<span class="ident">decoder</span>.<span class="ident">context_specific</span>(<span class="ident">tag</span>).<span class="ident">unwrap</span>(), <span class="prelude-val">None</span>);
-
-        <span class="comment">// Message containing a non-context-specific type</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="kw-2">&amp;</span><span class="macro">hex!</span>(<span class="string">&quot;020100&quot;</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">decoder</span>.<span class="ident">context_specific</span>(<span class="ident">tag</span>).<span class="ident">unwrap</span>(), <span class="prelude-val">None</span>);
-
-        <span class="comment">//</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="kw-2">&amp;</span><span class="macro">hex!</span>(<span class="string">&quot;A003020100&quot;</span>));
-        <span class="kw">let</span> <span class="ident">field</span> <span class="op">=</span> <span class="ident">decoder</span>.<span class="ident">context_specific</span>(<span class="ident">tag</span>).<span class="ident">unwrap</span>().<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq!</span>(<span class="ident">u8::try_from</span>(<span class="ident">field</span>).<span class="ident">unwrap</span>(), <span class="number">0</span>);
-    }
+    <span class="comment">// INTEGER: 42</span>
+    <span class="kw">const</span> <span class="ident">EXAMPLE_MSG</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="kw-2">&amp;</span><span class="macro">hex!</span>(<span class="string">&quot;02012A00&quot;</span>);
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">context_specific_skipping_unknown_field</span>() {
-        <span class="kw">let</span> <span class="ident">tag</span> <span class="op">=</span> <span class="ident">TagNumber::new</span>(<span class="number">1</span>);
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="kw-2">&amp;</span><span class="macro">hex!</span>(<span class="string">&quot;A003020100A103020101&quot;</span>));
-        <span class="kw">let</span> <span class="ident">field</span> <span class="op">=</span> <span class="ident">decoder</span>.<span class="ident">context_specific</span>(<span class="ident">tag</span>).<span class="ident">unwrap</span>().<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq!</span>(<span class="ident">u8::try_from</span>(<span class="ident">field</span>).<span class="ident">unwrap</span>(), <span class="number">1</span>);
-    }
-
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">context_specific_returns_none_on_greater_tag_number</span>() {
-        <span class="kw">let</span> <span class="ident">tag</span> <span class="op">=</span> <span class="ident">TagNumber::new</span>(<span class="number">0</span>);
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="kw-2">&amp;</span><span class="macro">hex!</span>(<span class="string">&quot;A103020101&quot;</span>));
-        <span class="macro">assert_eq!</span>(<span class="ident">decoder</span>.<span class="ident">context_specific</span>(<span class="ident">tag</span>).<span class="ident">unwrap</span>(), <span class="prelude-val">None</span>);
-    }
-
-    <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">truncated_message</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="kw-2">&amp;</span>[]);
+    <span class="kw">fn</span> <span class="ident">empty_message</span>() {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="kw-2">&amp;</span>[]).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="ident">bool::decode</span>(<span class="kw-2">&amp;mut</span> <span class="ident">decoder</span>).<span class="ident">err</span>().<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq!</span>(<span class="ident">ErrorKind::Truncated</span>, <span class="ident">err</span>.<span class="ident">kind</span>());
         <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">Length::ZERO</span>), <span class="ident">err</span>.<span class="ident">position</span>());
+
+        <span class="kw">match</span> <span class="ident">err</span>.<span class="ident">kind</span>() {
+            <span class="ident">ErrorKind::Incomplete</span> {
+                <span class="ident">expected_len</span>,
+                <span class="ident">actual_len</span>,
+            } =&gt; {
+                <span class="macro">assert_eq!</span>(<span class="ident">expected_len</span>, <span class="number">1u8</span>.<span class="ident">into</span>());
+                <span class="macro">assert_eq!</span>(<span class="ident">actual_len</span>, <span class="number">0u8</span>.<span class="ident">into</span>());
+            }
+            <span class="ident">other</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;unexpected error kind: {:?}&quot;</span>, <span class="ident">other</span>),
+        }
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">invalid_field_length</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="kw-2">&amp;</span>[<span class="number">0x02</span>, <span class="number">0x01</span>]);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="kw-2">&amp;</span><span class="ident">EXAMPLE_MSG</span>[..<span class="number">2</span>]).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="ident">i8::decode</span>(<span class="kw-2">&amp;mut</span> <span class="ident">decoder</span>).<span class="ident">err</span>().<span class="ident">unwrap</span>();
-        <span class="macro">assert_eq!</span>(<span class="ident">ErrorKind::Length</span> { <span class="ident">tag</span>: <span class="ident">Tag::Integer</span> }, <span class="ident">err</span>.<span class="ident">kind</span>());
         <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">Length::from</span>(<span class="number">2u8</span>)), <span class="ident">err</span>.<span class="ident">position</span>());
+
+        <span class="kw">match</span> <span class="ident">err</span>.<span class="ident">kind</span>() {
+            <span class="ident">ErrorKind::Incomplete</span> {
+                <span class="ident">expected_len</span>,
+                <span class="ident">actual_len</span>,
+            } =&gt; {
+                <span class="macro">assert_eq!</span>(<span class="ident">expected_len</span>, <span class="number">3u8</span>.<span class="ident">into</span>());
+                <span class="macro">assert_eq!</span>(<span class="ident">actual_len</span>, <span class="number">2u8</span>.<span class="ident">into</span>());
+            }
+            <span class="ident">other</span> =&gt; <span class="macro">panic!</span>(<span class="string">&quot;unexpected error kind: {:?}&quot;</span>, <span class="ident">other</span>),
+        }
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">trailing_data</span>() {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="kw-2">&amp;</span>[<span class="number">0x02</span>, <span class="number">0x01</span>, <span class="number">0x2A</span>, <span class="number">0x00</span>]);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="ident">EXAMPLE_MSG</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="ident">decoder</span>.<span class="ident">decode</span>().<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="number">42i8</span>, <span class="ident">x</span>);
 
         <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="ident">decoder</span>.<span class="ident">finish</span>(<span class="ident">x</span>).<span class="ident">err</span>().<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">Length::from</span>(<span class="number">3u8</span>)), <span class="ident">err</span>.<span class="ident">position</span>());
+
         <span class="macro">assert_eq!</span>(
             <span class="ident">ErrorKind::TrailingData</span> {
                 <span class="ident">decoded</span>: <span class="number">3u8</span>.<span class="ident">into</span>(),
@@ -701,7 +829,25 @@
             },
             <span class="ident">err</span>.<span class="ident">kind</span>()
         );
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Some</span>(<span class="ident">Length::from</span>(<span class="number">3u8</span>)), <span class="ident">err</span>.<span class="ident">position</span>());
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">peek_tag</span>() {
+        <span class="kw">let</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="ident">EXAMPLE_MSG</span>).<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="ident">decoder</span>.<span class="ident">position</span>(), <span class="ident">Length::ZERO</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">decoder</span>.<span class="ident">peek_tag</span>().<span class="ident">unwrap</span>(), <span class="ident">Tag::Integer</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">decoder</span>.<span class="ident">position</span>(), <span class="ident">Length::ZERO</span>); <span class="comment">// Position unchanged</span>
+    }
+
+    <span class="attribute">#[<span class="ident">test</span>]</span>
+    <span class="kw">fn</span> <span class="ident">peek_header</span>() {
+        <span class="kw">let</span> <span class="ident">decoder</span> <span class="op">=</span> <span class="ident">Decoder::new</span>(<span class="ident">EXAMPLE_MSG</span>).<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="ident">decoder</span>.<span class="ident">position</span>(), <span class="ident">Length::ZERO</span>);
+
+        <span class="kw">let</span> <span class="ident">header</span> <span class="op">=</span> <span class="ident">decoder</span>.<span class="ident">peek_header</span>().<span class="ident">unwrap</span>();
+        <span class="macro">assert_eq!</span>(<span class="ident">header</span>.<span class="ident">tag</span>, <span class="ident">Tag::Integer</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">header</span>.<span class="ident">length</span>, <span class="ident">Length::ONE</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">decoder</span>.<span class="ident">position</span>(), <span class="ident">Length::ZERO</span>); <span class="comment">// Position unchanged</span>
     }
 }
 </code></pre></div>
