@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="This provides a method for retreiving a OpenID Connect ID Token and scope from the sigstore project."><meta name="keywords" content="rust, rustlang, rust-lang, openidflow"><title>sigstore::oauth::openidflow - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script>
+    <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a class="sidebar-logo" href="../../../sigstore/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.png" alt="logo"></div>
+        </a><h2 class="location">Module openidflow</h2><div class="sidebar-elems"><div class="block items"><ul><li><a href="#structs">Structs</a></li></ul></div><div id="sidebar-vars" data-name="openidflow" data-ty="mod" data-relpath="./"></div><script defer src="./sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../../sigstore/index.html"><img class="rust-logo" src="../../../rust-logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><h1 class="fqn"><span class="in-band">Module <a href="../../index.html">sigstore</a>::<wbr><a href="../index.html">oauth</a>::<wbr><a class="mod" href="#">openidflow</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../../src/sigstore/oauth/openidflow.rs.html#16-286" title="goto source code">[src]</a></span></h1><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>This provides a method for retreiving a OpenID Connect ID Token and scope from the sigstore project.</p>
+<p>The main entry point is the <a href="struct.OpenIDAuthorize.html#method.auth_url"><code>OpenIDAuthorize::auth_url</code></a> function.
+This requires four parameters:</p>
+<ul>
+<li><code>client_id</code>: the client ID of the application</li>
+<li><code>client_secret</code>: the client secret of the application</li>
+<li><code>issuer</code>: the URL of the OpenID Connect server</li>
+<li><code>redirect_uri</code>: the URL of the callback endpoint</li>
+</ul>
+<p>The <code>auth_url</code> function returns the following:</p>
+<ul>
+<li>
+<p><code>authorize_url</code> is a URL that can be opened in a browser. The user will be
+prompted to login and authorize the application. The user will be redirected to
+the <code>redirect_uri</code> URL with a code parameter.</p>
+</li>
+<li>
+<p><code>client</code> is a client object that can be used to make requests to the OpenID
+Connect server.</p>
+</li>
+<li>
+<p><code>nonce</code> is a random value that is used to prevent replay attacks.</p>
+</li>
+<li>
+<p><code>pkce_verifier</code> is a PKCE verifier that can be used to generate the code_verifier
+value.</p>
+</li>
+</ul>
+<p>Once you have recieved the above tuple, you can use the <a href="struct.RedirectListener.html#method.redirect_listener"><code>RedirectListener::redirect_listener</code></a>
+function to get the ID Token and scope.</p>
+<p>The <code>redirect_listener</code> function requires the following parameters:</p>
+<ul>
+<li><code>client_redirect_host</code>: the address for callback.</li>
+<li><code>client</code>: the client object</li>
+<li><code>nonce</code>: the nonce value</li>
+<li><code>pkce_verifier</code>: the PKCE verifier</li>
+</ul>
+<p>The <code>IdTokenClaims</code> this contains params such as <code>email</code> and the <code>access_token</code>.</p>
+<p>It maybe prefered to instead develop your own listener. If so bypass using the
+<a href="struct.RedirectListener.html#method.redirect_listener"><code>RedirectListener::redirect_listener</code></a> function and
+simply send the values retrieved from the <a href="struct.OpenIDAuthorize.html#method.auth_url"><code>OpenIDAuthorize::auth_url</code></a>
+to your own listener.</p>
+<p><strong>Warning:</strong> one of the dependencies of the <a href="struct.OpenIDAuthorize.html#method.auth_url"><code>OpenIDAuthorize::auth_url</code></a> performs
+blocking operations. Because of that it can cause panics at runtime if invoked inside of <code>async</code> code.
+If you need to use this function inside of an async code you must wrap it inside of a <code>spawn_blocking</code> instruction:</p>
+
+<div class='information'><div class='tooltip ignore'>ⓘ</div></div><div class="example-wrap"><pre class="rust rust-example-rendered ignore"><code><span class="kw">use</span> <span class="ident">tokio::task::spawn_blocking</span>;
+
+<span class="kw">async</span> <span class="kw">fn</span> <span class="ident">my_async_function</span>() {
+   <span class="comment">// ... your code</span>
+
+   <span class="kw">let</span> <span class="ident">oidc_url</span> <span class="op">=</span> <span class="ident">spawn_blocking</span>(<span class="op">|</span><span class="op">|</span>
+    <span class="ident">oauth::openidflow::OpenIDAuthorize::new</span>(
+      <span class="string">&quot;sigstore&quot;</span>,
+      <span class="string">&quot;&quot;</span>,
+      <span class="string">&quot;https://oauth2.sigstore.dev/auth&quot;</span>,
+      <span class="string">&quot;http://localhost:8080&quot;</span>,
+    )
+    .<span class="ident">auth_url</span>()
+   )
+   .<span class="kw">await</span>
+   .<span class="ident">expect</span>(<span class="string">&quot;Error spawning blocking task&quot;</span>);
+
+   <span class="comment">// ... your code</span>
+}</code></pre></div>
+<p>This of course has a performance hit when used inside of an async function.</p>
+</div></details><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OpenIDAuthorize.html" title="sigstore::oauth::openidflow::OpenIDAuthorize struct">OpenIDAuthorize</a></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RedirectListener.html" title="sigstore::oauth::openidflow::RedirectListener struct">RedirectListener</a></div><div class="item-right docblock-short"></div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-current-crate="sigstore" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.59.0 (9d1b2106e 2022-02-23)" ></div>
+</body></html>

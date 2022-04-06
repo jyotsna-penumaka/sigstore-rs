@@ -1,0 +1,679 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="OpenID Connect library."><meta name="keywords" content="rust, rustlang, rust-lang, openidconnect"><title>openidconnect - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../dark.css" disabled><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script src="../crates.js"></script><script defer src="../main.js"></script>
+    <noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a class="sidebar-logo" href="../openidconnect/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.png" alt="logo"></div>
+        </a><h2 class="location">Crate openidconnect</h2><div class="block version"><div class="narrow-helper"></div><p>Version 2.2.0</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all openidconnect's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></div><div id="sidebar-vars" data-name="openidconnect" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../openidconnect/index.html"><img class="rust-logo" src="../rust-logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">openidconnect</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/openidconnect/lib.rs.html#1-1648" title="goto source code">[src]</a></span></h1><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p><a href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect</a> library.</p>
+<p>This library provides extensible, strongly-typed interfaces for the OpenID Connect protocol.
+For convenience, the <a href="core/index.html" title="core"><code>core</code></a> module provides type aliases for common usage that adheres to the
+<a href="https://openid.net/specs/openid-connect-core-1_0.html">OpenID Connect Core</a> spec. Users of
+this crate may define their own extensions and custom type parameters in lieu of using the
+<a href="core/index.html" title="core"><code>core</code></a> module.</p>
+<h2 id="contents" class="section-header"><a href="#contents">Contents</a></h2>
+<ul>
+<li><a href="#importing-openidconnect-selecting-an-http-client-interface">Importing <code>openidconnect</code>: selecting an HTTP client interface</a></li>
+<li><a href="#openid-connect-relying-party-client-interface">OpenID Connect Relying Party (Client) Interface</a>
+<ul>
+<li><a href="#examples">Examples</a></li>
+<li><a href="#getting-started-authorization-code-grant-w-pkce">Getting started: Authorization Code Grant w/ PKCE</a></li>
+</ul>
+</li>
+<li><a href="#openid-connect-provider-server-interface">OpenID Connect Provider (Server) Interface</a>
+<ul>
+<li><a href="#openid-connect-discovery-document">OpenID Connect Discovery document</a></li>
+<li><a href="#openid-connect-discovery-json-web-key-set">OpenID Connect Discovery JSON Web Key Set</a></li>
+<li><a href="#openid-connect-id-token">OpenID Connect ID Token</a></li>
+</ul>
+</li>
+<li><a href="#asynchronous-api">Asynchronous API</a></li>
+</ul>
+<h2 id="importing-openidconnect-selecting-an-http-client-interface" class="section-header"><a href="#importing-openidconnect-selecting-an-http-client-interface">Importing <code>openidconnect</code>: selecting an HTTP client interface</a></h2>
+<p>This library offers a flexible HTTP client interface with two modes:</p>
+<ul>
+<li><strong>Synchronous (blocking)</strong></li>
+<li><strong>Asynchronous</strong></li>
+</ul>
+<p>For the HTTP client modes described above, the following HTTP client implementations can be
+used:</p>
+<ul>
+<li>
+<p><strong><a href="reqwest/index.html" title="reqwest"><code>reqwest</code></a></strong></p>
+<p>The <code>reqwest</code> HTTP client supports both the synchronous and asynchronous modes and is enabled
+by default.</p>
+<p>Synchronous client: <a href="reqwest/fn.http_client.html" title="reqwest::http_client"><code>reqwest::http_client</code></a></p>
+<p>Asynchronous client: <a href="reqwest/fn.async_http_client.html" title="reqwest::async_http_client"><code>reqwest::async_http_client</code></a></p>
+</li>
+<li>
+<p><strong>[<code>curl</code>]</strong></p>
+<p>The <code>curl</code> HTTP client only supports the synchronous HTTP client mode and can be enabled in
+<code>Cargo.toml</code> via the <code>curl</code> feature flag.</p>
+<p>Synchronous client: [<code>curl::http_client</code>]</p>
+</li>
+<li>
+<p><strong>Custom</strong></p>
+<p>In addition to the clients above, users may define their own HTTP clients, which must accept
+an <a href="struct.HttpRequest.html" title="HttpRequest"><code>HttpRequest</code></a> and return an <a href="struct.HttpResponse.html" title="HttpResponse"><code>HttpResponse</code></a> or error. Users writing their own clients
+may wish to disable the default <code>reqwest</code> dependency by specifying
+<code>default-features = false</code> in <code>Cargo.toml</code> (replacing <code>...</code> with the desired version of this
+crate):</p>
+<div class="example-wrap"><pre class="language-toml"><code>openidconnect = { version = &quot;...&quot;, default-features = false }</code></pre></div>
+<p>Synchronous HTTP clients should implement the following trait:</p>
+<div class="example-wrap"><pre class="language-text,ignore"><code>FnOnce(HttpRequest) -&gt; Result&lt;HttpResponse, RE&gt;
+where RE: std::error::Error + &#39;static</code></pre></div>
+<p>Asynchronous HTTP clients should implement the following trait:</p>
+<div class="example-wrap"><pre class="language-text,ignore"><code>FnOnce(HttpRequest) -&gt; F
+where
+  F: Future&lt;Output = Result&lt;HttpResponse, RE&gt;&gt;,
+  RE: std::error::Error + &#39;static</code></pre></div></li>
+</ul>
+<h2 id="openid-connect-relying-party-client-interface" class="section-header"><a href="#openid-connect-relying-party-client-interface">OpenID Connect Relying Party (Client) Interface</a></h2>
+<p>The <a href="struct.Client.html" title="Client"><code>Client</code></a> struct provides the OpenID Connect Relying Party interface. The most common
+usage is provided by the <a href="core/type.CoreClient.html" title="core::CoreClient"><code>core::CoreClient</code></a> type alias.</p>
+<h3 id="examples" class="section-header"><a href="#examples">Examples</a></h3>
+<ul>
+<li><a href="https://github.com/ramosbugs/openidconnect-rs/tree/main/examples/google.rs">Google</a></li>
+</ul>
+<h3 id="getting-started-authorization-code-grant-w-pkce" class="section-header"><a href="#getting-started-authorization-code-grant-w-pkce">Getting started: Authorization Code Grant w/ PKCE</a></h3>
+<p>This is the most common OIDC/OAuth2 flow. PKCE is recommended whenever the client has no
+client secret or has a client secret that cannot remain confidential (e.g., native, mobile, or
+client-side web applications).</p>
+<h4 id="example" class="section-header"><a href="#example">Example</a></h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">openidconnect</span>::{
+    <span class="ident">AccessTokenHash</span>,
+    <span class="ident">AuthenticationFlow</span>,
+    <span class="ident">AuthorizationCode</span>,
+    <span class="ident">ClientId</span>,
+    <span class="ident">ClientSecret</span>,
+    <span class="ident">CsrfToken</span>,
+    <span class="ident">Nonce</span>,
+    <span class="ident">IssuerUrl</span>,
+    <span class="ident">PkceCodeChallenge</span>,
+    <span class="ident">RedirectUrl</span>,
+    <span class="ident">Scope</span>,
+};
+<span class="kw">use</span> <span class="ident">openidconnect::core</span>::{
+  <span class="ident">CoreAuthenticationFlow</span>,
+  <span class="ident">CoreClient</span>,
+  <span class="ident">CoreProviderMetadata</span>,
+  <span class="ident">CoreResponseType</span>,
+  <span class="ident">CoreUserInfoClaims</span>,
+};
+<span class="kw">use</span> <span class="ident">anyhow::anyhow</span>;
+
+<span class="kw">use</span> <span class="ident">openidconnect::reqwest::http_client</span>;
+<span class="kw">use</span> <span class="ident">url::Url</span>;
+
+<span class="comment">// Use OpenID Connect Discovery to fetch the provider metadata.</span>
+<span class="kw">use</span> <span class="ident">openidconnect</span>::{<span class="ident">OAuth2TokenResponse</span>, <span class="ident">TokenResponse</span>};
+<span class="kw">let</span> <span class="ident">provider_metadata</span> <span class="op">=</span> <span class="ident">CoreProviderMetadata::discover</span>(
+    <span class="kw-2">&amp;</span><span class="ident">IssuerUrl::new</span>(<span class="string">&quot;https://accounts.example.com&quot;</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>,
+    <span class="ident">http_client</span>,
+)<span class="question-mark">?</span>;
+
+<span class="comment">// Create an OpenID Connect client by specifying the client ID, client secret, authorization URL</span>
+<span class="comment">// and token URL.</span>
+<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span>
+    <span class="ident">CoreClient::from_provider_metadata</span>(
+        <span class="ident">provider_metadata</span>,
+        <span class="ident">ClientId::new</span>(<span class="string">&quot;client_id&quot;</span>.<span class="ident">to_string</span>()),
+        <span class="prelude-val">Some</span>(<span class="ident">ClientSecret::new</span>(<span class="string">&quot;client_secret&quot;</span>.<span class="ident">to_string</span>())),
+    )
+    <span class="comment">// Set the URL the user will be redirected to after the authorization process.</span>
+    .<span class="ident">set_redirect_uri</span>(<span class="ident">RedirectUrl::new</span>(<span class="string">&quot;http://redirect&quot;</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>);
+
+<span class="comment">// Generate a PKCE challenge.</span>
+<span class="kw">let</span> (<span class="ident">pkce_challenge</span>, <span class="ident">pkce_verifier</span>) <span class="op">=</span> <span class="ident">PkceCodeChallenge::new_random_sha256</span>();
+
+<span class="comment">// Generate the full authorization URL.</span>
+<span class="kw">let</span> (<span class="ident">auth_url</span>, <span class="ident">csrf_token</span>, <span class="ident">nonce</span>) <span class="op">=</span> <span class="ident">client</span>
+    .<span class="ident">authorize_url</span>(
+        <span class="ident">CoreAuthenticationFlow::AuthorizationCode</span>,
+        <span class="ident">CsrfToken::new_random</span>,
+        <span class="ident">Nonce::new_random</span>,
+    )
+    <span class="comment">// Set the desired scopes.</span>
+    .<span class="ident">add_scope</span>(<span class="ident">Scope::new</span>(<span class="string">&quot;read&quot;</span>.<span class="ident">to_string</span>()))
+    .<span class="ident">add_scope</span>(<span class="ident">Scope::new</span>(<span class="string">&quot;write&quot;</span>.<span class="ident">to_string</span>()))
+    <span class="comment">// Set the PKCE code challenge.</span>
+    .<span class="ident">set_pkce_challenge</span>(<span class="ident">pkce_challenge</span>)
+    .<span class="ident">url</span>();
+
+<span class="comment">// This is the URL you should redirect the user to, in order to trigger the authorization</span>
+<span class="comment">// process.</span>
+<span class="macro">println!</span>(<span class="string">&quot;Browse to: {}&quot;</span>, <span class="ident">auth_url</span>);
+
+<span class="comment">// Once the user has been redirected to the redirect URL, you&#39;ll have access to the</span>
+<span class="comment">// authorization code. For security reasons, your code should verify that the `state`</span>
+<span class="comment">// parameter returned by the server matches `csrf_state`.</span>
+
+<span class="comment">// Now you can exchange it for an access token and ID token.</span>
+<span class="kw">let</span> <span class="ident">token_response</span> <span class="op">=</span>
+    <span class="ident">client</span>
+        .<span class="ident">exchange_code</span>(<span class="ident">AuthorizationCode::new</span>(<span class="string">&quot;some authorization code&quot;</span>.<span class="ident">to_string</span>()))
+        <span class="comment">// Set the PKCE code verifier.</span>
+        .<span class="ident">set_pkce_verifier</span>(<span class="ident">pkce_verifier</span>)
+        .<span class="ident">request</span>(<span class="ident">http_client</span>)<span class="question-mark">?</span>;
+
+<span class="comment">// Extract the ID token claims after verifying its authenticity and nonce.</span>
+<span class="kw">let</span> <span class="ident">id_token</span> <span class="op">=</span> <span class="ident">token_response</span>
+  .<span class="ident">id_token</span>()
+  .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">anyhow!</span>(<span class="string">&quot;Server did not return an ID token&quot;</span>))<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">claims</span> <span class="op">=</span> <span class="ident">id_token</span>.<span class="ident">claims</span>(<span class="kw-2">&amp;</span><span class="ident">client</span>.<span class="ident">id_token_verifier</span>(), <span class="kw-2">&amp;</span><span class="ident">nonce</span>)<span class="question-mark">?</span>;
+
+<span class="comment">// Verify the access token hash to ensure that the access token hasn&#39;t been substituted for</span>
+<span class="comment">// another user&#39;s.</span>
+<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">expected_access_token_hash</span>) <span class="op">=</span> <span class="ident">claims</span>.<span class="ident">access_token_hash</span>() {
+    <span class="kw">let</span> <span class="ident">actual_access_token_hash</span> <span class="op">=</span> <span class="ident">AccessTokenHash::from_token</span>(
+        <span class="ident">token_response</span>.<span class="ident">access_token</span>(),
+        <span class="kw-2">&amp;</span><span class="ident">id_token</span>.<span class="ident">signing_alg</span>()<span class="question-mark">?</span>
+    )<span class="question-mark">?</span>;
+    <span class="kw">if</span> <span class="ident">actual_access_token_hash</span> <span class="op">!</span><span class="op">=</span> <span class="kw-2">*</span><span class="ident">expected_access_token_hash</span> {
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">anyhow!</span>(<span class="string">&quot;Invalid access token&quot;</span>));
+    }
+}
+
+<span class="comment">// The authenticated user&#39;s identity is now available. See the IdTokenClaims struct for a</span>
+<span class="comment">// complete listing of the available claims.</span>
+<span class="macro">println!</span>(
+    <span class="string">&quot;User {} with e-mail address {} has authenticated successfully&quot;</span>,
+    <span class="ident">claims</span>.<span class="ident">subject</span>().<span class="ident">as_str</span>(),
+    <span class="ident">claims</span>.<span class="ident">email</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">email</span><span class="op">|</span> <span class="ident">email</span>.<span class="ident">as_str</span>()).<span class="ident">unwrap_or</span>(<span class="string">&quot;&lt;not provided&gt;&quot;</span>),
+);
+
+<span class="comment">// If available, we can use the UserInfo endpoint to request additional information.</span>
+
+<span class="comment">// The user_info request uses the AccessToken returned in the token response. To parse custom</span>
+<span class="comment">// claims, use UserInfoClaims directly (with the desired type parameters) rather than using the</span>
+<span class="comment">// CoreUserInfoClaims type alias.</span>
+<span class="kw">let</span> <span class="ident">userinfo</span>: <span class="ident">CoreUserInfoClaims</span> <span class="op">=</span> <span class="ident">client</span>
+  .<span class="ident">user_info</span>(<span class="ident">token_response</span>.<span class="ident">access_token</span>().<span class="ident">to_owned</span>(), <span class="prelude-val">None</span>)
+  .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="macro">anyhow!</span>(<span class="string">&quot;No user info endpoint: {:?}&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>
+  .<span class="ident">request</span>(<span class="ident">http_client</span>)
+  .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> <span class="macro">anyhow!</span>(<span class="string">&quot;Failed requesting user info: {:?}&quot;</span>, <span class="ident">err</span>))<span class="question-mark">?</span>;
+
+<span class="comment">// See the OAuth2TokenResponse trait for a listing of other available fields such as</span>
+<span class="comment">// access_token() and refresh_token().</span>
+</code></pre></div>
+<h2 id="openid-connect-provider-server-interface" class="section-header"><a href="#openid-connect-provider-server-interface">OpenID Connect Provider (Server) Interface</a></h2>
+<p>This library does not implement a complete OpenID Connect Provider, which requires
+functionality such as credential and session management. However, it does provide
+strongly-typed interfaces for parsing and building OpenID Connect protocol messages.</p>
+<h3 id="openid-connect-discovery-document" class="section-header"><a href="#openid-connect-discovery-document">OpenID Connect Discovery document</a></h3>
+<p>The <a href="struct.ProviderMetadata.html" title="ProviderMetadata"><code>ProviderMetadata</code></a> struct implements the
+<a href="https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderConfig">OpenID Connect Discovery document</a>.
+This data structure should be serialized to JSON and served via the
+<code>GET .well-known/openid-configuration</code> path relative to your provider’s issuer URL.</p>
+<h4 id="example-1" class="section-header"><a href="#example-1">Example</a></h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">openidconnect</span>::{
+    <span class="ident">AuthUrl</span>,
+    <span class="ident">EmptyAdditionalProviderMetadata</span>,
+    <span class="ident">IssuerUrl</span>,
+    <span class="ident">JsonWebKeySetUrl</span>,
+    <span class="ident">ResponseTypes</span>,
+    <span class="ident">Scope</span>,
+    <span class="ident">TokenUrl</span>,
+    <span class="ident">UserInfoUrl</span>,
+};
+<span class="kw">use</span> <span class="ident">openidconnect::core</span>::{
+    <span class="ident">CoreClaimName</span>,
+    <span class="ident">CoreJwsSigningAlgorithm</span>,
+    <span class="ident">CoreProviderMetadata</span>,
+    <span class="ident">CoreResponseType</span>,
+    <span class="ident">CoreSubjectIdentifierType</span>
+};
+<span class="kw">use</span> <span class="ident">url::Url</span>;
+<span class="kw">use</span> <span class="ident">anyhow</span>;
+
+<span class="kw">let</span> <span class="ident">provider_metadata</span> <span class="op">=</span> <span class="ident">CoreProviderMetadata::new</span>(
+    <span class="comment">// Parameters required by the OpenID Connect Discovery spec.</span>
+    <span class="ident">IssuerUrl::new</span>(<span class="string">&quot;https://accounts.example.com&quot;</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>,
+    <span class="ident">AuthUrl::new</span>(<span class="string">&quot;https://accounts.example.com/authorize&quot;</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>,
+    <span class="comment">// Use the JsonWebKeySet struct to serve the JWK Set at this URL.</span>
+    <span class="ident">JsonWebKeySetUrl::new</span>(<span class="string">&quot;https://accounts.example.com/jwk&quot;</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>,
+    <span class="comment">// Supported response types (flows).</span>
+    <span class="macro">vec!</span>[
+        <span class="comment">// Recommended: support the code flow.</span>
+        <span class="ident">ResponseTypes::new</span>(<span class="macro">vec!</span>[<span class="ident">CoreResponseType::Code</span>]),
+        <span class="comment">// Optional: support the implicit flow.</span>
+        <span class="ident">ResponseTypes::new</span>(<span class="macro">vec!</span>[<span class="ident">CoreResponseType::Token</span>, <span class="ident">CoreResponseType::IdToken</span>])
+        <span class="comment">// Other flows including hybrid flows may also be specified here.</span>
+    ],
+    <span class="comment">// For user privacy, the Pairwise subject identifier type is preferred. This prevents</span>
+    <span class="comment">// distinct relying parties (clients) from knowing whether their users represent the same</span>
+    <span class="comment">// real identities. This identifier type is only useful for relying parties that don&#39;t</span>
+    <span class="comment">// receive the &#39;email&#39;, &#39;profile&#39; or other personally-identifying scopes.</span>
+    <span class="comment">// The Public subject identifier type is also supported.</span>
+    <span class="macro">vec!</span>[<span class="ident">CoreSubjectIdentifierType::Pairwise</span>],
+    <span class="comment">// Support the RS256 signature algorithm.</span>
+    <span class="macro">vec!</span>[<span class="ident">CoreJwsSigningAlgorithm::RsaSsaPssSha256</span>],
+    <span class="comment">// OpenID Connect Providers may supply custom metadata by providing a struct that</span>
+    <span class="comment">// implements the AdditionalProviderMetadata trait. This requires manually using the</span>
+    <span class="comment">// generic ProviderMetadata struct rather than the CoreProviderMetadata type alias,</span>
+    <span class="comment">// however.</span>
+    <span class="ident">EmptyAdditionalProviderMetadata</span> {},
+)
+<span class="comment">// Specify the token endpoint (required for the code flow).</span>
+.<span class="ident">set_token_endpoint</span>(<span class="prelude-val">Some</span>(<span class="ident">TokenUrl::new</span>(<span class="string">&quot;https://accounts.example.com/token&quot;</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>))
+<span class="comment">// Recommended: support the UserInfo endpoint.</span>
+.<span class="ident">set_userinfo_endpoint</span>(
+    <span class="prelude-val">Some</span>(<span class="ident">UserInfoUrl::new</span>(<span class="string">&quot;https://accounts.example.com/userinfo&quot;</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>)
+)
+<span class="comment">// Recommended: specify the supported scopes.</span>
+.<span class="ident">set_scopes_supported</span>(<span class="prelude-val">Some</span>(<span class="macro">vec!</span>[
+    <span class="ident">Scope::new</span>(<span class="string">&quot;openid&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">Scope::new</span>(<span class="string">&quot;email&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">Scope::new</span>(<span class="string">&quot;profile&quot;</span>.<span class="ident">to_string</span>()),
+]))
+<span class="comment">// Recommended: specify the supported ID token claims.</span>
+.<span class="ident">set_claims_supported</span>(<span class="prelude-val">Some</span>(<span class="macro">vec!</span>[
+    <span class="comment">// Providers may also define an enum instead of using CoreClaimName.</span>
+    <span class="ident">CoreClaimName::new</span>(<span class="string">&quot;sub&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">CoreClaimName::new</span>(<span class="string">&quot;aud&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">CoreClaimName::new</span>(<span class="string">&quot;email&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">CoreClaimName::new</span>(<span class="string">&quot;email_verified&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">CoreClaimName::new</span>(<span class="string">&quot;exp&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">CoreClaimName::new</span>(<span class="string">&quot;iat&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">CoreClaimName::new</span>(<span class="string">&quot;iss&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">CoreClaimName::new</span>(<span class="string">&quot;name&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">CoreClaimName::new</span>(<span class="string">&quot;given_name&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">CoreClaimName::new</span>(<span class="string">&quot;family_name&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">CoreClaimName::new</span>(<span class="string">&quot;picture&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">CoreClaimName::new</span>(<span class="string">&quot;locale&quot;</span>.<span class="ident">to_string</span>()),
+]));
+
+<span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">provider_metadata</span>).<span class="ident">map_err</span>(<span class="ident">From::from</span>)</code></pre></div>
+<h3 id="openid-connect-discovery-json-web-key-set" class="section-header"><a href="#openid-connect-discovery-json-web-key-set">OpenID Connect Discovery JSON Web Key Set</a></h3>
+<p>The JSON Web Key Set (JWKS) provides the public keys that relying parties (clients) use to
+verify the authenticity of ID tokens returned by this OpenID Connect Provider. The
+<a href="struct.JsonWebKeySet.html" title="JsonWebKeySet"><code>JsonWebKeySet</code></a> data structure should be serialized as JSON and served at the URL specified
+in the <code>jwks_uri</code> field of the <a href="struct.ProviderMetadata.html" title="ProviderMetadata"><code>ProviderMetadata</code></a> returned in the OpenID Connect Discovery
+document.</p>
+<h4 id="example-2" class="section-header"><a href="#example-2">Example</a></h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">openidconnect</span>::{<span class="ident">JsonWebKeyId</span>, <span class="ident">PrivateSigningKey</span>};
+<span class="kw">use</span> <span class="ident">openidconnect::core</span>::{<span class="ident">CoreJsonWebKey</span>, <span class="ident">CoreJsonWebKeySet</span>, <span class="ident">CoreRsaPrivateSigningKey</span>};
+<span class="kw">use</span> <span class="ident">anyhow</span>;
+
+<span class="kw">let</span> <span class="ident">jwks</span> <span class="op">=</span> <span class="ident">CoreJsonWebKeySet::new</span>(
+    <span class="macro">vec!</span>[
+        <span class="comment">// RSA keys may also be constructed directly using CoreJsonWebKey::new_rsa(). Providers</span>
+        <span class="comment">// aiming to support other key types may provide their own implementation of the</span>
+        <span class="comment">// JsonWebKey trait or submit a PR to add the desired support to this crate.</span>
+        <span class="ident">CoreRsaPrivateSigningKey::from_pem</span>(
+            <span class="kw-2">&amp;</span><span class="ident">rsa_pem</span>,
+            <span class="prelude-val">Some</span>(<span class="ident">JsonWebKeyId::new</span>(<span class="string">&quot;key1&quot;</span>.<span class="ident">to_string</span>()))
+        )
+        .<span class="ident">expect</span>(<span class="string">&quot;Invalid RSA private key&quot;</span>)
+        .<span class="ident">as_verification_key</span>()
+    ]
+);
+
+<span class="ident">serde_json::to_string</span>(<span class="kw-2">&amp;</span><span class="ident">jwks</span>).<span class="ident">map_err</span>(<span class="ident">From::from</span>)</code></pre></div>
+<h3 id="openid-connect-id-token" class="section-header"><a href="#openid-connect-id-token">OpenID Connect ID Token</a></h3>
+<p>The <a href="struct.IdToken.html#method.new" title="IdToken::new"><code>IdToken::new</code></a> method is used for signing ID token claims, which can then be returned
+from the token endpoint as part of the <a href="struct.StandardTokenResponse.html" title="StandardTokenResponse"><code>StandardTokenResponse</code></a> struct
+(or <a href="core/type.CoreTokenResponse.html" title="core::CoreTokenResponse"><code>core::CoreTokenResponse</code></a> type alias). The ID token can also be serialized to a string
+using the <code>IdToken::to_string</code> method and returned directly from the authorization endpoint
+when the implicit flow or certain hybrid flows are used. Note that in these flows, ID tokens
+must only be returned in the URL fragment, and never as a query parameter.</p>
+<p>The ID token contains a combination of the
+<a href="https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims">OpenID Connect Standard Claims</a>
+(see <a href="struct.StandardClaims.html" title="StandardClaims"><code>StandardClaims</code></a>) and claims specific to the
+<a href="https://openid.net/specs/openid-connect-core-1_0.html#IDToken">OpenID Connect ID Token</a>
+(see <a href="struct.IdTokenClaims.html" title="IdTokenClaims"><code>IdTokenClaims</code></a>).</p>
+<h4 id="example-3" class="section-header"><a href="#example-3">Example</a></h4>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">chrono</span>::{<span class="ident">Duration</span>, <span class="ident">Utc</span>};
+<span class="kw">use</span> <span class="ident">openidconnect</span>::{
+    <span class="ident">AccessToken</span>,
+    <span class="ident">Audience</span>,
+    <span class="ident">EmptyAdditionalClaims</span>,
+    <span class="ident">EmptyExtraTokenFields</span>,
+    <span class="ident">EndUserEmail</span>,
+    <span class="ident">IssuerUrl</span>,
+    <span class="ident">JsonWebKeyId</span>,
+    <span class="ident">StandardClaims</span>,
+    <span class="ident">SubjectIdentifier</span>,
+};
+<span class="kw">use</span> <span class="ident">openidconnect::core</span>::{
+    <span class="ident">CoreIdToken</span>,
+    <span class="ident">CoreIdTokenClaims</span>,
+    <span class="ident">CoreIdTokenFields</span>,
+    <span class="ident">CoreJwsSigningAlgorithm</span>,
+    <span class="ident">CoreRsaPrivateSigningKey</span>,
+    <span class="ident">CoreTokenResponse</span>,
+    <span class="ident">CoreTokenType</span>,
+};
+<span class="kw">use</span> <span class="ident">anyhow</span>;
+
+<span class="kw">let</span> <span class="ident">id_token</span> <span class="op">=</span> <span class="ident">CoreIdToken::new</span>(
+    <span class="ident">CoreIdTokenClaims::new</span>(
+        <span class="comment">// Specify the issuer URL for the OpenID Connect Provider.</span>
+        <span class="ident">IssuerUrl::new</span>(<span class="string">&quot;https://accounts.example.com&quot;</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>,
+        <span class="comment">// The audience is usually a single entry with the client ID of the client for whom</span>
+        <span class="comment">// the ID token is intended. This is a required claim.</span>
+        <span class="macro">vec!</span>[<span class="ident">Audience::new</span>(<span class="string">&quot;client-id-123&quot;</span>.<span class="ident">to_string</span>())],
+        <span class="comment">// The ID token expiration is usually much shorter than that of the access or refresh</span>
+        <span class="comment">// tokens issued to clients.</span>
+        <span class="ident">Utc::now</span>() <span class="op">+</span> <span class="ident">Duration::seconds</span>(<span class="number">300</span>),
+        <span class="comment">// The issue time is usually the current time.</span>
+        <span class="ident">Utc::now</span>(),
+        <span class="comment">// Set the standard claims defined by the OpenID Connect Core spec.</span>
+        <span class="ident">StandardClaims::new</span>(
+            <span class="comment">// Stable subject identifiers are recommended in place of e-mail addresses or other</span>
+            <span class="comment">// potentially unstable identifiers. This is the only required claim.</span>
+            <span class="ident">SubjectIdentifier::new</span>(<span class="string">&quot;5f83e0ca-2b8e-4e8c-ba0a-f80fe9bc3632&quot;</span>.<span class="ident">to_string</span>())
+        )
+        <span class="comment">// Optional: specify the user&#39;s e-mail address. This should only be provided if the</span>
+        <span class="comment">// client has been granted the &#39;profile&#39; or &#39;email&#39; scopes.</span>
+        .<span class="ident">set_email</span>(<span class="prelude-val">Some</span>(<span class="ident">EndUserEmail::new</span>(<span class="string">&quot;bob@example.com&quot;</span>.<span class="ident">to_string</span>())))
+        <span class="comment">// Optional: specify whether the provider has verified the user&#39;s e-mail address.</span>
+        .<span class="ident">set_email_verified</span>(<span class="prelude-val">Some</span>(<span class="bool-val">true</span>)),
+        <span class="comment">// OpenID Connect Providers may supply custom claims by providing a struct that</span>
+        <span class="comment">// implements the AdditionalClaims trait. This requires manually using the</span>
+        <span class="comment">// generic IdTokenClaims struct rather than the CoreIdTokenClaims type alias,</span>
+        <span class="comment">// however.</span>
+        <span class="ident">EmptyAdditionalClaims</span> {},
+    ),
+    <span class="comment">// The private key used for signing the ID token. For confidential clients (those able</span>
+    <span class="comment">// to maintain a client secret), a CoreHmacKey can also be used, in conjunction</span>
+    <span class="comment">// with one of the CoreJwsSigningAlgorithm::HmacSha* signing algorithms. When using an</span>
+    <span class="comment">// HMAC-based signing algorithm, the UTF-8 representation of the client secret should</span>
+    <span class="comment">// be used as the HMAC key.</span>
+    <span class="kw-2">&amp;</span><span class="ident">CoreRsaPrivateSigningKey::from_pem</span>(
+            <span class="kw-2">&amp;</span><span class="ident">rsa_pem</span>,
+            <span class="prelude-val">Some</span>(<span class="ident">JsonWebKeyId::new</span>(<span class="string">&quot;key1&quot;</span>.<span class="ident">to_string</span>()))
+        )
+        .<span class="ident">expect</span>(<span class="string">&quot;Invalid RSA private key&quot;</span>),
+    <span class="comment">// Uses the RS256 signature algorithm. This crate supports any RS*, PS*, or HS*</span>
+    <span class="comment">// signature algorithm.</span>
+    <span class="ident">CoreJwsSigningAlgorithm::RsaSsaPkcs1V15Sha256</span>,
+    <span class="comment">// When returning the ID token alongside an access token (e.g., in the Authorization Code</span>
+    <span class="comment">// flow), it is recommended to pass the access token here to set the `at_hash` claim</span>
+    <span class="comment">// automatically.</span>
+    <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">access_token</span>),
+    <span class="comment">// When returning the ID token alongside an authorization code (e.g., in the implicit</span>
+    <span class="comment">// flow), it is recommended to pass the authorization code here to set the `c_hash` claim</span>
+    <span class="comment">// automatically.</span>
+    <span class="prelude-val">None</span>,
+)<span class="question-mark">?</span>;
+
+<span class="prelude-val">Ok</span>(<span class="ident">CoreTokenResponse::new</span>(
+    <span class="ident">AccessToken::new</span>(<span class="string">&quot;some_secret&quot;</span>.<span class="ident">to_string</span>()),
+    <span class="ident">CoreTokenType::Bearer</span>,
+    <span class="ident">CoreIdTokenFields::new</span>(<span class="prelude-val">Some</span>(<span class="ident">id_token</span>), <span class="ident">EmptyExtraTokenFields</span> {}),
+))</code></pre></div>
+<h2 id="asynchronous-api" class="section-header"><a href="#asynchronous-api">Asynchronous API</a></h2>
+<p>An asynchronous API for async/await is also provided.</p>
+<h3 id="example-4" class="section-header"><a href="#example-4">Example</a></h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">openidconnect</span>::{
+    <span class="ident">AccessTokenHash</span>,
+    <span class="ident">AuthenticationFlow</span>,
+    <span class="ident">AuthorizationCode</span>,
+    <span class="ident">ClientId</span>,
+    <span class="ident">ClientSecret</span>,
+    <span class="ident">CsrfToken</span>,
+    <span class="ident">Nonce</span>,
+    <span class="ident">IssuerUrl</span>,
+    <span class="ident">PkceCodeChallenge</span>,
+    <span class="ident">RedirectUrl</span>,
+    <span class="ident">Scope</span>,
+};
+<span class="kw">use</span> <span class="ident">openidconnect::core</span>::{
+  <span class="ident">CoreAuthenticationFlow</span>,
+  <span class="ident">CoreClient</span>,
+  <span class="ident">CoreProviderMetadata</span>,
+  <span class="ident">CoreResponseType</span>,
+};
+<span class="kw">use</span> <span class="ident">openidconnect::reqwest::async_http_client</span>;
+<span class="kw">use</span> <span class="ident">url::Url</span>;
+<span class="kw">use</span> <span class="ident">anyhow::anyhow</span>;
+
+
+<span class="comment">// Use OpenID Connect Discovery to fetch the provider metadata.</span>
+<span class="kw">use</span> <span class="ident">openidconnect</span>::{<span class="ident">OAuth2TokenResponse</span>, <span class="ident">TokenResponse</span>};
+<span class="kw">let</span> <span class="ident">provider_metadata</span> <span class="op">=</span> <span class="ident">CoreProviderMetadata::discover_async</span>(
+    <span class="ident">IssuerUrl::new</span>(<span class="string">&quot;https://accounts.example.com&quot;</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>,
+    <span class="ident">async_http_client</span>,
+)
+.<span class="kw">await</span><span class="question-mark">?</span>;
+
+<span class="comment">// Create an OpenID Connect client by specifying the client ID, client secret, authorization URL</span>
+<span class="comment">// and token URL.</span>
+<span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span>
+    <span class="ident">CoreClient::from_provider_metadata</span>(
+        <span class="ident">provider_metadata</span>,
+        <span class="ident">ClientId::new</span>(<span class="string">&quot;client_id&quot;</span>.<span class="ident">to_string</span>()),
+        <span class="prelude-val">Some</span>(<span class="ident">ClientSecret::new</span>(<span class="string">&quot;client_secret&quot;</span>.<span class="ident">to_string</span>())),
+    )
+    <span class="comment">// Set the URL the user will be redirected to after the authorization process.</span>
+    .<span class="ident">set_redirect_uri</span>(<span class="ident">RedirectUrl::new</span>(<span class="string">&quot;http://redirect&quot;</span>.<span class="ident">to_string</span>())<span class="question-mark">?</span>);
+
+<span class="comment">// Generate a PKCE challenge.</span>
+<span class="kw">let</span> (<span class="ident">pkce_challenge</span>, <span class="ident">pkce_verifier</span>) <span class="op">=</span> <span class="ident">PkceCodeChallenge::new_random_sha256</span>();
+
+<span class="comment">// Generate the full authorization URL.</span>
+<span class="kw">let</span> (<span class="ident">auth_url</span>, <span class="ident">csrf_token</span>, <span class="ident">nonce</span>) <span class="op">=</span> <span class="ident">client</span>
+    .<span class="ident">authorize_url</span>(
+        <span class="ident">CoreAuthenticationFlow::AuthorizationCode</span>,
+        <span class="ident">CsrfToken::new_random</span>,
+        <span class="ident">Nonce::new_random</span>,
+    )
+    <span class="comment">// Set the desired scopes.</span>
+    .<span class="ident">add_scope</span>(<span class="ident">Scope::new</span>(<span class="string">&quot;read&quot;</span>.<span class="ident">to_string</span>()))
+    .<span class="ident">add_scope</span>(<span class="ident">Scope::new</span>(<span class="string">&quot;write&quot;</span>.<span class="ident">to_string</span>()))
+    <span class="comment">// Set the PKCE code challenge.</span>
+    .<span class="ident">set_pkce_challenge</span>(<span class="ident">pkce_challenge</span>)
+    .<span class="ident">url</span>();
+
+<span class="comment">// This is the URL you should redirect the user to, in order to trigger the authorization</span>
+<span class="comment">// process.</span>
+<span class="macro">println!</span>(<span class="string">&quot;Browse to: {}&quot;</span>, <span class="ident">auth_url</span>);
+
+<span class="comment">// Once the user has been redirected to the redirect URL, you&#39;ll have access to the</span>
+<span class="comment">// authorization code. For security reasons, your code should verify that the `state`</span>
+<span class="comment">// parameter returned by the server matches `csrf_state`.</span>
+
+<span class="comment">// Now you can exchange it for an access token and ID token.</span>
+<span class="kw">let</span> <span class="ident">token_response</span> <span class="op">=</span>
+    <span class="ident">client</span>
+        .<span class="ident">exchange_code</span>(<span class="ident">AuthorizationCode::new</span>(<span class="string">&quot;some authorization code&quot;</span>.<span class="ident">to_string</span>()))
+        <span class="comment">// Set the PKCE code verifier.</span>
+        .<span class="ident">set_pkce_verifier</span>(<span class="ident">pkce_verifier</span>)
+        .<span class="ident">request_async</span>(<span class="ident">async_http_client</span>)
+        .<span class="kw">await</span><span class="question-mark">?</span>;
+
+<span class="comment">// Extract the ID token claims after verifying its authenticity and nonce.</span>
+<span class="kw">let</span> <span class="ident">id_token</span> <span class="op">=</span> <span class="ident">token_response</span>
+  .<span class="ident">id_token</span>()
+  .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">anyhow!</span>(<span class="string">&quot;Server did not return an ID token&quot;</span>))<span class="question-mark">?</span>;
+<span class="kw">let</span> <span class="ident">claims</span> <span class="op">=</span> <span class="ident">id_token</span>.<span class="ident">claims</span>(<span class="kw-2">&amp;</span><span class="ident">client</span>.<span class="ident">id_token_verifier</span>(), <span class="kw-2">&amp;</span><span class="ident">nonce</span>)<span class="question-mark">?</span>;
+
+<span class="comment">// Verify the access token hash to ensure that the access token hasn&#39;t been substituted for</span>
+<span class="comment">// another user&#39;s.</span>
+<span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">expected_access_token_hash</span>) <span class="op">=</span> <span class="ident">claims</span>.<span class="ident">access_token_hash</span>() {
+    <span class="kw">let</span> <span class="ident">actual_access_token_hash</span> <span class="op">=</span> <span class="ident">AccessTokenHash::from_token</span>(
+        <span class="ident">token_response</span>.<span class="ident">access_token</span>(),
+        <span class="kw-2">&amp;</span><span class="ident">id_token</span>.<span class="ident">signing_alg</span>()<span class="question-mark">?</span>
+    )<span class="question-mark">?</span>;
+    <span class="kw">if</span> <span class="ident">actual_access_token_hash</span> <span class="op">!</span><span class="op">=</span> <span class="kw-2">*</span><span class="ident">expected_access_token_hash</span> {
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">anyhow!</span>(<span class="string">&quot;Invalid access token&quot;</span>));
+    }
+}
+
+<span class="comment">// The authenticated user&#39;s identity is now available. See the IdTokenClaims struct for a</span>
+<span class="comment">// complete listing of the available claims.</span>
+<span class="macro">println!</span>(
+    <span class="string">&quot;User {} with e-mail address {} has authenticated successfully&quot;</span>,
+    <span class="ident">claims</span>.<span class="ident">subject</span>().<span class="ident">as_str</span>(),
+    <span class="ident">claims</span>.<span class="ident">email</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">email</span><span class="op">|</span> <span class="ident">email</span>.<span class="ident">as_str</span>()).<span class="ident">unwrap_or</span>(<span class="string">&quot;&lt;not provided&gt;&quot;</span>),
+);
+
+<span class="comment">// See the OAuth2TokenResponse trait for a listing of other available fields such as</span>
+<span class="comment">// access_token() and refresh_token().</span>
+</code></pre></div>
+</div></details><h2 id="reexports" class="small-section-header"><a href="#reexports">Re-exports</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left import-item"><code>pub use oauth2::<a class="mod" href="../http/index.html" title="mod http">http</a>;</code></div><div class="item-right docblock-short"></div></div><div class="item-row"><div class="item-left import-item"><code>pub use oauth2::<a class="mod" href="../url/index.html" title="mod url">url</a>;</code></div><div class="item-right docblock-short"></div></div></div><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="core/index.html" title="openidconnect::core mod">core</a></div><div class="item-right docblock-short"><p>Baseline OpenID Connect implementation and types.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="registration/index.html" title="openidconnect::registration mod">registration</a></div><div class="item-right docblock-short"><p>OpenID Connect Dynamic Client Registration.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="reqwest/index.html" title="openidconnect::reqwest mod">reqwest</a></div><div class="item-right docblock-short"><p>HTTP client backed by the <a href="https://crates.io/crates/reqwest">reqwest</a> crate.
+Requires “reqwest” feature.</p>
+</div></div></div><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AccessToken.html" title="openidconnect::AccessToken struct">AccessToken</a></div><div class="item-right docblock-short"><p>Access token returned by the token endpoint and used to access protected resources.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AccessTokenHash.html" title="openidconnect::AccessTokenHash struct">AccessTokenHash</a></div><div class="item-right docblock-short"><p>Access token hash.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AddressClaim.html" title="openidconnect::AddressClaim struct">AddressClaim</a></div><div class="item-right docblock-short"><p>Address claims.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AddressCountry.html" title="openidconnect::AddressCountry struct">AddressCountry</a></div><div class="item-right docblock-short"><p>Country portion of address.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AddressLocality.html" title="openidconnect::AddressLocality struct">AddressLocality</a></div><div class="item-right docblock-short"><p>Locality portion of address.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AddressPostalCode.html" title="openidconnect::AddressPostalCode struct">AddressPostalCode</a></div><div class="item-right docblock-short"><p>Postal code portion of address.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AddressRegion.html" title="openidconnect::AddressRegion struct">AddressRegion</a></div><div class="item-right docblock-short"><p>Region portion of address.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Audience.html" title="openidconnect::Audience struct">Audience</a></div><div class="item-right docblock-short"><p>Audience claim value.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AuthUrl.html" title="openidconnect::AuthUrl struct">AuthUrl</a></div><div class="item-right docblock-short"><p>URL of the authorization server’s authorization endpoint.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AuthenticationContextClass.html" title="openidconnect::AuthenticationContextClass struct">AuthenticationContextClass</a></div><div class="item-right docblock-short"><p>Set of authentication methods or procedures that are considered to be equivalent to each
+other in a particular context.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AuthenticationMethodReference.html" title="openidconnect::AuthenticationMethodReference struct">AuthenticationMethodReference</a></div><div class="item-right docblock-short"><p>Identifier for an authentication method (e.g., <code>password</code> or <code>totp</code>).</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AuthorizationCode.html" title="openidconnect::AuthorizationCode struct">AuthorizationCode</a></div><div class="item-right docblock-short"><p>Authorization code returned from the authorization endpoint.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AuthorizationCodeHash.html" title="openidconnect::AuthorizationCodeHash struct">AuthorizationCodeHash</a></div><div class="item-right docblock-short"><p>Authorization code hash.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.AuthorizationRequest.html" title="openidconnect::AuthorizationRequest struct">AuthorizationRequest</a></div><div class="item-right docblock-short"><p>A request to the authorization endpoint.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Client.html" title="openidconnect::Client struct">Client</a></div><div class="item-right docblock-short"><p>OpenID Connect client.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ClientConfigUrl.html" title="openidconnect::ClientConfigUrl struct">ClientConfigUrl</a></div><div class="item-right docblock-short"><p>Client configuration endpoint URL.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ClientContactEmail.html" title="openidconnect::ClientContactEmail struct">ClientContactEmail</a></div><div class="item-right docblock-short"><p>Client contact e-mail address.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ClientCredentialsTokenRequest.html" title="openidconnect::ClientCredentialsTokenRequest struct">ClientCredentialsTokenRequest</a></div><div class="item-right docblock-short"><p>A request to exchange client credentials for an access token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ClientId.html" title="openidconnect::ClientId struct">ClientId</a></div><div class="item-right docblock-short"><p>Client identifier issued to the client during the registration process described by
+<a href="https://tools.ietf.org/html/rfc6749#section-2.2">Section 2.2</a>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ClientName.html" title="openidconnect::ClientName struct">ClientName</a></div><div class="item-right docblock-short"><p>OpenID Connect client name.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ClientSecret.html" title="openidconnect::ClientSecret struct">ClientSecret</a></div><div class="item-right docblock-short"><p>Client password issued to the client during the registration process described by
+<a href="https://tools.ietf.org/html/rfc6749#section-2.2">Section 2.2</a>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ClientUrl.html" title="openidconnect::ClientUrl struct">ClientUrl</a></div><div class="item-right docblock-short"><p>Client homepage URL.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.CodeTokenRequest.html" title="openidconnect::CodeTokenRequest struct">CodeTokenRequest</a></div><div class="item-right docblock-short"><p>A request to exchange an authorization code for an access token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.CsrfToken.html" title="openidconnect::CsrfToken struct">CsrfToken</a></div><div class="item-right docblock-short"><p>Value used for <a href="https://tools.ietf.org/html/rfc6749#section-10.12">CSRF</a> protection
+via the <code>state</code> parameter.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EmptyAdditionalClaims.html" title="openidconnect::EmptyAdditionalClaims struct">EmptyAdditionalClaims</a></div><div class="item-right docblock-short"><p>No additional claims.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EmptyAdditionalProviderMetadata.html" title="openidconnect::EmptyAdditionalProviderMetadata struct">EmptyAdditionalProviderMetadata</a></div><div class="item-right docblock-short"><p>Empty (default) extra <a href="struct.ProviderMetadata.html" title="ProviderMetadata"><code>ProviderMetadata</code></a> fields.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EmptyExtraTokenFields.html" title="openidconnect::EmptyExtraTokenFields struct">EmptyExtraTokenFields</a></div><div class="item-right docblock-short"><p>Empty (default) extra token fields.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserBirthday.html" title="openidconnect::EndUserBirthday struct">EndUserBirthday</a></div><div class="item-right docblock-short"><p>End user’s birthday, represented as an
+<a href="https://www.iso.org/standard/40874.html">ISO 8601:2004</a> <code>YYYY-MM-DD</code> format.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserEmail.html" title="openidconnect::EndUserEmail struct">EndUserEmail</a></div><div class="item-right docblock-short"><p>End user’s e-mail address.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserFamilyName.html" title="openidconnect::EndUserFamilyName struct">EndUserFamilyName</a></div><div class="item-right docblock-short"><p>End user’s family name.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserGivenName.html" title="openidconnect::EndUserGivenName struct">EndUserGivenName</a></div><div class="item-right docblock-short"><p>End user’s given name.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserMiddleName.html" title="openidconnect::EndUserMiddleName struct">EndUserMiddleName</a></div><div class="item-right docblock-short"><p>End user’s middle name.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserName.html" title="openidconnect::EndUserName struct">EndUserName</a></div><div class="item-right docblock-short"><p>End user’s name.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserNickname.html" title="openidconnect::EndUserNickname struct">EndUserNickname</a></div><div class="item-right docblock-short"><p>End user’s nickname.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserPhoneNumber.html" title="openidconnect::EndUserPhoneNumber struct">EndUserPhoneNumber</a></div><div class="item-right docblock-short"><p>End user’s phone number.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserPictureUrl.html" title="openidconnect::EndUserPictureUrl struct">EndUserPictureUrl</a></div><div class="item-right docblock-short"><p>URL of end user’s profile picture.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserProfileUrl.html" title="openidconnect::EndUserProfileUrl struct">EndUserProfileUrl</a></div><div class="item-right docblock-short"><p>URL of end user’s profile page.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserTimezone.html" title="openidconnect::EndUserTimezone struct">EndUserTimezone</a></div><div class="item-right docblock-short"><p>End user’s time zone as a string from the
+<a href="https://www.iana.org/time-zones">time zone database</a>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserUsername.html" title="openidconnect::EndUserUsername struct">EndUserUsername</a></div><div class="item-right docblock-short"><p>End user’s username.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.EndUserWebsiteUrl.html" title="openidconnect::EndUserWebsiteUrl struct">EndUserWebsiteUrl</a></div><div class="item-right docblock-short"><p>URL of end user’s website.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.FormattedAddress.html" title="openidconnect::FormattedAddress struct">FormattedAddress</a></div><div class="item-right docblock-short"><p>Full mailing address, formatted for display or use on a mailing label.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.HttpRequest.html" title="openidconnect::HttpRequest struct">HttpRequest</a></div><div class="item-right docblock-short"><p>An HTTP request.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.HttpResponse.html" title="openidconnect::HttpResponse struct">HttpResponse</a></div><div class="item-right docblock-short"><p>An HTTP response.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.IdToken.html" title="openidconnect::IdToken struct">IdToken</a></div><div class="item-right docblock-short"><p>OpenID Connect ID token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.IdTokenClaims.html" title="openidconnect::IdTokenClaims struct">IdTokenClaims</a></div><div class="item-right docblock-short"><p>OpenID Connect ID token claims.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.IdTokenFields.html" title="openidconnect::IdTokenFields struct">IdTokenFields</a></div><div class="item-right docblock-short"><p>Extends the base OAuth2 token response with an ID token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.IdTokenVerifier.html" title="openidconnect::IdTokenVerifier struct">IdTokenVerifier</a></div><div class="item-right docblock-short"><p>ID token verifier.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.InitiateLoginUrl.html" title="openidconnect::InitiateLoginUrl struct">InitiateLoginUrl</a></div><div class="item-right docblock-short"><p>URI using the <code>https</code> scheme that a third party can use to initiate a login by the Relying
+Party.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.IntrospectionRequest.html" title="openidconnect::IntrospectionRequest struct">IntrospectionRequest</a></div><div class="item-right docblock-short"><p>A request to introspect an access token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.IntrospectionUrl.html" title="openidconnect::IntrospectionUrl struct">IntrospectionUrl</a></div><div class="item-right docblock-short"><p>URL of the client’s <a href="https://tools.ietf.org/html/rfc7662">RFC 7662 OAuth 2.0 Token Introspection</a> endpoint.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.IssuerUrl.html" title="openidconnect::IssuerUrl struct">IssuerUrl</a></div><div class="item-right docblock-short"><p>URL using the <code>https</code> scheme with no query or fragment component that the OP asserts as its
+Issuer Identifier.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.JsonWebKeyId.html" title="openidconnect::JsonWebKeyId struct">JsonWebKeyId</a></div><div class="item-right docblock-short"><p>ID of a JSON Web Key.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.JsonWebKeySet.html" title="openidconnect::JsonWebKeySet struct">JsonWebKeySet</a></div><div class="item-right docblock-short"><p>JSON Web Key Set.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.JsonWebKeySetUrl.html" title="openidconnect::JsonWebKeySetUrl struct">JsonWebKeySetUrl</a></div><div class="item-right docblock-short"><p>JSON Web Key Set URL.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.LanguageTag.html" title="openidconnect::LanguageTag struct">LanguageTag</a></div><div class="item-right docblock-short"><p>Language tag adhering to RFC 5646 (e.g., <code>fr</code> or <code>fr-CA</code>).</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.LocalizedClaim.html" title="openidconnect::LocalizedClaim struct">LocalizedClaim</a></div><div class="item-right docblock-short"><p>A <a href="https://openid.net/specs/openid-connect-core-1_0.html#IndividualClaimsLanguages">locale-aware</a>
+claim.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.LoginHint.html" title="openidconnect::LoginHint struct">LoginHint</a></div><div class="item-right docblock-short"><p>Hint about the login identifier the End-User might use to log in.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.LogoUrl.html" title="openidconnect::LogoUrl struct">LogoUrl</a></div><div class="item-right docblock-short"><p>URL that references a logo for the Client application.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Nonce.html" title="openidconnect::Nonce struct">Nonce</a></div><div class="item-right docblock-short"><p>String value used to associate a client session with an ID Token, and to mitigate replay
+attacks.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OpPolicyUrl.html" title="openidconnect::OpPolicyUrl struct">OpPolicyUrl</a></div><div class="item-right docblock-short"><p>URL providing the OpenID Connect Provider’s data usage policies for client applications.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.OpTosUrl.html" title="openidconnect::OpTosUrl struct">OpTosUrl</a></div><div class="item-right docblock-short"><p>URL providing the OpenID Connect Provider’s Terms of Service.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PasswordTokenRequest.html" title="openidconnect::PasswordTokenRequest struct">PasswordTokenRequest</a></div><div class="item-right docblock-short"><p>A request to exchange resource owner credentials for an access token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PkceCodeChallenge.html" title="openidconnect::PkceCodeChallenge struct">PkceCodeChallenge</a></div><div class="item-right docblock-short"><p>Code Challenge used for <a href="(https://tools.ietf.org/html/rfc7636)">PKCE</a> protection via the
+<code>code_challenge</code> parameter.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PkceCodeChallengeMethod.html" title="openidconnect::PkceCodeChallengeMethod struct">PkceCodeChallengeMethod</a></div><div class="item-right docblock-short"><p>Code Challenge Method used for <a href="(https://tools.ietf.org/html/rfc7636)">PKCE</a> protection
+via the <code>code_challenge_method</code> parameter.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PkceCodeVerifier.html" title="openidconnect::PkceCodeVerifier struct">PkceCodeVerifier</a></div><div class="item-right docblock-short"><p>Code Verifier used for <a href="(https://tools.ietf.org/html/rfc7636)">PKCE</a> protection via the
+<code>code_verifier</code> parameter. The value must have a minimum length of 43 characters and a
+maximum length of 128 characters.  Each character must be ASCII alphanumeric or one of
+the characters “-” / “.” / “_” / “~”.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.PolicyUrl.html" title="openidconnect::PolicyUrl struct">PolicyUrl</a></div><div class="item-right docblock-short"><p>URL providing a client application’s data usage policy.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ProviderMetadata.html" title="openidconnect::ProviderMetadata struct">ProviderMetadata</a></div><div class="item-right docblock-short"><p>Provider metadata returned by <a href="https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata">OpenID Connect Discovery</a>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RedirectUrl.html" title="openidconnect::RedirectUrl struct">RedirectUrl</a></div><div class="item-right docblock-short"><p>URL of the client’s redirection endpoint.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RefreshToken.html" title="openidconnect::RefreshToken struct">RefreshToken</a></div><div class="item-right docblock-short"><p>Refresh token used to obtain a new access token (if supported by the authorization server).</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RefreshTokenRequest.html" title="openidconnect::RefreshTokenRequest struct">RefreshTokenRequest</a></div><div class="item-right docblock-short"><p>A request to exchange a refresh token for an access token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegistrationAccessToken.html" title="openidconnect::RegistrationAccessToken struct">RegistrationAccessToken</a></div><div class="item-right docblock-short"><p>Access token used by a client application to access the Client Registration endpoint.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RegistrationUrl.html" title="openidconnect::RegistrationUrl struct">RegistrationUrl</a></div><div class="item-right docblock-short"><p>URL of the Client Registration endpoint.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RequestUrl.html" title="openidconnect::RequestUrl struct">RequestUrl</a></div><div class="item-right docblock-short"><p>URL used to pass request parameters as JWTs by reference.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ResourceOwnerPassword.html" title="openidconnect::ResourceOwnerPassword struct">ResourceOwnerPassword</a></div><div class="item-right docblock-short"><p>Resource owner’s password used directly as an authorization grant to obtain an access
+token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ResourceOwnerUsername.html" title="openidconnect::ResourceOwnerUsername struct">ResourceOwnerUsername</a></div><div class="item-right docblock-short"><p>Resource owner’s username used directly as an authorization grant to obtain an access
+token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ResponseTypes.html" title="openidconnect::ResponseTypes struct">ResponseTypes</a></div><div class="item-right docblock-short"><p>Informs the Authorization Server of the desired authorization processing flow, including what
+parameters are returned from the endpoints used.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RevocationRequest.html" title="openidconnect::RevocationRequest struct">RevocationRequest</a></div><div class="item-right docblock-short"><p>A request to revoke a token via an <a href="https://tools.ietf.org/html/rfc7009#section-2.1"><code>RFC 7009</code></a> compatible
+endpoint.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.RevocationUrl.html" title="openidconnect::RevocationUrl struct">RevocationUrl</a></div><div class="item-right docblock-short"><p>URL of the authorization server’s RFC 7009 token revocation endpoint.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Scope.html" title="openidconnect::Scope struct">Scope</a></div><div class="item-right docblock-short"><p>Access token scope, as defined by the authorization server.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.SectorIdentifierUrl.html" title="openidconnect::SectorIdentifierUrl struct">SectorIdentifierUrl</a></div><div class="item-right docblock-short"><p>URL for retrieving redirect URIs that should receive identical pairwise subject identifiers.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ServiceDocUrl.html" title="openidconnect::ServiceDocUrl struct">ServiceDocUrl</a></div><div class="item-right docblock-short"><p>URL for developer documentation for an OpenID Connect Provider.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.StandardClaims.html" title="openidconnect::StandardClaims struct">StandardClaims</a></div><div class="item-right docblock-short"><p>Standard Claims defined by OpenID Connect Core.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.StandardErrorResponse.html" title="openidconnect::StandardErrorResponse struct">StandardErrorResponse</a></div><div class="item-right docblock-short"><p>Error response returned by server after requesting an access token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.StandardTokenIntrospectionResponse.html" title="openidconnect::StandardTokenIntrospectionResponse struct">StandardTokenIntrospectionResponse</a></div><div class="item-right docblock-short"><p>Standard OAuth2 token introspection response.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.StandardTokenResponse.html" title="openidconnect::StandardTokenResponse struct">StandardTokenResponse</a></div><div class="item-right docblock-short"><p>Standard OAuth2 token response.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.StreetAddress.html" title="openidconnect::StreetAddress struct">StreetAddress</a></div><div class="item-right docblock-short"><p>A user’s street address.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.SubjectIdentifier.html" title="openidconnect::SubjectIdentifier struct">SubjectIdentifier</a></div><div class="item-right docblock-short"><p>Locally unique and never reassigned identifier within the Issuer for the End-User, which is
+intended to be consumed by the client application.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.ToSUrl.html" title="openidconnect::ToSUrl struct">ToSUrl</a></div><div class="item-right docblock-short"><p>URL for the relying party’s Terms of Service.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.TokenUrl.html" title="openidconnect::TokenUrl struct">TokenUrl</a></div><div class="item-right docblock-short"><p>URL of the authorization server’s token endpoint.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.UserInfoClaims.html" title="openidconnect::UserInfoClaims struct">UserInfoClaims</a></div><div class="item-right docblock-short"><p>User info claims.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.UserInfoJsonWebToken.html" title="openidconnect::UserInfoJsonWebToken struct">UserInfoJsonWebToken</a></div><div class="item-right docblock-short"><p>JSON Web Token (JWT) containing user info claims.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.UserInfoRequest.html" title="openidconnect::UserInfoRequest struct">UserInfoRequest</a></div><div class="item-right docblock-short"><p>User info request.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.UserInfoUrl.html" title="openidconnect::UserInfoUrl struct">UserInfoUrl</a></div><div class="item-right docblock-short"><p>URL for a provider’s user info endpoint.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.UserInfoVerifier.html" title="openidconnect::UserInfoVerifier struct">UserInfoVerifier</a></div><div class="item-right docblock-short"><p>User info verifier.</p>
+</div></div></div><h2 id="enums" class="small-section-header"><a href="#enums">Enums</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.AuthType.html" title="openidconnect::AuthType enum">AuthType</a></div><div class="item-right docblock-short"><p>Indicates whether requests to the authorization server should use basic authentication or
+include the parameters in the request body for requests in which either is valid.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.AuthenticationFlow.html" title="openidconnect::AuthenticationFlow enum">AuthenticationFlow</a></div><div class="item-right docblock-short"><p>Authentication flow, which determines how the Authorization Server returns the OpenID Connect
+ID token and OAuth2 access token to the Relying Party.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.ClaimsVerificationError.html" title="openidconnect::ClaimsVerificationError enum">ClaimsVerificationError</a></div><div class="item-right docblock-short"><p>Error verifying claims.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.ConfigurationError.html" title="openidconnect::ConfigurationError enum">ConfigurationError</a></div><div class="item-right docblock-short"><p>There was a problem configuring the request.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.DiscoveryError.html" title="openidconnect::DiscoveryError enum">DiscoveryError</a></div><div class="item-right docblock-short"><p>Error retrieving provider metadata.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.JsonWebTokenError.html" title="openidconnect::JsonWebTokenError enum">JsonWebTokenError</a></div><div class="item-right docblock-short"><p>Error creating a JSON Web Token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.RequestTokenError.html" title="openidconnect::RequestTokenError enum">RequestTokenError</a></div><div class="item-right docblock-short"><p>Error encountered while requesting access token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.RevocationErrorResponseType.html" title="openidconnect::RevocationErrorResponseType enum">RevocationErrorResponseType</a></div><div class="item-right docblock-short"><p>OAuth 2.0 Token Revocation error response types.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.SignatureVerificationError.html" title="openidconnect::SignatureVerificationError enum">SignatureVerificationError</a></div><div class="item-right docblock-short"><p>Error verifying claims signature.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.SigningError.html" title="openidconnect::SigningError enum">SigningError</a></div><div class="item-right docblock-short"><p>Error signing a message.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.UserInfoError.html" title="openidconnect::UserInfoError enum">UserInfoError</a></div><div class="item-right docblock-short"><p>Error retrieving user info.</p>
+</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AdditionalClaims.html" title="openidconnect::AdditionalClaims trait">AdditionalClaims</a></div><div class="item-right docblock-short"><p>Additional claims beyond the set of Standard Claims defined by OpenID Connect Core.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AdditionalProviderMetadata.html" title="openidconnect::AdditionalProviderMetadata trait">AdditionalProviderMetadata</a></div><div class="item-right docblock-short"><p>Trait for adding extra fields to <a href="struct.ProviderMetadata.html" title="ProviderMetadata"><code>ProviderMetadata</code></a>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ApplicationType.html" title="openidconnect::ApplicationType trait">ApplicationType</a></div><div class="item-right docblock-short"><p>Client application type.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AuthDisplay.html" title="openidconnect::AuthDisplay trait">AuthDisplay</a></div><div class="item-right docblock-short"><p>How the Authorization Server displays the authentication and consent user interface pages to
+the End-User.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.AuthPrompt.html" title="openidconnect::AuthPrompt trait">AuthPrompt</a></div><div class="item-right docblock-short"><p>Whether the Authorization Server should prompt the End-User for reauthentication and consent.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ClaimName.html" title="openidconnect::ClaimName trait">ClaimName</a></div><div class="item-right docblock-short"><p>Claim name.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ClaimType.html" title="openidconnect::ClaimType trait">ClaimType</a></div><div class="item-right docblock-short"><p>Claim type (e.g., normal, aggregated, or distributed).</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ClientAuthMethod.html" title="openidconnect::ClientAuthMethod trait">ClientAuthMethod</a></div><div class="item-right docblock-short"><p>Client authentication method.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ErrorResponse.html" title="openidconnect::ErrorResponse trait">ErrorResponse</a></div><div class="item-right docblock-short"><p>Server Error Response</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ErrorResponseType.html" title="openidconnect::ErrorResponseType trait">ErrorResponseType</a></div><div class="item-right docblock-short"><p>Error types enum.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ExtraTokenFields.html" title="openidconnect::ExtraTokenFields trait">ExtraTokenFields</a></div><div class="item-right docblock-short"><p>Trait for adding extra fields to the <code>TokenResponse</code>.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.GenderClaim.html" title="openidconnect::GenderClaim trait">GenderClaim</a></div><div class="item-right docblock-short"><p>Gender claim.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.GrantType.html" title="openidconnect::GrantType trait">GrantType</a></div><div class="item-right docblock-short"><p>Grant type.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.JsonWebKey.html" title="openidconnect::JsonWebKey trait">JsonWebKey</a></div><div class="item-right docblock-short"><p>JSON Web Key.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.JsonWebKeyType.html" title="openidconnect::JsonWebKeyType trait">JsonWebKeyType</a></div><div class="item-right docblock-short"><p>Key type (e.g., RSA).</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.JsonWebKeyUse.html" title="openidconnect::JsonWebKeyUse trait">JsonWebKeyUse</a></div><div class="item-right docblock-short"><p>Allowed key usage.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.JweContentEncryptionAlgorithm.html" title="openidconnect::JweContentEncryptionAlgorithm trait">JweContentEncryptionAlgorithm</a></div><div class="item-right docblock-short"><p>JSON Web Encryption (JWE) content encryption algorithm.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.JweKeyManagementAlgorithm.html" title="openidconnect::JweKeyManagementAlgorithm trait">JweKeyManagementAlgorithm</a></div><div class="item-right docblock-short"><p>JSON Web Encryption (JWE) key management algorithm.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.JwsSigningAlgorithm.html" title="openidconnect::JwsSigningAlgorithm trait">JwsSigningAlgorithm</a></div><div class="item-right docblock-short"><p>JSON Web Signature (JWS) algorithm.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.NonceVerifier.html" title="openidconnect::NonceVerifier trait">NonceVerifier</a></div><div class="item-right docblock-short"><p>Trait for verifying ID token nonces.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.OAuth2TokenResponse.html" title="openidconnect::OAuth2TokenResponse trait">OAuth2TokenResponse</a></div><div class="item-right docblock-short"><p>Common methods shared by all OAuth2 token implementations.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.PrivateSigningKey.html" title="openidconnect::PrivateSigningKey trait">PrivateSigningKey</a></div><div class="item-right docblock-short"><p>Private or symmetric key for signing.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ResponseMode.html" title="openidconnect::ResponseMode trait">ResponseMode</a></div><div class="item-right docblock-short"><p>Response mode indicating how the OpenID Connect Provider should return the Authorization
+Response to the Relying Party (client).</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.ResponseType.html" title="openidconnect::ResponseType trait">ResponseType</a></div><div class="item-right docblock-short"><p>Response type indicating the desired authorization processing flow, including what
+parameters are returned from the endpoints used.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.RevocableToken.html" title="openidconnect::RevocableToken trait">RevocableToken</a></div><div class="item-right docblock-short"><p>A revocable token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.SubjectIdentifierType.html" title="openidconnect::SubjectIdentifierType trait">SubjectIdentifierType</a></div><div class="item-right docblock-short"><p>Subject identifier type returned by an OpenID Connect Provider to uniquely identify its users.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.TokenIntrospectionResponse.html" title="openidconnect::TokenIntrospectionResponse trait">TokenIntrospectionResponse</a></div><div class="item-right docblock-short"><p>Common methods shared by all OAuth2 token introspection implementations.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.TokenResponse.html" title="openidconnect::TokenResponse trait">TokenResponse</a></div><div class="item-right docblock-short"><p>Extends the base OAuth2 token response with an ID token.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.TokenType.html" title="openidconnect::TokenType trait">TokenType</a></div><div class="item-right docblock-short"><p>Trait for OAuth2 access tokens.</p>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="openidconnect" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.59.0 (9d1b2106e 2022-02-23)" ></div>
+</body></html>

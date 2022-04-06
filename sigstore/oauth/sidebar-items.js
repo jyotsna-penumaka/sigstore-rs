@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["openidflow","This provides a method for retreiving a OpenID Connect ID Token and scope from the sigstore project."]]});
