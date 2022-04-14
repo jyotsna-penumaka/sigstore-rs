@@ -1,6 +1,10 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="The `Snafu` macro is the entrypoint to defining your own error types. It is designed to require little configuration for the recommended and typical usecases while still offering flexibility for unique situations."><meta name="keywords" content="rust, rustlang, rust-lang, Snafu"><title>Snafu in snafu::prelude - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc derive"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a class="sidebar-logo" href="../../snafu/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.png" alt="logo"></div>
-        </a><div class="sidebar-elems"><h2 class="location">Other items in<br><a href="../index.html">snafu</a>::<wbr><a href="index.html">prelude</a></h2><div id="sidebar-vars" data-name="Snafu" data-ty="derive" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../snafu/index.html"><img class="rust-logo" src="../../rust-logo.png" alt="logo"></a><nav class="sub"><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><h1 class="fqn"><span class="in-band">Derive Macro <a href="../index.html">snafu</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="derive" href="#">Snafu</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/snafu_derive/lib.rs.html#16" title="goto source code">[src]</a></span></h1><div class="docblock item-decl"><pre class="rust derive"><code>#[derive(Snafu)]
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc derive"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../snafu/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../snafu/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
+        </a><div class="sidebar-elems"><h2 class="location"><a href="index.html">In snafu::prelude</a></h2><div id="sidebar-vars" data-name="Snafu" data-ty="derive" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../snafu/index.html"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Derive Macro <a href="../index.html">snafu</a>::<wbr><a href="index.html">prelude</a>::<wbr><a class="derive" href="#">Snafu</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../../src/snafu_derive/lib.rs.html#16">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="docblock item-decl"><pre class="rust derive"><code>#[derive(Snafu)]
 {
     // Attributes available to this derive:
     #[snafu]
@@ -20,7 +24,7 @@ unique situations.</p>
 <li><a href="#controlling-visibility"><code>visibility</code></a></li>
 <li><a href="#controlling-stringly-typed-errors"><code>whatever</code></a></li>
 </ul>
-<h3 id="controlling-display" class="section-header"><a href="#controlling-display">Controlling <code>Display</code></a></h3>
+<h3 id="controlling-display"><a href="#controlling-display">Controlling <code>Display</code></a></h3>
 <p>You can specify how the <code>Display</code> trait will be implemented for each
 variant. The argument is a format string and the arguments. All of the
 fields of the variant will be available and you can call methods on
@@ -45,7 +49,7 @@ arguments that match a field.</p>
         <span class="string">&quot;Stefani may not log in until they pay USD 1E6&quot;</span>,
     );
 }</code></pre></div>
-<h4 id="the-default-display-implementation" class="section-header"><a href="#the-default-display-implementation">The default <code>Display</code> implementation</a></h4>
+<h4 id="the-default-display-implementation"><a href="#the-default-display-implementation">The default <code>Display</code> implementation</a></h4>
 <p>It is recommended that you provide a value for <code>snafu(display)</code>, but
 if it is omitted, the summary of the documentation comment will be
 used. If that is not present, the name of the variant will be used.</p>
@@ -65,7 +69,7 @@ used. If that is not present, the name of the variant will be used.</p>
     );
     <span class="macro">assert_eq!</span>(<span class="ident">MissingPasswordSnafu</span>.<span class="ident">build</span>().<span class="ident">to_string</span>(), <span class="string">&quot;MissingPassword&quot;</span>);
 }</code></pre></div>
-<h3 id="controlling-context" class="section-header"><a href="#controlling-context">Controlling context</a></h3><h4 id="changing-the-context-selector-suffix" class="section-header"><a href="#changing-the-context-selector-suffix">Changing the context selector suffix</a></h4>
+<h3 id="controlling-context"><a href="#controlling-context">Controlling context</a></h3><h4 id="changing-the-context-selector-suffix"><a href="#changing-the-context-selector-suffix">Changing the context selector suffix</a></h4>
 <p>When context selectors are generated, any <code>Error</code> suffix is removed
 and the suffix <code>Snafu</code> is added by default. If you’d prefer a
 different suffix, such as <code>Ctx</code> or <code>Context</code>, you can specify that
@@ -98,7 +102,7 @@ disable the suffix entirely, you can use
 suffix for variants of the enum. In that case, if you wish to have one
 variant with a suffix, you will need to express it explicitly with
 <code>#[snafu(context(suffix(SomeIdentifier)))]</code>.</p>
-<h4 id="disabling-the-context-selector" class="section-header"><a href="#disabling-the-context-selector">Disabling the context selector</a></h4>
+<h4 id="disabling-the-context-selector"><a href="#disabling-the-context-selector">Disabling the context selector</a></h4>
 <p>Sometimes, an underlying error can only occur in exactly one context
 and there’s no additional information that can be provided to the
 caller. In these cases, you can use <code>#[snafu(context(false))]</code> to
@@ -123,7 +127,7 @@ actionable error from a frustrating one.</p>
 <span class="kw">fn</span> <span class="ident">do_something_unique</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">i32</span>, <span class="ident">VeryUniqueError</span><span class="op">&gt;</span> {
     <span class="comment">// ...</span>
 }</code></pre></div>
-<h3 id="controlling-visibility" class="section-header"><a href="#controlling-visibility">Controlling visibility</a></h3>
+<h3 id="controlling-visibility"><a href="#controlling-visibility">Controlling visibility</a></h3>
 <p>By default, each of the context selectors and their inherent
 methods will be private. It is our opinion that each module should
 have one or more error types that are scoped to that module,
@@ -156,7 +160,7 @@ specific context selectors.</p>
 guaranteed. Therefore, exporting them in a crate’s public API
 could cause semver breakage for such crates, should SNAFU internals
 change.</p>
-<h3 id="placing-context-selectors-in-modules" class="section-header"><a href="#placing-context-selectors-in-modules">Placing context selectors in modules</a></h3>
+<h3 id="placing-context-selectors-in-modules"><a href="#placing-context-selectors-in-modules">Placing context selectors in modules</a></h3>
 <p>When you have multiple error enums that would generate conflicting
 context selectors, you can choose to place the context selectors into
 a module using <code>snafu(module)</code>:</p>
@@ -215,7 +219,7 @@ while the context selectors inside will be <code>pub(super)</code>. Using
 <a href="#controlling-visibility"><code>#[snafu(visibility)]</code></a> to control the
 visibility will change the visibility of <em>both</em> the module and the
 context selectors.</p>
-<h3 id="controlling-error-sources" class="section-header"><a href="#controlling-error-sources">Controlling error sources</a></h3><h4 id="selecting-the-source-field" class="section-header"><a href="#selecting-the-source-field">Selecting the source field</a></h4>
+<h3 id="controlling-error-sources"><a href="#controlling-error-sources">Controlling error sources</a></h3><h4 id="selecting-the-source-field"><a href="#selecting-the-source-field">Selecting the source field</a></h4>
 <p>If your error enum variant contains other errors but the field
 cannot be named <code>source</code>, or if it contains a field named <code>source</code>
 which is not actually an error, you can use <code>#[snafu(source)]</code> to
@@ -233,7 +237,7 @@ indicate if a field is an underlying cause or not:</p>
         <span class="ident">cause</span>: <span class="ident">another::Error</span>,
     },
 }</code></pre></div>
-<h4 id="transforming-the-source" class="section-header"><a href="#transforming-the-source">Transforming the source</a></h4>
+<h4 id="transforming-the-source"><a href="#transforming-the-source">Transforming the source</a></h4>
 <p>If your error type contains an underlying cause that needs to be
 transformed, you can use <code>#[snafu(source(from(...)))]</code>. This takes
 two arguments: the real type and an expression to transform from
@@ -254,7 +258,7 @@ that type to the type held by the error.</p>
 will be treated as a source, even if it’s not named “source” - in
 other words, <code>#[snafu(source(from(...)))]</code> implies
 <code>#[snafu(source)]</code>.</p>
-<h3 id="controlling-backtraces" class="section-header"><a href="#controlling-backtraces">Controlling backtraces</a></h3>
+<h3 id="controlling-backtraces"><a href="#controlling-backtraces">Controlling backtraces</a></h3>
 <p>If your error enum variant contains a backtrace but the field
 cannot be named <code>backtrace</code>, or if it contains a field named
 <code>backtrace</code> which is not actually a backtrace, you can use
@@ -285,7 +289,7 @@ source field representing the other error:</p>
         <span class="ident">source</span>: <span class="ident">another::Error</span>,
     },
 }</code></pre></div>
-<h3 id="controlling-implicitly-generated-data" class="section-header"><a href="#controlling-implicitly-generated-data">Controlling implicitly generated data</a></h3>
+<h3 id="controlling-implicitly-generated-data"><a href="#controlling-implicitly-generated-data">Controlling implicitly generated data</a></h3>
 <p>Sometimes, you can capture contextual error data without needing any
 arguments. <a href="../struct.Backtrace.html" title="Backtrace">Backtraces</a> are a common example, but other
 global information like the current time or thread ID could also be
@@ -319,7 +323,7 @@ that data at error construction time:</p>
 }</code></pre></div>
 <p>You can use <code>#[snafu(implicit(false))]</code> if a field is incorrectly
 automatically identified as containing implicit data.</p>
-<h3 id="controlling-stringly-typed-errors" class="section-header"><a href="#controlling-stringly-typed-errors">Controlling stringly-typed errors</a></h3>
+<h3 id="controlling-stringly-typed-errors"><a href="#controlling-stringly-typed-errors">Controlling stringly-typed errors</a></h3>
 <p>This allows your custom error type to behave like the <a href="../struct.Whatever.html" title="Whatever"><code>Whatever</code></a>
 error type. Since it is your type, you can implement additional
 methods or traits. When placed on a struct or enum variant, you will
@@ -342,7 +346,7 @@ be able to use the type with the <a href="../macro.whatever.html" title="whateve
         <span class="ident">source</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">std::error::Error</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     },
 }</code></pre></div>
-<h3 id="controlling-how-the-snafu-crate-is-resolved" class="section-header"><a href="#controlling-how-the-snafu-crate-is-resolved">Controlling how the <code>snafu</code> crate is resolved</a></h3>
+<h3 id="controlling-how-the-snafu-crate-is-resolved"><a href="#controlling-how-the-snafu-crate-is-resolved">Controlling how the <code>snafu</code> crate is resolved</a></h3>
 <p>If the <code>snafu</code> crate is not called <code>snafu</code> for some reason, you can
 use <code>#[snafu(crate_root)]</code> to instruct the macro how to find the crate
 root:</p>
@@ -358,5 +362,5 @@ root:</p>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Snafu</span>)]</span>
 <span class="attribute">#[<span class="ident">snafu</span>(<span class="ident">crate_root</span>(<span class="ident">my_custom_naming_of_snafu</span>))]</span>
 <span class="kw">struct</span> <span class="ident">ApiError</span>(<span class="ident">Error</span>);</code></pre></div>
-</div></details></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="snafu" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.59.0 (9d1b2106e 2022-02-23)" ></div>
+</div></details></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="snafu" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0 (7737e0b5c 2022-04-04)" ></div>
 </body></html>

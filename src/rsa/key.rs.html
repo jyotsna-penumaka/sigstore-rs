@@ -1,6 +1,11 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;home&#x2F;runner&#x2F;.cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;rsa-0.6.0-pre&#x2F;src&#x2F;key.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>key.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a class="sidebar-logo" href="../../rsa/index.html"><div class="logo-container"><img src="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo_small.png" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../rsa/index.html"><img src="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo_small.png" alt="logo"></a><nav class="sub"><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/rsa-0.6.1/src/key.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>key.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../rsa/index.html"><div class="logo-container"><img src="https://raw.githubusercontent.com/RustCrypto/meta/master/logo_small.png" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../rsa/index.html"><div class="logo-container">
+                    <img src="https://raw.githubusercontent.com/RustCrypto/meta/master/logo_small.png" alt="logo"></div>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../rsa/index.html">
+                        <img src="https://raw.githubusercontent.com/RustCrypto/meta/master/logo_small.png" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -955,13 +960,41 @@
 <span id="953">953</span>
 <span id="954">954</span>
 <span id="955">955</span>
+<span id="956">956</span>
+<span id="957">957</span>
+<span id="958">958</span>
+<span id="959">959</span>
+<span id="960">960</span>
+<span id="961">961</span>
+<span id="962">962</span>
+<span id="963">963</span>
+<span id="964">964</span>
+<span id="965">965</span>
+<span id="966">966</span>
+<span id="967">967</span>
+<span id="968">968</span>
+<span id="969">969</span>
+<span id="970">970</span>
+<span id="971">971</span>
+<span id="972">972</span>
+<span id="973">973</span>
+<span id="974">974</span>
+<span id="975">975</span>
+<span id="976">976</span>
+<span id="977">977</span>
+<span id="978">978</span>
+<span id="979">979</span>
+<span id="980">980</span>
+<span id="981">981</span>
+<span id="982">982</span>
+<span id="983">983</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">alloc::vec::Vec</span>;
 <span class="kw">use</span> <span class="ident">core::ops::Deref</span>;
 <span class="kw">use</span> <span class="ident">num_bigint::traits::ModInverse</span>;
 <span class="kw">use</span> <span class="ident">num_bigint::Sign::Plus</span>;
 <span class="kw">use</span> <span class="ident">num_bigint</span>::{<span class="ident">BigInt</span>, <span class="ident">BigUint</span>};
 <span class="kw">use</span> <span class="ident">num_traits</span>::{<span class="ident">One</span>, <span class="ident">ToPrimitive</span>};
-<span class="kw">use</span> <span class="ident">rand</span>::{<span class="ident">rngs::StdRng</span>, <span class="ident">Rng</span>};
+<span class="kw">use</span> <span class="ident">rand_core</span>::{<span class="ident">CryptoRng</span>, <span class="ident">RngCore</span>};
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>)]</span>
 <span class="kw">use</span> <span class="ident">serde_crate</span>::{<span class="ident">Deserialize</span>, <span class="ident">Serialize</span>};
 <span class="kw">use</span> <span class="ident">zeroize::Zeroize</span>;
@@ -1131,7 +1164,12 @@
 <span class="doccomment">/// Generic trait for operations on a public key.</span>
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">PublicKey</span>: <span class="ident">EncryptionPrimitive</span> <span class="op">+</span> <span class="ident">PublicKeyParts</span> {
     <span class="doccomment">/// Encrypt the given message.</span>
-    <span class="kw">fn</span> <span class="ident">encrypt</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Rng</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">rng</span>: <span class="kw-2">&amp;mut</span> <span class="ident">R</span>, <span class="ident">padding</span>: <span class="ident">PaddingScheme</span>, <span class="ident">msg</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">encrypt</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">RngCore</span> <span class="op">+</span> <span class="ident">CryptoRng</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">rng</span>: <span class="kw-2">&amp;mut</span> <span class="ident">R</span>,
+        <span class="ident">padding</span>: <span class="ident">PaddingScheme</span>,
+        <span class="ident">msg</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>;
 
     <span class="doccomment">/// Verify a signed message.</span>
     <span class="doccomment">/// `hashed`must be the result of hashing the input using the hashing function</span>
@@ -1151,7 +1189,12 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PublicKey</span> <span class="kw">for</span> <span class="ident">RsaPublicKey</span> {
-    <span class="kw">fn</span> <span class="ident">encrypt</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Rng</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">rng</span>: <span class="kw-2">&amp;mut</span> <span class="ident">R</span>, <span class="ident">padding</span>: <span class="ident">PaddingScheme</span>, <span class="ident">msg</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">encrypt</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">RngCore</span> <span class="op">+</span> <span class="ident">CryptoRng</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">rng</span>: <span class="kw-2">&amp;mut</span> <span class="ident">R</span>,
+        <span class="ident">padding</span>: <span class="ident">PaddingScheme</span>,
+        <span class="ident">msg</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">padding</span> {
             <span class="ident">PaddingScheme::PKCS1v15Encrypt</span> =&gt; <span class="ident">pkcs1v15::encrypt</span>(<span class="ident">rng</span>, <span class="self">self</span>, <span class="ident">msg</span>),
             <span class="ident">PaddingScheme::OAEP</span> {
@@ -1197,7 +1240,12 @@
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">PublicKey</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">RsaPublicKey</span> {
-    <span class="kw">fn</span> <span class="ident">encrypt</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Rng</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">rng</span>: <span class="kw-2">&amp;mut</span> <span class="ident">R</span>, <span class="ident">padding</span>: <span class="ident">PaddingScheme</span>, <span class="ident">msg</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">encrypt</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">RngCore</span> <span class="op">+</span> <span class="ident">CryptoRng</span><span class="op">&gt;</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">rng</span>: <span class="kw-2">&amp;mut</span> <span class="ident">R</span>,
+        <span class="ident">padding</span>: <span class="ident">PaddingScheme</span>,
+        <span class="ident">msg</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         (<span class="kw-2">*</span><span class="self">self</span>).<span class="ident">encrypt</span>(<span class="ident">rng</span>, <span class="ident">padding</span>, <span class="ident">msg</span>)
     }
 
@@ -1232,7 +1280,7 @@
 
 <span class="kw">impl</span> <span class="ident">RsaPrivateKey</span> {
     <span class="doccomment">/// Generate a new Rsa key pair of the given bit size using the passed in `rng`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Rng</span><span class="op">&gt;</span>(<span class="ident">rng</span>: <span class="kw-2">&amp;mut</span> <span class="ident">R</span>, <span class="ident">bit_size</span>: <span class="ident">usize</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RsaPrivateKey</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">RngCore</span> <span class="op">+</span> <span class="ident">CryptoRng</span><span class="op">&gt;</span>(<span class="ident">rng</span>: <span class="kw-2">&amp;mut</span> <span class="ident">R</span>, <span class="ident">bit_size</span>: <span class="ident">usize</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RsaPrivateKey</span><span class="op">&gt;</span> {
         <span class="ident">generate_multi_prime_key</span>(<span class="ident">rng</span>, <span class="number">2</span>, <span class="ident">bit_size</span>)
     }
 
@@ -1240,7 +1288,7 @@
     <span class="doccomment">/// using the passed in `rng`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Unless you have specific needs, you should use `RsaPrivateKey::new` instead.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_with_exp</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Rng</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_with_exp</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">RngCore</span> <span class="op">+</span> <span class="ident">CryptoRng</span><span class="op">&gt;</span>(
         <span class="ident">rng</span>: <span class="kw-2">&amp;mut</span> <span class="ident">R</span>,
         <span class="ident">bit_size</span>: <span class="ident">usize</span>,
         <span class="ident">exp</span>: <span class="kw-2">&amp;</span><span class="ident">BigUint</span>,
@@ -1338,6 +1386,11 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">primes</span>
     }
 
+    <span class="doccomment">/// Compute CRT coefficient: `(1/q) mod p`.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">crt_coefficient</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">BigUint</span><span class="op">&gt;</span> {
+        (<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">primes</span>[<span class="number">1</span>]).<span class="ident">mod_inverse</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">primes</span>[<span class="number">0</span>])<span class="question-mark">?</span>.<span class="ident">to_biguint</span>()
+    }
+
     <span class="doccomment">/// Performs basic sanity checks on the key.</span>
     <span class="doccomment">/// Returns `Ok(())` if everything is good, otherwise an approriate error.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">validate</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
@@ -1378,13 +1431,13 @@
         <span class="kw">match</span> <span class="ident">padding</span> {
             <span class="comment">// need to pass any Rng as the type arg, so the type checker is happy, it is not actually used for anything</span>
             <span class="ident">PaddingScheme::PKCS1v15Encrypt</span> =&gt; {
-                <span class="ident">pkcs1v15::decrypt</span>::<span class="op">&lt;</span><span class="ident">StdRng</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="prelude-val">None</span>, <span class="self">self</span>, <span class="ident">ciphertext</span>)
+                <span class="ident">pkcs1v15::decrypt</span>::<span class="op">&lt;</span><span class="ident">DummyRng</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="prelude-val">None</span>, <span class="self">self</span>, <span class="ident">ciphertext</span>)
             }
             <span class="ident">PaddingScheme::OAEP</span> {
                 <span class="kw-2">mut</span> <span class="ident">digest</span>,
                 <span class="kw-2">mut</span> <span class="ident">mgf_digest</span>,
                 <span class="ident">label</span>,
-            } =&gt; <span class="ident">oaep::decrypt</span>::<span class="op">&lt;</span><span class="ident">StdRng</span>, <span class="kw">_</span><span class="op">&gt;</span>(
+            } =&gt; <span class="ident">oaep::decrypt</span>::<span class="op">&lt;</span><span class="ident">DummyRng</span>, <span class="kw">_</span><span class="op">&gt;</span>(
                 <span class="prelude-val">None</span>,
                 <span class="self">self</span>,
                 <span class="ident">ciphertext</span>,
@@ -1399,7 +1452,7 @@
     <span class="doccomment">/// Decrypt the given message.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Uses `rng` to blind the decryption process.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decrypt_blinded</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Rng</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">decrypt_blinded</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">RngCore</span> <span class="op">+</span> <span class="ident">CryptoRng</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">rng</span>: <span class="kw-2">&amp;mut</span> <span class="ident">R</span>,
         <span class="ident">padding</span>: <span class="ident">PaddingScheme</span>,
@@ -1428,13 +1481,13 @@
         <span class="kw">match</span> <span class="ident">padding</span> {
             <span class="comment">// need to pass any Rng as the type arg, so the type checker is happy, it is not actually used for anything</span>
             <span class="ident">PaddingScheme::PKCS1v15Sign</span> { <span class="kw-2">ref</span> <span class="ident">hash</span> } =&gt; {
-                <span class="ident">pkcs1v15::sign</span>::<span class="op">&lt;</span><span class="ident">StdRng</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="prelude-val">None</span>, <span class="self">self</span>, <span class="ident">hash</span>.<span class="ident">as_ref</span>(), <span class="ident">digest_in</span>)
+                <span class="ident">pkcs1v15::sign</span>::<span class="op">&lt;</span><span class="ident">DummyRng</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="prelude-val">None</span>, <span class="self">self</span>, <span class="ident">hash</span>.<span class="ident">as_ref</span>(), <span class="ident">digest_in</span>)
             }
             <span class="ident">PaddingScheme::PSS</span> {
                 <span class="kw-2">mut</span> <span class="ident">salt_rng</span>,
                 <span class="kw-2">mut</span> <span class="ident">digest</span>,
                 <span class="ident">salt_len</span>,
-            } =&gt; <span class="ident">pss::sign</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">StdRng</span>, <span class="kw">_</span><span class="op">&gt;</span>(
+            } =&gt; <span class="ident">pss::sign</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">DummyRng</span>, <span class="kw">_</span><span class="op">&gt;</span>(
                 <span class="kw-2">&amp;mut</span> <span class="kw-2">*</span><span class="ident">salt_rng</span>,
                 <span class="prelude-val">None</span>,
                 <span class="self">self</span>,
@@ -1449,7 +1502,7 @@
     <span class="doccomment">/// Sign the given digest.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Use `rng` for blinding.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sign_blinded</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">Rng</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sign_blinded</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">RngCore</span> <span class="op">+</span> <span class="ident">CryptoRng</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">rng</span>: <span class="kw-2">&amp;mut</span> <span class="ident">R</span>,
         <span class="ident">padding</span>: <span class="ident">PaddingScheme</span>,
@@ -1495,6 +1548,31 @@
     <span class="prelude-val">Ok</span>(())
 }
 
+<span class="doccomment">/// This is a dummy RNG for cases when we need a concrete RNG type</span>
+<span class="doccomment">/// which does not get used.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
+<span class="kw">struct</span> <span class="ident">DummyRng</span>;
+
+<span class="kw">impl</span> <span class="ident">RngCore</span> <span class="kw">for</span> <span class="ident">DummyRng</span> {
+    <span class="kw">fn</span> <span class="ident">next_u32</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">u32</span> {
+        <span class="macro">unimplemented!</span>();
+    }
+
+    <span class="kw">fn</span> <span class="ident">next_u64</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>) -&gt; <span class="ident">u64</span> {
+        <span class="macro">unimplemented!</span>();
+    }
+
+    <span class="kw">fn</span> <span class="ident">fill_bytes</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">u8</span>]) {
+        <span class="macro">unimplemented!</span>();
+    }
+
+    <span class="kw">fn</span> <span class="ident">try_fill_bytes</span>(<span class="kw-2">&amp;mut</span> <span class="self">self</span>, <span class="kw">_</span>: <span class="kw-2">&amp;mut</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">core::result::Result</span><span class="op">&lt;</span>(), <span class="ident">rand_core::Error</span><span class="op">&gt;</span> {
+        <span class="macro">unimplemented!</span>();
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">CryptoRng</span> <span class="kw">for</span> <span class="ident">DummyRng</span> {}
+
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
@@ -1503,11 +1581,13 @@
     <span class="kw">use</span> <span class="ident">alloc::string::String</span>;
     <span class="kw">use</span> <span class="ident">digest</span>::{<span class="ident">Digest</span>, <span class="ident">DynDigest</span>};
     <span class="kw">use</span> <span class="ident">num_traits</span>::{<span class="ident">FromPrimitive</span>, <span class="ident">ToPrimitive</span>};
-    <span class="kw">use</span> <span class="ident">rand</span>::{<span class="ident">distributions::Alphanumeric</span>, <span class="ident">rngs::StdRng</span>, <span class="ident">SeedableRng</span>};
+    <span class="kw">use</span> <span class="ident">rand_chacha</span>::{
+        <span class="ident">rand_core</span>::{<span class="ident">RngCore</span>, <span class="ident">SeedableRng</span>},
+        <span class="ident">ChaCha8Rng</span>,
+    };
     <span class="kw">use</span> <span class="ident">sha1::Sha1</span>;
     <span class="kw">use</span> <span class="ident">sha2</span>::{<span class="ident">Sha224</span>, <span class="ident">Sha256</span>, <span class="ident">Sha384</span>, <span class="ident">Sha512</span>};
     <span class="kw">use</span> <span class="ident">sha3</span>::{<span class="ident">Sha3_256</span>, <span class="ident">Sha3_384</span>, <span class="ident">Sha3_512</span>};
-    <span class="kw">use</span> <span class="ident">std::time::SystemTime</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_from_into</span>() {
@@ -1537,13 +1617,10 @@
         <span class="kw">let</span> <span class="ident">pub_key</span>: <span class="ident">RsaPublicKey</span> <span class="op">=</span> <span class="ident">private_key</span>.<span class="ident">clone</span>().<span class="ident">into</span>();
         <span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">BigUint::from_u64</span>(<span class="number">42</span>).<span class="ident">expect</span>(<span class="string">&quot;invalid 42&quot;</span>);
         <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident">internals::encrypt</span>(<span class="kw-2">&amp;</span><span class="ident">pub_key</span>, <span class="kw-2">&amp;</span><span class="ident">m</span>);
-        <span class="kw">let</span> <span class="ident">m2</span> <span class="op">=</span> <span class="ident">internals::decrypt</span>::<span class="op">&lt;</span><span class="ident">StdRng</span><span class="op">&gt;</span>(<span class="prelude-val">None</span>, <span class="kw-2">&amp;</span><span class="ident">private_key</span>, <span class="kw-2">&amp;</span><span class="ident">c</span>)
+        <span class="kw">let</span> <span class="ident">m2</span> <span class="op">=</span> <span class="ident">internals::decrypt</span>::<span class="op">&lt;</span><span class="ident">ChaCha8Rng</span><span class="op">&gt;</span>(<span class="prelude-val">None</span>, <span class="kw-2">&amp;</span><span class="ident">private_key</span>, <span class="kw-2">&amp;</span><span class="ident">c</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;unable to decrypt without blinding&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">m</span>, <span class="ident">m2</span>);
-        <span class="kw">let</span> <span class="ident">seed</span> <span class="op">=</span> <span class="ident">SystemTime::now</span>()
-            .<span class="ident">duration_since</span>(<span class="ident">SystemTime::UNIX_EPOCH</span>)
-            .<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">StdRng::seed_from_u64</span>(<span class="ident">seed</span>.<span class="ident">as_secs</span>());
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">ChaCha8Rng::from_seed</span>([<span class="number">42</span>; <span class="number">32</span>]);
         <span class="kw">let</span> <span class="ident">m3</span> <span class="op">=</span> <span class="ident">internals::decrypt</span>(<span class="prelude-val">Some</span>(<span class="kw-2">&amp;mut</span> <span class="ident">rng</span>), <span class="kw-2">&amp;</span><span class="ident">private_key</span>, <span class="kw-2">&amp;</span><span class="ident">c</span>)
             .<span class="ident">expect</span>(<span class="string">&quot;unable to decrypt with blinding&quot;</span>);
         <span class="macro">assert_eq!</span>(<span class="ident">m</span>, <span class="ident">m3</span>);
@@ -1553,10 +1630,7 @@
         (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">multi</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">size</span>:<span class="ident">expr</span>) =&gt; {
             <span class="attribute">#[<span class="ident">test</span>]</span>
             <span class="kw">fn</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>() {
-                <span class="kw">let</span> <span class="ident">seed</span> <span class="op">=</span> <span class="ident">SystemTime::now</span>()
-                    .<span class="ident">duration_since</span>(<span class="ident">SystemTime::UNIX_EPOCH</span>)
-                    .<span class="ident">unwrap</span>();
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">StdRng::seed_from_u64</span>(<span class="ident">seed</span>.<span class="ident">as_secs</span>());
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">ChaCha8Rng::from_seed</span>([<span class="number">42</span>; <span class="number">32</span>]);
 
                 <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">10</span> {
                     <span class="kw">let</span> <span class="ident">private_key</span> <span class="op">=</span> <span class="kw">if</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">multi</span> <span class="op">==</span> <span class="number">2</span> {
@@ -1585,11 +1659,7 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_impossible_keys</span>() {
-        <span class="comment">// make sure not infinite loops are hit here.</span>
-        <span class="kw">let</span> <span class="ident">seed</span> <span class="op">=</span> <span class="ident">SystemTime::now</span>()
-            .<span class="ident">duration_since</span>(<span class="ident">SystemTime::UNIX_EPOCH</span>)
-            .<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">StdRng::seed_from_u64</span>(<span class="ident">seed</span>.<span class="ident">as_secs</span>());
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">ChaCha8Rng::from_seed</span>([<span class="number">42</span>; <span class="number">32</span>]);
         <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">32</span> {
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">RsaPrivateKey::new</span>(<span class="kw-2">&amp;mut</span> <span class="ident">rng</span>, <span class="ident">i</span>).<span class="ident">is_err</span>();
             <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">generate_multi_prime_key</span>(<span class="kw-2">&amp;mut</span> <span class="ident">rng</span>, <span class="number">3</span>, <span class="ident">i</span>);
@@ -1620,13 +1690,12 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde1&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;serde&quot;</span>)]</span>
     <span class="kw">fn</span> <span class="ident">test_serde</span>() {
-        <span class="kw">use</span> <span class="ident">rand::SeedableRng</span>;
-        <span class="kw">use</span> <span class="ident">rand_xorshift::XorShiftRng</span>;
+        <span class="kw">use</span> <span class="ident">rand_chacha</span>::{<span class="ident">rand_core::SeedableRng</span>, <span class="ident">ChaCha8Rng</span>};
         <span class="kw">use</span> <span class="ident">serde_test</span>::{<span class="ident">assert_tokens</span>, <span class="ident">Token</span>};
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">XorShiftRng::from_seed</span>([<span class="number">1</span>; <span class="number">16</span>]);
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">ChaCha8Rng::from_seed</span>([<span class="number">42</span>; <span class="number">32</span>]);
         <span class="kw">let</span> <span class="ident">priv_key</span> <span class="op">=</span> <span class="ident">RsaPrivateKey::new</span>(<span class="kw-2">&amp;mut</span> <span class="ident">rng</span>, <span class="number">64</span>).<span class="ident">expect</span>(<span class="string">&quot;failed to generate key&quot;</span>);
 
         <span class="kw">let</span> <span class="ident">priv_tokens</span> <span class="op">=</span> [
@@ -1641,8 +1710,8 @@
             },
             <span class="ident">Token::Str</span>(<span class="string">&quot;n&quot;</span>),
             <span class="ident">Token::Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">2</span>) },
-            <span class="ident">Token::U32</span>(<span class="number">1296829443</span>),
-            <span class="ident">Token::U32</span>(<span class="number">2444363981</span>),
+            <span class="ident">Token::U32</span>(<span class="number">3814409919</span>),
+            <span class="ident">Token::U32</span>(<span class="number">3429654832</span>),
             <span class="ident">Token::SeqEnd</span>,
             <span class="ident">Token::Str</span>(<span class="string">&quot;e&quot;</span>),
             <span class="ident">Token::Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">1</span>) },
@@ -1651,16 +1720,16 @@
             <span class="ident">Token::StructEnd</span>,
             <span class="ident">Token::Str</span>(<span class="string">&quot;d&quot;</span>),
             <span class="ident">Token::Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">2</span>) },
-            <span class="ident">Token::U32</span>(<span class="number">298985985</span>),
-            <span class="ident">Token::U32</span>(<span class="number">2349628418</span>),
+            <span class="ident">Token::U32</span>(<span class="number">1482162201</span>),
+            <span class="ident">Token::U32</span>(<span class="number">1675500232</span>),
             <span class="ident">Token::SeqEnd</span>,
             <span class="ident">Token::Str</span>(<span class="string">&quot;primes&quot;</span>),
             <span class="ident">Token::Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">2</span>) },
             <span class="ident">Token::Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">1</span>) },
-            <span class="ident">Token::U32</span>(<span class="number">3238068481</span>),
+            <span class="ident">Token::U32</span>(<span class="number">4133289821</span>),
             <span class="ident">Token::SeqEnd</span>,
             <span class="ident">Token::Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">1</span>) },
-            <span class="ident">Token::U32</span>(<span class="number">3242199299</span>),
+            <span class="ident">Token::U32</span>(<span class="number">3563808971</span>),
             <span class="ident">Token::SeqEnd</span>,
             <span class="ident">Token::SeqEnd</span>,
             <span class="ident">Token::StructEnd</span>,
@@ -1674,8 +1743,8 @@
             },
             <span class="ident">Token::Str</span>(<span class="string">&quot;n&quot;</span>),
             <span class="ident">Token::Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">2</span>) },
-            <span class="ident">Token::U32</span>(<span class="number">1296829443</span>),
-            <span class="ident">Token::U32</span>(<span class="number">2444363981</span>),
+            <span class="ident">Token::U32</span>(<span class="number">3814409919</span>),
+            <span class="ident">Token::U32</span>(<span class="number">3429654832</span>),
             <span class="ident">Token::SeqEnd</span>,
             <span class="ident">Token::Str</span>(<span class="string">&quot;e&quot;</span>),
             <span class="ident">Token::Seq</span> { <span class="ident">len</span>: <span class="prelude-val">Some</span>(<span class="number">1</span>) },
@@ -1688,15 +1757,17 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">invalid_coeff_private_key_regression</span>() {
-        <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">base64::decode</span>(<span class="string">&quot;wC8GyQvTCZOK+iiBR5fGQCmzRCTWX9TQ3aRG5gGFk0wB6EFoLMAyEEqeG3gS8xhAm2rSWYx9kKufvNat3iWlbSRVqkcbpVAYlj2vTrpqDpJl+6u+zxFYoUEBevlJJkAhl8EuCccOA30fVpcfRvXPTtvRd3yFT9E9EwZljtgSI02w7gZwg7VIxaGeajh5Euz6ZVQZ+qNRKgXrRC7gPRqVyI6Dt0Jc+Su5KBGNn0QcPDzOahWha1ieaeMkFisZ9mdpsJoZ4tw5eicLaUomKzALHXQVt+/rcZSrCd6/7uUo11B/CYBM4UfSpwXaL88J9AE6A5++no9hmJzaF2LLp+Qwx4yY3j9TDutxSAjsraxxJOGZ3XyA9nG++Ybt3cxZ5fP7ROjxCfROBmVv5dYn0O9OBIqYeCH6QraNpZMadlLNIhyMv8Y+P3r5l/PaK4VJaEi5pPosnEPawp0W0yZDzmjk2z1LthaRx0aZVrAjlH0Rb/6goLUQ9qu1xsDtQVVpN4A89ZUmtTWORnnJr0+595eHHxssd2gpzqf4bPjNITdAEuOCCtpvyi4ls23zwuzryUYjcUOEnsXNQ+DrZpLKxdtsD/qNV/j1hfeyBoPllC3cV+6bcGOFcVGbjYqb+Kw1b0+jL69RSKQqgmS+qYqr8c48nDRxyq3QXhR8qtzUwBFSLVk=&quot;</span>).<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <span class="ident">base64::decode</span>(<span class="string">&quot;AQAB&quot;</span>).<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="ident">d</span> <span class="op">=</span> <span class="ident">base64::decode</span>(<span class="string">&quot;qQazSQ+FRN7nVK1bRsROMRB8AmsDwLVEHivlz1V3Td2Dr+oW3YUMgxedhztML1IdQJPq/ad6qErJ6yRFNySVIjDaxzBTOEoB1eHa1btOnBJWb8rVvvjaorixvJ6Tn3i4EuhsvVy9DoR1k4rGj3qSIiFjUVvLRDAbLyhpGgEfsr0Z577yJmTC5E8JLRMOKX8Tmxsk3jPVpsgd65Hu1s8S/ZmabwuHCf9SkdMeY/1bd/9i7BqqJeeDLE4B5x1xcC3z3scqDUTzqGO+vZPhjgprPDRlBamVwgenhr7KwCn8iaLamFinRVwOAag8BeBqOJj7lURiOsKQa9FIX1kdFUS1QMQxgtPycLjkbvCJjriqT7zWKsmJ7l8YLs6Wmm9/+QJRwNCEVdMTXKfCP1cJjudaiskEQThfUldtgu8gUDNYbQ/Filb2eKfiX4h1TiMxZqUZHVZyb9nShbQoXJ3vj/MGVF0QM8TxhXM8r2Lv9gDYU5t9nQlUMLhs0jVjai48jHABbFNyH3sEcOmJOIwJrCXw1dzG7AotwyaEVUHOmL04TffmwCFfnyrLjbFgnyOeoyIIBYjcY7QFRm/9nupXMTH5hZ2qrHfCJIp0KK4tNBdQqmnHapFl5l6Le1s4qBS5bEIzjitobLvAFm9abPlDGfxmY6mlrMK4+nytwF9Ct7wc1AE=&quot;</span>).<span class="ident">unwrap</span>();
+        <span class="kw">use</span> <span class="ident">base64ct</span>::{<span class="ident">Base64</span>, <span class="ident">Encoding</span>};
+
+        <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">Base64::decode_vec</span>(<span class="string">&quot;wC8GyQvTCZOK+iiBR5fGQCmzRCTWX9TQ3aRG5gGFk0wB6EFoLMAyEEqeG3gS8xhAm2rSWYx9kKufvNat3iWlbSRVqkcbpVAYlj2vTrpqDpJl+6u+zxFYoUEBevlJJkAhl8EuCccOA30fVpcfRvXPTtvRd3yFT9E9EwZljtgSI02w7gZwg7VIxaGeajh5Euz6ZVQZ+qNRKgXrRC7gPRqVyI6Dt0Jc+Su5KBGNn0QcPDzOahWha1ieaeMkFisZ9mdpsJoZ4tw5eicLaUomKzALHXQVt+/rcZSrCd6/7uUo11B/CYBM4UfSpwXaL88J9AE6A5++no9hmJzaF2LLp+Qwx4yY3j9TDutxSAjsraxxJOGZ3XyA9nG++Ybt3cxZ5fP7ROjxCfROBmVv5dYn0O9OBIqYeCH6QraNpZMadlLNIhyMv8Y+P3r5l/PaK4VJaEi5pPosnEPawp0W0yZDzmjk2z1LthaRx0aZVrAjlH0Rb/6goLUQ9qu1xsDtQVVpN4A89ZUmtTWORnnJr0+595eHHxssd2gpzqf4bPjNITdAEuOCCtpvyi4ls23zwuzryUYjcUOEnsXNQ+DrZpLKxdtsD/qNV/j1hfeyBoPllC3cV+6bcGOFcVGbjYqb+Kw1b0+jL69RSKQqgmS+qYqr8c48nDRxyq3QXhR8qtzUwBFSLVk=&quot;</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <span class="ident">Base64::decode_vec</span>(<span class="string">&quot;AQAB&quot;</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">d</span> <span class="op">=</span> <span class="ident">Base64::decode_vec</span>(<span class="string">&quot;qQazSQ+FRN7nVK1bRsROMRB8AmsDwLVEHivlz1V3Td2Dr+oW3YUMgxedhztML1IdQJPq/ad6qErJ6yRFNySVIjDaxzBTOEoB1eHa1btOnBJWb8rVvvjaorixvJ6Tn3i4EuhsvVy9DoR1k4rGj3qSIiFjUVvLRDAbLyhpGgEfsr0Z577yJmTC5E8JLRMOKX8Tmxsk3jPVpsgd65Hu1s8S/ZmabwuHCf9SkdMeY/1bd/9i7BqqJeeDLE4B5x1xcC3z3scqDUTzqGO+vZPhjgprPDRlBamVwgenhr7KwCn8iaLamFinRVwOAag8BeBqOJj7lURiOsKQa9FIX1kdFUS1QMQxgtPycLjkbvCJjriqT7zWKsmJ7l8YLs6Wmm9/+QJRwNCEVdMTXKfCP1cJjudaiskEQThfUldtgu8gUDNYbQ/Filb2eKfiX4h1TiMxZqUZHVZyb9nShbQoXJ3vj/MGVF0QM8TxhXM8r2Lv9gDYU5t9nQlUMLhs0jVjai48jHABbFNyH3sEcOmJOIwJrCXw1dzG7AotwyaEVUHOmL04TffmwCFfnyrLjbFgnyOeoyIIBYjcY7QFRm/9nupXMTH5hZ2qrHfCJIp0KK4tNBdQqmnHapFl5l6Le1s4qBS5bEIzjitobLvAFm9abPlDGfxmY6mlrMK4+nytwF9Ct7wc1AE=&quot;</span>).<span class="ident">unwrap</span>();
         <span class="kw">let</span> <span class="ident">primes</span> <span class="op">=</span> <span class="macro">vec!</span>[
-            <span class="ident">base64::decode</span>(<span class="string">&quot;9kQWEAzsbzOcdPa+s5wFfw4XDd7bB1q9foZ31b1+TNjGNxbSBCFlDF1q98vwpV6nM8bWDh/wtbNoETSQDgpEnYOQ26LWEw6YY1+q1Q2GGEFceYUf+Myk8/vTc8TN6Zw0bKZBWy10Qo8h7xk4JpzuI7NcxvjJYTkS9aErFxi3vVH0aiZC0tmfaCqr8a2rJxyVwqreRpOjwAWrotMsf2wGsF4ofx5ScoFy5GB5fJkkdOrW1LyTvZAUCX3cstPr19+TNC5zZOk7WzZatnCkN5H5WzalWtZuu0oVL205KPOa3R8V2yv5e6fm0v5fTmqSuvjmaMJLXCN4QJkmIzojO99ckQ==&quot;</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">base64::decode</span>(<span class="string">&quot;x8exdMjVA2CiI+Thx7loHtVcevoeE2sZ7btRVAvmBqo+lkHwxb7FHRnWvuj6eJSlD2f0T50EewIhhiW3R9BmktCk7hXjbSCnC1u9Oxc1IAUm/7azRqyfCMx43XhLxpD+xkBCpWkKDLxGczsRwTuaP3lKS3bSdBrNlGmdblubvVBIq4YZ2vXVlnYtza0cS+dgCK7BGTqUsrCUd/ZbIvwcwZkZtpkhj1KQfto9X/0OMurBzAqbkeq1cyRHXHkOfN/qbUIIRqr9Ii7Eswf9Vk8xp2O1Nt8nzcYS9PFD12M5eyaeFEkEYfpNMNGuTzp/31oqVjbpoCxS6vuWAZyADxhISQ==&quot;</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">base64::decode</span>(<span class="string">&quot;is7d0LY4HoXszlC2NO7gejkq7XqL4p1W6hZJPYTNx+r37t1CC2n3Vvzg6kNdpRixDhIpXVTLjN9O7UO/XuqSumYKJIKoP52eb4Tg+a3hw5Iz2Zsb5lUTNSLgkQSBPAf71LHxbL82JL4g1nBUog8ae60BwnVArThKY4EwlJguGNw09BAU4lwf6csDl/nX2vfVwiAloYpeZkHL+L8m+bueGZM5KE2jEz+7ztZCI+T+E5i69rZEYDjx0lfLKlEhQlCW3HbCPELqXgNJJkRfi6MP9kXa9lSfnZmoT081RMvqonB/FUa4HOcKyCrw9XZEtnbNCIdbitfDVEX+pSSD7596wQ==&quot;</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">base64::decode</span>(<span class="string">&quot;GPs0injugfycacaeIP5jMa/WX55VEnKLDHom4k6WlfDF4L4gIGoJdekcPEUfxOI5faKvHyFwRP1wObkPoRBDM0qZxRfBl4zEtpvjHrd5MibSyJkM8+J0BIKk/nSjbRIGeb3hV5O56PvGB3S0dKhCUnuVObiC+ne7izplsD4OTG70l1Yud33UFntyoMxrxGYLUSqhBMmZfHquJg4NOWOzKNY/K+EcHDLj1Kjvkcgv9Vf7ocsVxvpFdD9uGPceQ6kwRDdEl6mb+6FDgWuXVyqR9+904oanEIkbJ7vfkthagLbEf57dyG6nJlqh5FBZWxGIR72YGypPuAh7qnnqXXjY2Q==&quot;</span>).<span class="ident">unwrap</span>(),
-            <span class="ident">base64::decode</span>(<span class="string">&quot;CUWC+hRWOT421kwRllgVjy6FYv6jQUcgDNHeAiYZnf5HjS9iK2ki7v8G5dL/0f+Yf+NhE/4q8w4m8go51hACrVpP1p8GJDjiT09+RsOzITsHwl+ceEKoe56ZW6iDHBLlrNw5/MtcYhKpjNU9KJ2udm5J/c9iislcjgckrZG2IB8ADgXHMEByZ5DgaMl4AKZ1Gx8/q6KftTvmOT5rNTMLi76VN5KWQcDWK/DqXiOiZHM7Nr4dX4me3XeRgABJyNR8Fqxj3N1+HrYLe/zs7LOaK0++F9Ul3tLelhrhsvLxei3oCZkF9A/foD3on3luYA+1cRcxWpSY3h2J4/22+yo4+Q==&quot;</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">Base64::decode_vec</span>(<span class="string">&quot;9kQWEAzsbzOcdPa+s5wFfw4XDd7bB1q9foZ31b1+TNjGNxbSBCFlDF1q98vwpV6nM8bWDh/wtbNoETSQDgpEnYOQ26LWEw6YY1+q1Q2GGEFceYUf+Myk8/vTc8TN6Zw0bKZBWy10Qo8h7xk4JpzuI7NcxvjJYTkS9aErFxi3vVH0aiZC0tmfaCqr8a2rJxyVwqreRpOjwAWrotMsf2wGsF4ofx5ScoFy5GB5fJkkdOrW1LyTvZAUCX3cstPr19+TNC5zZOk7WzZatnCkN5H5WzalWtZuu0oVL205KPOa3R8V2yv5e6fm0v5fTmqSuvjmaMJLXCN4QJkmIzojO99ckQ==&quot;</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">Base64::decode_vec</span>(<span class="string">&quot;x8exdMjVA2CiI+Thx7loHtVcevoeE2sZ7btRVAvmBqo+lkHwxb7FHRnWvuj6eJSlD2f0T50EewIhhiW3R9BmktCk7hXjbSCnC1u9Oxc1IAUm/7azRqyfCMx43XhLxpD+xkBCpWkKDLxGczsRwTuaP3lKS3bSdBrNlGmdblubvVBIq4YZ2vXVlnYtza0cS+dgCK7BGTqUsrCUd/ZbIvwcwZkZtpkhj1KQfto9X/0OMurBzAqbkeq1cyRHXHkOfN/qbUIIRqr9Ii7Eswf9Vk8xp2O1Nt8nzcYS9PFD12M5eyaeFEkEYfpNMNGuTzp/31oqVjbpoCxS6vuWAZyADxhISQ==&quot;</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">Base64::decode_vec</span>(<span class="string">&quot;is7d0LY4HoXszlC2NO7gejkq7XqL4p1W6hZJPYTNx+r37t1CC2n3Vvzg6kNdpRixDhIpXVTLjN9O7UO/XuqSumYKJIKoP52eb4Tg+a3hw5Iz2Zsb5lUTNSLgkQSBPAf71LHxbL82JL4g1nBUog8ae60BwnVArThKY4EwlJguGNw09BAU4lwf6csDl/nX2vfVwiAloYpeZkHL+L8m+bueGZM5KE2jEz+7ztZCI+T+E5i69rZEYDjx0lfLKlEhQlCW3HbCPELqXgNJJkRfi6MP9kXa9lSfnZmoT081RMvqonB/FUa4HOcKyCrw9XZEtnbNCIdbitfDVEX+pSSD7596wQ==&quot;</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">Base64::decode_vec</span>(<span class="string">&quot;GPs0injugfycacaeIP5jMa/WX55VEnKLDHom4k6WlfDF4L4gIGoJdekcPEUfxOI5faKvHyFwRP1wObkPoRBDM0qZxRfBl4zEtpvjHrd5MibSyJkM8+J0BIKk/nSjbRIGeb3hV5O56PvGB3S0dKhCUnuVObiC+ne7izplsD4OTG70l1Yud33UFntyoMxrxGYLUSqhBMmZfHquJg4NOWOzKNY/K+EcHDLj1Kjvkcgv9Vf7ocsVxvpFdD9uGPceQ6kwRDdEl6mb+6FDgWuXVyqR9+904oanEIkbJ7vfkthagLbEf57dyG6nJlqh5FBZWxGIR72YGypPuAh7qnnqXXjY2Q==&quot;</span>).<span class="ident">unwrap</span>(),
+            <span class="ident">Base64::decode_vec</span>(<span class="string">&quot;CUWC+hRWOT421kwRllgVjy6FYv6jQUcgDNHeAiYZnf5HjS9iK2ki7v8G5dL/0f+Yf+NhE/4q8w4m8go51hACrVpP1p8GJDjiT09+RsOzITsHwl+ceEKoe56ZW6iDHBLlrNw5/MtcYhKpjNU9KJ2udm5J/c9iislcjgckrZG2IB8ADgXHMEByZ5DgaMl4AKZ1Gx8/q6KftTvmOT5rNTMLi76VN5KWQcDWK/DqXiOiZHM7Nr4dX4me3XeRgABJyNR8Fqxj3N1+HrYLe/zs7LOaK0++F9Ul3tLelhrhsvLxei3oCZkF9A/foD3on3luYA+1cRcxWpSY3h2J4/22+yo4+Q==&quot;</span>).<span class="ident">unwrap</span>(),
         ];
 
         <span class="ident">RsaPrivateKey::from_components</span>(
@@ -1769,31 +1840,36 @@
         <span class="ident">do_test_oaep_with_different_hashes</span>::<span class="op">&lt;</span><span class="ident">Sha3_512</span>, <span class="ident">Sha1</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">priv_key</span>);
     }
 
+    <span class="kw">fn</span> <span class="ident">get_label</span>(<span class="ident">rng</span>: <span class="kw-2">&amp;mut</span> <span class="ident">ChaCha8Rng</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="kw">const</span> <span class="ident">GEN_ASCII_STR_CHARSET</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>; <span class="number">64</span>] <span class="op">=</span> <span class="string">b&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ\
+                abcdefghijklmnopqrstuvwxyz\
+                0123456789=+&quot;</span>;
+
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> [<span class="number">0u8</span>; <span class="number">32</span>];
+        <span class="ident">rng</span>.<span class="ident">fill_bytes</span>(<span class="kw-2">&amp;mut</span> <span class="ident">buf</span>);
+        <span class="kw">if</span> <span class="ident">buf</span>[<span class="number">0</span>] <span class="op">&lt;</span> (<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">7</span>) {
+            <span class="kw">for</span> <span class="ident">v</span> <span class="kw">in</span> <span class="ident">buf</span>.<span class="ident">iter_mut</span>() {
+                <span class="kw-2">*</span><span class="ident">v</span> <span class="op">=</span> <span class="ident">GEN_ASCII_STR_CHARSET</span>[(<span class="kw-2">*</span><span class="ident">v</span> <span class="op">&gt;</span><span class="op">&gt;</span> <span class="number">2</span>) <span class="kw">as</span> <span class="ident">usize</span>];
+            }
+            <span class="prelude-val">Some</span>(<span class="ident">core::str::from_utf8</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>).<span class="ident">unwrap</span>().<span class="ident">to_string</span>())
+        } <span class="kw">else</span> {
+            <span class="prelude-val">None</span>
+        }
+    }
+
     <span class="kw">fn</span> <span class="ident">do_test_encrypt_decrypt_oaep</span><span class="op">&lt;</span><span class="ident">D</span>: <span class="lifetime">&#39;static</span> <span class="op">+</span> <span class="ident">Digest</span> <span class="op">+</span> <span class="ident">DynDigest</span><span class="op">&gt;</span>(<span class="ident">prk</span>: <span class="kw-2">&amp;</span><span class="ident">RsaPrivateKey</span>) {
-        <span class="kw">let</span> <span class="ident">seed</span> <span class="op">=</span> <span class="ident">SystemTime::now</span>()
-            .<span class="ident">duration_since</span>(<span class="ident">SystemTime::UNIX_EPOCH</span>)
-            .<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">StdRng::seed_from_u64</span>(<span class="ident">seed</span>.<span class="ident">as_secs</span>());
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">ChaCha8Rng::from_seed</span>([<span class="number">42</span>; <span class="number">32</span>]);
 
         <span class="kw">let</span> <span class="ident">k</span> <span class="op">=</span> <span class="ident">prk</span>.<span class="ident">size</span>();
 
         <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">1</span>..<span class="number">8</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">input</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> (<span class="number">0</span>..<span class="ident">i</span> <span class="op">*</span> <span class="number">8</span>).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">rng</span>.<span class="ident">gen</span>()).<span class="ident">collect</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0u8</span>; <span class="ident">i</span> <span class="op">*</span> <span class="number">8</span>];
+            <span class="ident">rng</span>.<span class="ident">fill_bytes</span>(<span class="kw-2">&amp;mut</span> <span class="ident">input</span>);
+
             <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="ident">k</span> <span class="op">-</span> <span class="number">11</span> {
                 <span class="ident">input</span> <span class="op">=</span> <span class="ident">input</span>[<span class="number">0</span>..<span class="ident">k</span> <span class="op">-</span> <span class="number">11</span>].<span class="ident">to_vec</span>();
             }
-            <span class="kw">let</span> <span class="ident">has_label</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">rng</span>.<span class="ident">gen</span>();
-            <span class="kw">let</span> <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">has_label</span> {
-                <span class="prelude-val">Some</span>(
-                    <span class="ident">rng</span>.<span class="ident">clone</span>()
-                        .<span class="ident">sample_iter</span>(<span class="kw-2">&amp;</span><span class="ident">Alphanumeric</span>)
-                        .<span class="ident">take</span>(<span class="number">30</span>)
-                        .<span class="ident">map</span>(<span class="ident">char::from</span>)
-                        .<span class="ident">collect</span>(),
-                )
-            } <span class="kw">else</span> {
-                <span class="prelude-val">None</span>
-            };
+            <span class="kw">let</span> <span class="ident">label</span> <span class="op">=</span> <span class="ident">get_label</span>(<span class="kw-2">&amp;mut</span> <span class="ident">rng</span>);
 
             <span class="kw">let</span> <span class="ident">pub_key</span>: <span class="ident">RsaPublicKey</span> <span class="op">=</span> <span class="ident">prk</span>.<span class="ident">into</span>();
 
@@ -1806,7 +1882,7 @@
             };
 
             <span class="macro">assert_ne!</span>(<span class="ident">input</span>, <span class="ident">ciphertext</span>);
-            <span class="kw">let</span> <span class="ident">blind</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">rng</span>.<span class="ident">gen</span>();
+            <span class="kw">let</span> <span class="ident">blind</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">rng</span>.<span class="ident">next_u32</span>() <span class="op">&lt;</span> (<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">31</span>);
 
             <span class="kw">let</span> <span class="ident">padding</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">label</span>) <span class="op">=</span> <span class="ident">label</span> {
                 <span class="ident">PaddingScheme::new_oaep_with_label</span>::<span class="op">&lt;</span><span class="ident">D</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">label</span>)
@@ -1830,30 +1906,18 @@
     <span class="op">&gt;</span>(
         <span class="ident">prk</span>: <span class="kw-2">&amp;</span><span class="ident">RsaPrivateKey</span>,
     ) {
-        <span class="kw">let</span> <span class="ident">seed</span> <span class="op">=</span> <span class="ident">SystemTime::now</span>()
-            .<span class="ident">duration_since</span>(<span class="ident">SystemTime::UNIX_EPOCH</span>)
-            .<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">StdRng::seed_from_u64</span>(<span class="ident">seed</span>.<span class="ident">as_secs</span>());
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">ChaCha8Rng::from_seed</span>([<span class="number">42</span>; <span class="number">32</span>]);
 
         <span class="kw">let</span> <span class="ident">k</span> <span class="op">=</span> <span class="ident">prk</span>.<span class="ident">size</span>();
 
         <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">1</span>..<span class="number">8</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">input</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> (<span class="number">0</span>..<span class="ident">i</span> <span class="op">*</span> <span class="number">8</span>).<span class="ident">map</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">rng</span>.<span class="ident">gen</span>()).<span class="ident">collect</span>();
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">input</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="number">0u8</span>; <span class="ident">i</span> <span class="op">*</span> <span class="number">8</span>];
+            <span class="ident">rng</span>.<span class="ident">fill_bytes</span>(<span class="kw-2">&amp;mut</span> <span class="ident">input</span>);
+
             <span class="kw">if</span> <span class="ident">input</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="ident">k</span> <span class="op">-</span> <span class="number">11</span> {
                 <span class="ident">input</span> <span class="op">=</span> <span class="ident">input</span>[<span class="number">0</span>..<span class="ident">k</span> <span class="op">-</span> <span class="number">11</span>].<span class="ident">to_vec</span>();
             }
-            <span class="kw">let</span> <span class="ident">has_label</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">rng</span>.<span class="ident">gen</span>();
-            <span class="kw">let</span> <span class="ident">label</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">has_label</span> {
-                <span class="prelude-val">Some</span>(
-                    <span class="ident">rng</span>.<span class="ident">clone</span>()
-                        .<span class="ident">sample_iter</span>(<span class="kw-2">&amp;</span><span class="ident">Alphanumeric</span>)
-                        .<span class="ident">take</span>(<span class="number">30</span>)
-                        .<span class="ident">map</span>(<span class="ident">char::from</span>)
-                        .<span class="ident">collect</span>(),
-                )
-            } <span class="kw">else</span> {
-                <span class="prelude-val">None</span>
-            };
+            <span class="kw">let</span> <span class="ident">label</span> <span class="op">=</span> <span class="ident">get_label</span>(<span class="kw-2">&amp;mut</span> <span class="ident">rng</span>);
 
             <span class="kw">let</span> <span class="ident">pub_key</span>: <span class="ident">RsaPublicKey</span> <span class="op">=</span> <span class="ident">prk</span>.<span class="ident">into</span>();
 
@@ -1866,7 +1930,7 @@
             };
 
             <span class="macro">assert_ne!</span>(<span class="ident">input</span>, <span class="ident">ciphertext</span>);
-            <span class="kw">let</span> <span class="ident">blind</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">rng</span>.<span class="ident">gen</span>();
+            <span class="kw">let</span> <span class="ident">blind</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">rng</span>.<span class="ident">next_u32</span>() <span class="op">&lt;</span> (<span class="number">1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">31</span>);
 
             <span class="kw">let</span> <span class="ident">padding</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">label</span>) <span class="op">=</span> <span class="ident">label</span> {
                 <span class="ident">PaddingScheme::new_oaep_with_mgf_hash_with_label</span>::<span class="op">&lt;</span><span class="ident">D</span>, <span class="ident">U</span>, <span class="kw">_</span><span class="op">&gt;</span>(<span class="ident">label</span>)
@@ -1885,10 +1949,7 @@
     }
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_decrypt_oaep_invalid_hash</span>() {
-        <span class="kw">let</span> <span class="ident">seed</span> <span class="op">=</span> <span class="ident">SystemTime::now</span>()
-            .<span class="ident">duration_since</span>(<span class="ident">SystemTime::UNIX_EPOCH</span>)
-            .<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">StdRng::seed_from_u64</span>(<span class="ident">seed</span>.<span class="ident">as_secs</span>());
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rng</span> <span class="op">=</span> <span class="ident">ChaCha8Rng::from_seed</span>([<span class="number">42</span>; <span class="number">32</span>]);
         <span class="kw">let</span> <span class="ident">priv_key</span> <span class="op">=</span> <span class="ident">get_private_key</span>();
         <span class="kw">let</span> <span class="ident">pub_key</span>: <span class="ident">RsaPublicKey</span> <span class="op">=</span> (<span class="kw-2">&amp;</span><span class="ident">priv_key</span>).<span class="ident">into</span>();
         <span class="kw">let</span> <span class="ident">ciphertext</span> <span class="op">=</span> <span class="ident">pub_key</span>
@@ -1911,5 +1972,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rsa" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.59.0 (9d1b2106e 2022-02-23)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rsa" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0 (7737e0b5c 2022-04-04)" ></div>
 </body></html>

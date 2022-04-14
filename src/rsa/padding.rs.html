@@ -1,6 +1,11 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `&#x2F;home&#x2F;runner&#x2F;.cargo&#x2F;registry&#x2F;src&#x2F;github.com-1ecc6299db9ec823&#x2F;rsa-0.6.0-pre&#x2F;src&#x2F;padding.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>padding.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
-    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a class="sidebar-logo" href="../../rsa/index.html"><div class="logo-container"><img src="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo_small.png" alt="logo"></div>
-        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../rsa/index.html"><img src="https:&#x2F;&#x2F;raw.githubusercontent.com&#x2F;RustCrypto&#x2F;meta&#x2F;master&#x2F;logo_small.png" alt="logo"></a><nav class="sub"><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="18" height="18" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="18" height="18" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/rsa-0.6.1/src/padding.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>padding.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+    <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../rsa/index.html"><div class="logo-container"><img src="https://raw.githubusercontent.com/RustCrypto/meta/master/logo_small.png" alt="logo"></div>
+        </a><h2 class="location"></h2>
+    </nav>
+    <nav class="sidebar"><a class="sidebar-logo" href="../../rsa/index.html"><div class="logo-container">
+                    <img src="https://raw.githubusercontent.com/RustCrypto/meta/master/logo_small.png" alt="logo"></div>
+        </a></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../../rsa/index.html">
+                        <img src="https://raw.githubusercontent.com/RustCrypto/meta/master/logo_small.png" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="example-wrap"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -161,12 +166,14 @@
 <span id="159">159</span>
 <span id="160">160</span>
 <span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">alloc::boxed::Box</span>;
 <span class="kw">use</span> <span class="ident">alloc::string</span>::{<span class="ident">String</span>, <span class="ident">ToString</span>};
 <span class="kw">use</span> <span class="ident">core::fmt</span>;
 
 <span class="kw">use</span> <span class="ident">digest</span>::{<span class="ident">Digest</span>, <span class="ident">DynDigest</span>};
-<span class="kw">use</span> <span class="ident">rand::RngCore</span>;
+<span class="kw">use</span> <span class="ident">rand_core::RngCore</span>;
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::hash::Hash</span>;
 
@@ -232,17 +239,18 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Example</span>
     <span class="doccomment">/// ```</span>
-    <span class="doccomment">///     use sha1::Sha1;</span>
-    <span class="doccomment">///     use sha2::Sha256;</span>
-    <span class="doccomment">///     use rand::rngs::OsRng;</span>
-    <span class="doccomment">///     use rsa::{BigUint, RsaPublicKey, PaddingScheme, PublicKey};</span>
+    <span class="doccomment">/// use sha1::Sha1;</span>
+    <span class="doccomment">/// use sha2::Sha256;</span>
+    <span class="doccomment">/// use rsa::{BigUint, RsaPublicKey, PaddingScheme, PublicKey};</span>
+    <span class="doccomment">/// use base64ct::{Base64, Encoding};</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">///     let n = base64::decode(&quot;ALHgDoZmBQIx+jTmgeeHW6KsPOrj11f6CvWsiRleJlQpW77AwSZhd21ZDmlTKfaIHBSUxRUsuYNh7E2SHx8rkFVCQA2/gXkZ5GK2IUbzSTio9qXA25MWHvVxjMfKSL8ZAxZyKbrG94FLLszFAFOaiLLY8ECs7g+dXOriYtBwLUJK+lppbd+El+8ZA/zH0bk7vbqph5pIoiWggxwdq3mEz4LnrUln7r6dagSQzYErKewY8GADVpXcq5mfHC1xF2DFBub7bFjMVM5fHq7RK+pG5xjNDiYITbhLYrbVv3X0z75OvN0dY49ITWjM7xyvMWJXVJS7sJlgmCCL6RwWgP8PhcE=&quot;).unwrap();</span>
-    <span class="doccomment">///     let e = base64::decode(&quot;AQAB&quot;).unwrap();</span>
-    <span class="doccomment">///     </span>
-    <span class="doccomment">///     let key = RsaPublicKey::new(BigUint::from_bytes_be(&amp;n), BigUint::from_bytes_be(&amp;e)).unwrap();</span>
-    <span class="doccomment">///     let padding = PaddingScheme::new_oaep_with_mgf_hash::&lt;Sha256, Sha1&gt;();</span>
-    <span class="doccomment">///     let encrypted_data = key.encrypt(&amp;mut OsRng, padding, b&quot;secret&quot;).unwrap();</span>
+    <span class="doccomment">/// let n = Base64::decode_vec(&quot;ALHgDoZmBQIx+jTmgeeHW6KsPOrj11f6CvWsiRleJlQpW77AwSZhd21ZDmlTKfaIHBSUxRUsuYNh7E2SHx8rkFVCQA2/gXkZ5GK2IUbzSTio9qXA25MWHvVxjMfKSL8ZAxZyKbrG94FLLszFAFOaiLLY8ECs7g+dXOriYtBwLUJK+lppbd+El+8ZA/zH0bk7vbqph5pIoiWggxwdq3mEz4LnrUln7r6dagSQzYErKewY8GADVpXcq5mfHC1xF2DFBub7bFjMVM5fHq7RK+pG5xjNDiYITbhLYrbVv3X0z75OvN0dY49ITWjM7xyvMWJXVJS7sJlgmCCL6RwWgP8PhcE=&quot;).unwrap();</span>
+    <span class="doccomment">/// let e = Base64::decode_vec(&quot;AQAB&quot;).unwrap();</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let mut rng = rand::thread_rng();</span>
+    <span class="doccomment">/// let key = RsaPublicKey::new(BigUint::from_bytes_be(&amp;n), BigUint::from_bytes_be(&amp;e)).unwrap();</span>
+    <span class="doccomment">/// let padding = PaddingScheme::new_oaep_with_mgf_hash::&lt;Sha256, Sha1&gt;();</span>
+    <span class="doccomment">/// let encrypted_data = key.encrypt(&amp;mut rng, padding, b&quot;secret&quot;).unwrap();</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_oaep_with_mgf_hash</span><span class="op">&lt;</span>
         <span class="ident">T</span>: <span class="lifetime">&#39;static</span> <span class="op">+</span> <span class="ident">Digest</span> <span class="op">+</span> <span class="ident">DynDigest</span>,
@@ -259,17 +267,18 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// # Example</span>
     <span class="doccomment">/// ```</span>
-    <span class="doccomment">///     use sha1::Sha1;</span>
-    <span class="doccomment">///     use sha2::Sha256;</span>
-    <span class="doccomment">///     use rand::rngs::OsRng;</span>
-    <span class="doccomment">///     use rsa::{BigUint, RsaPublicKey, PaddingScheme, PublicKey};</span>
-
-    <span class="doccomment">///     let n = base64::decode(&quot;ALHgDoZmBQIx+jTmgeeHW6KsPOrj11f6CvWsiRleJlQpW77AwSZhd21ZDmlTKfaIHBSUxRUsuYNh7E2SHx8rkFVCQA2/gXkZ5GK2IUbzSTio9qXA25MWHvVxjMfKSL8ZAxZyKbrG94FLLszFAFOaiLLY8ECs7g+dXOriYtBwLUJK+lppbd+El+8ZA/zH0bk7vbqph5pIoiWggxwdq3mEz4LnrUln7r6dagSQzYErKewY8GADVpXcq5mfHC1xF2DFBub7bFjMVM5fHq7RK+pG5xjNDiYITbhLYrbVv3X0z75OvN0dY49ITWjM7xyvMWJXVJS7sJlgmCCL6RwWgP8PhcE=&quot;).unwrap();</span>
-    <span class="doccomment">///     let e = base64::decode(&quot;AQAB&quot;).unwrap();</span>
-    <span class="doccomment">///     </span>
-    <span class="doccomment">///     let key = RsaPublicKey::new(BigUint::from_bytes_be(&amp;n), BigUint::from_bytes_be(&amp;e)).unwrap();</span>
-    <span class="doccomment">///     let padding = PaddingScheme::new_oaep::&lt;Sha256&gt;();</span>
-    <span class="doccomment">///     let encrypted_data = key.encrypt(&amp;mut OsRng, padding, b&quot;secret&quot;).unwrap();</span>
+    <span class="doccomment">/// use sha1::Sha1;</span>
+    <span class="doccomment">/// use sha2::Sha256;</span>
+    <span class="doccomment">/// use rsa::{BigUint, RsaPublicKey, PaddingScheme, PublicKey};</span>
+    <span class="doccomment">/// use base64ct::{Base64, Encoding};</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let n = Base64::decode_vec(&quot;ALHgDoZmBQIx+jTmgeeHW6KsPOrj11f6CvWsiRleJlQpW77AwSZhd21ZDmlTKfaIHBSUxRUsuYNh7E2SHx8rkFVCQA2/gXkZ5GK2IUbzSTio9qXA25MWHvVxjMfKSL8ZAxZyKbrG94FLLszFAFOaiLLY8ECs7g+dXOriYtBwLUJK+lppbd+El+8ZA/zH0bk7vbqph5pIoiWggxwdq3mEz4LnrUln7r6dagSQzYErKewY8GADVpXcq5mfHC1xF2DFBub7bFjMVM5fHq7RK+pG5xjNDiYITbhLYrbVv3X0z75OvN0dY49ITWjM7xyvMWJXVJS7sJlgmCCL6RwWgP8PhcE=&quot;).unwrap();</span>
+    <span class="doccomment">/// let e = Base64::decode_vec(&quot;AQAB&quot;).unwrap();</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let mut rng = rand::thread_rng();</span>
+    <span class="doccomment">/// let key = RsaPublicKey::new(BigUint::from_bytes_be(&amp;n), BigUint::from_bytes_be(&amp;e)).unwrap();</span>
+    <span class="doccomment">/// let padding = PaddingScheme::new_oaep::&lt;Sha256&gt;();</span>
+    <span class="doccomment">/// let encrypted_data = key.encrypt(&amp;mut rng, padding, b&quot;secret&quot;).unwrap();</span>
     <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new_oaep</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="lifetime">&#39;static</span> <span class="op">+</span> <span class="ident">Digest</span> <span class="op">+</span> <span class="ident">DynDigest</span><span class="op">&gt;</span>() -&gt; <span class="self">Self</span> {
         <span class="ident">PaddingScheme::OAEP</span> {
@@ -323,5 +332,5 @@
     }
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rsa" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.59.0 (9d1b2106e 2022-02-23)" ></div>
+</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="rsa" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0 (7737e0b5c 2022-04-04)" ></div>
 </body></html>

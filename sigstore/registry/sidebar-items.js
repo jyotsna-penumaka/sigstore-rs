@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["Auth","A method for authenticating to a registry"],["CertificateEncoding","The encoding of the certificate"],["ClientProtocol","The protocol that the client should use to connect"]],"struct":[["Certificate","A x509 certificate"],["ClientConfig","A client configuration"]]});
+initSidebarItems({"mod":[["config","Set of structs and enums used to define how to interact with OCI registries"]]});
