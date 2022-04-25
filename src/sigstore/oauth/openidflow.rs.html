@@ -369,7 +369,6 @@
 <span class="doccomment">//! This of course has a performance hit when used inside of an async function.</span>
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::errors</span>::{<span class="prelude-ty">Result</span>, <span class="ident">SigstoreError</span>};
-<span class="kw">use</span> <span class="ident">tracing::error</span>;
 
 <span class="kw">use</span> <span class="ident">openidconnect::core</span>::{
     <span class="ident">CoreClient</span>, <span class="ident">CoreIdTokenClaims</span>, <span class="ident">CoreIdTokenVerifier</span>, <span class="ident">CoreProviderMetadata</span>, <span class="ident">CoreResponseType</span>,
@@ -416,17 +415,17 @@
             <span class="ident">redirect_url</span>: <span class="ident">redirect_url</span>.<span class="ident">to_string</span>(),
         }
     }
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">auth_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (<span class="ident">Url</span>, <span class="ident">CoreClient</span>, <span class="ident">Nonce</span>, <span class="ident">PkceCodeVerifier</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">auth_url</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">Url</span>, <span class="ident">CoreClient</span>, <span class="ident">Nonce</span>, <span class="ident">PkceCodeVerifier</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">client_id</span> <span class="op">=</span> <span class="ident">ClientId::new</span>(<span class="self">self</span>.<span class="ident">oidc_cliend_id</span>.<span class="ident">to_owned</span>());
         <span class="kw">let</span> <span class="ident">client_secret</span> <span class="op">=</span> <span class="ident">ClientSecret::new</span>(<span class="self">self</span>.<span class="ident">oidc_client_secret</span>.<span class="ident">to_owned</span>());
         <span class="kw">let</span> <span class="ident">issuer</span> <span class="op">=</span> <span class="ident">IssuerUrl::new</span>(<span class="self">self</span>.<span class="ident">oidc_issuer</span>.<span class="ident">to_owned</span>()).<span class="ident">expect</span>(<span class="string">&quot;Missing the OIDC_ISSUER.&quot;</span>);
 
         <span class="kw">let</span> (<span class="ident">pkce_challenge</span>, <span class="ident">pkce_verifier</span>) <span class="op">=</span> <span class="ident">PkceCodeChallenge::new_random_sha256</span>();
-        <span class="kw">let</span> <span class="ident">provider_metadata</span> <span class="op">=</span> <span class="ident">CoreProviderMetadata::discover</span>(<span class="kw-2">&amp;</span><span class="ident">issuer</span>, <span class="ident">http_client</span>)
-            .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="ident">_err</span><span class="op">|</span> {
-                <span class="macro">error!</span>(<span class="string">&quot;Failed to discover OpenID Provider&quot;</span>);
-                <span class="macro">unreachable!</span>();
-            });
+        <span class="kw">let</span> <span class="ident">provider_metadata</span> <span class="op">=</span>
+            <span class="ident">CoreProviderMetadata::discover</span>(<span class="kw-2">&amp;</span><span class="ident">issuer</span>, <span class="ident">http_client</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">err</span><span class="op">|</span> {
+                <span class="macro">println!</span>(<span class="string">&quot;Error is: {:?}&quot;</span>, <span class="ident">err</span>);
+                <span class="ident">SigstoreError::ClaimsVerificationError</span>
+            })<span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="ident">client</span> <span class="op">=</span>
             <span class="ident">CoreClient::from_provider_metadata</span>(<span class="ident">provider_metadata</span>, <span class="ident">client_id</span>, <span class="prelude-val">Some</span>(<span class="ident">client_secret</span>))
@@ -443,7 +442,7 @@
             .<span class="ident">add_scope</span>(<span class="ident">Scope::new</span>(<span class="string">&quot;email&quot;</span>.<span class="ident">to_string</span>()))
             .<span class="ident">set_pkce_challenge</span>(<span class="ident">pkce_challenge</span>)
             .<span class="ident">url</span>();
-        (<span class="ident">authorize_url</span>, <span class="ident">client</span>, <span class="ident">nonce</span>, <span class="ident">pkce_verifier</span>)
+        <span class="prelude-val">Ok</span>((<span class="ident">authorize_url</span>, <span class="ident">client</span>, <span class="ident">nonce</span>, <span class="ident">pkce_verifier</span>))
     }
 }
 
@@ -561,6 +560,7 @@
         <span class="string">&quot;http://localhost:8080&quot;</span>,
     )
     .<span class="ident">auth_url</span>();
+    <span class="kw">let</span> <span class="ident">oidc_url</span> <span class="op">=</span> <span class="ident">oidc_url</span>.<span class="ident">unwrap</span>();
     <span class="macro">assert!</span>(<span class="ident">oidc_url</span>
         .<span class="number">0</span>
         .<span class="ident">to_string</span>()
