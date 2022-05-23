@@ -8,7 +8,7 @@
     (<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ident</span> $(:: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">type_extra</span>:<span class="ident">ident</span>)<span class="op">*</span> <span class="op">&lt;</span> $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">lt</span>:<span class="ident">lifetime</span>),<span class="op">+</span> <span class="op">&gt;</span>) =&gt; { ... };
     (<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>) =&gt; { ... };
 }</code></pre></div>
-</div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Derives <a href="../serde/ser/trait.Serialize.html"><code>Serialize</code></a> a type that implements <a href="https://doc.rust-lang.org/1.60.0/core/fmt/trait.Display.html"><code>Display</code></a>.</p>
+</div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Derives <a href="../serde/ser/trait.Serialize.html"><code>Serialize</code></a> a type that implements <a href="https://doc.rust-lang.org/1.61.0/core/fmt/trait.Display.html"><code>Display</code></a>.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">std::fmt</span>;
 <span class="kw">use</span> <span class="ident">serde_plain::derive_serialize_from_display</span>;
@@ -24,5 +24,5 @@
 <span class="macro">derive_serialize_from_display!</span>(<span class="ident">MyStruct</span>);</code></pre></div>
 <p>This automatically implements <a href="../serde/ser/trait.Serialize.html"><code>Serialize</code></a> which will
 invoke the <a href="fn.to_string.html"><code>to_string</code></a> method on the target.</p>
-</div></details></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="serde_plain" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0 (7737e0b5c 2022-04-04)" ></div>
+</div></details></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="serde_plain" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0 (fe5b13d68 2022-05-18)" ></div>
 </body></html>
