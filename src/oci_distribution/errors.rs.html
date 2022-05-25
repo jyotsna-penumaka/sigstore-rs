@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/oci-distribution-515f7abfb7797f9d/0f71796/src/errors.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>errors.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/oci-distribution-0.9.0/src/errors.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>errors.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../oci_distribution/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -150,12 +150,210 @@
 <span id="145">145</span>
 <span id="146">146</span>
 <span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
+<span id="152">152</span>
+<span id="153">153</span>
+<span id="154">154</span>
+<span id="155">155</span>
+<span id="156">156</span>
+<span id="157">157</span>
+<span id="158">158</span>
+<span id="159">159</span>
+<span id="160">160</span>
+<span id="161">161</span>
+<span id="162">162</span>
+<span id="163">163</span>
+<span id="164">164</span>
+<span id="165">165</span>
+<span id="166">166</span>
+<span id="167">167</span>
+<span id="168">168</span>
+<span id="169">169</span>
+<span id="170">170</span>
+<span id="171">171</span>
+<span id="172">172</span>
+<span id="173">173</span>
+<span id="174">174</span>
+<span id="175">175</span>
+<span id="176">176</span>
+<span id="177">177</span>
+<span id="178">178</span>
+<span id="179">179</span>
+<span id="180">180</span>
+<span id="181">181</span>
+<span id="182">182</span>
+<span id="183">183</span>
+<span id="184">184</span>
+<span id="185">185</span>
+<span id="186">186</span>
+<span id="187">187</span>
+<span id="188">188</span>
+<span id="189">189</span>
+<span id="190">190</span>
+<span id="191">191</span>
+<span id="192">192</span>
+<span id="193">193</span>
+<span id="194">194</span>
+<span id="195">195</span>
+<span id="196">196</span>
+<span id="197">197</span>
+<span id="198">198</span>
+<span id="199">199</span>
+<span id="200">200</span>
+<span id="201">201</span>
+<span id="202">202</span>
+<span id="203">203</span>
+<span id="204">204</span>
+<span id="205">205</span>
+<span id="206">206</span>
+<span id="207">207</span>
+<span id="208">208</span>
+<span id="209">209</span>
+<span id="210">210</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+<span id="223">223</span>
+<span id="224">224</span>
+<span id="225">225</span>
+<span id="226">226</span>
+<span id="227">227</span>
+<span id="228">228</span>
+<span id="229">229</span>
+<span id="230">230</span>
+<span id="231">231</span>
+<span id="232">232</span>
+<span id="233">233</span>
+<span id="234">234</span>
+<span id="235">235</span>
+<span id="236">236</span>
+<span id="237">237</span>
+<span id="238">238</span>
+<span id="239">239</span>
+<span id="240">240</span>
+<span id="241">241</span>
+<span id="242">242</span>
+<span id="243">243</span>
+<span id="244">244</span>
+<span id="245">245</span>
+<span id="246">246</span>
+<span id="247">247</span>
+<span id="248">248</span>
+<span id="249">249</span>
+<span id="250">250</span>
 </pre><pre class="rust"><code><span class="doccomment">//! Errors related to interacting with an OCI compliant remote store</span>
+
+<span class="kw">use</span> <span class="ident">thiserror::Error</span>;
+
+<span class="doccomment">/// Errors that can be raised while interacting with an OCI registry</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Error</span>, <span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">OciDistributionError</span> {
+    <span class="doccomment">/// Authentication error</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Authentication failure: {0}&quot;</span>)]</span>
+    <span class="ident">AuthenticationFailure</span>(<span class="ident">String</span>),
+    <span class="doccomment">/// Generic error, might provide an explanation message</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Generic error: {0:?}&quot;</span>)]</span>
+    <span class="ident">GenericError</span>(<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>),
+    <span class="doccomment">/// Transparent wrapper around `reqwest::header::ToStrError`</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="ident">transparent</span>)]</span>
+    <span class="ident">HeaderValueError</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident">reqwest::header::ToStrError</span>),
+    <span class="doccomment">/// IO Error</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="ident">transparent</span>)]</span>
+    <span class="ident">IoError</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident">std::io::Error</span>),
+    <span class="doccomment">/// Platform resolver not specified</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Received Image Index/Manifest List, but platform_resolver was not defined on the client config. Consider setting platform_resolver&quot;</span>)]</span>
+    <span class="ident">ImageIndexParsingNoPlatformResolverError</span>,
+    <span class="doccomment">/// Image manifest not found</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Image manifest not found: {0}&quot;</span>)]</span>
+    <span class="ident">ImageManifestNotFoundError</span>(<span class="ident">String</span>),
+    <span class="doccomment">/// Registry returned a layer with an incompatible type</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Incompatible layer media type: {0}&quot;</span>)]</span>
+    <span class="ident">IncompatibleLayerMediaTypeError</span>(<span class="ident">String</span>),
+    <span class="attribute">#[<span class="ident">error</span>(<span class="ident">transparent</span>)]</span>
+    <span class="doccomment">/// Transparent wrapper around `serde_json::error::Error`</span>
+    <span class="ident">JsonError</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident">serde_json::error::Error</span>),
+    <span class="doccomment">/// Manifest: JSON unmarshalling error</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Failed to parse manifest as Versioned object: {0}&quot;</span>)]</span>
+    <span class="ident">ManifestParsingError</span>(<span class="ident">String</span>),
+    <span class="doccomment">/// Cannot push a blob without data</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;cannot push a blob without data&quot;</span>)]</span>
+    <span class="ident">PushNoDataError</span>,
+    <span class="doccomment">/// Cannot push layer object without data</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;cannot push a layer without data&quot;</span>)]</span>
+    <span class="ident">PushLayerNoDataError</span>,
+    <span class="doccomment">/// No layers available to be pulled</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;No layers to pull&quot;</span>)]</span>
+    <span class="ident">PullNoLayersError</span>,
+    <span class="doccomment">/// OCI registry error</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Registry error: url {url}, envelope: {envelope}&quot;</span>)]</span>
+    <span class="ident">RegistryError</span> {
+        <span class="doccomment">/// List of errors returned the by the OCI registry</span>
+        <span class="ident">envelope</span>: <span class="ident">OciEnvelope</span>,
+        <span class="doccomment">/// Request URL</span>
+        <span class="ident">url</span>: <span class="ident">String</span>,
+    },
+    <span class="doccomment">/// Registry didn&#39;t return a Digest object</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Registry did not return a digest header&quot;</span>)]</span>
+    <span class="ident">RegistryNoDigestError</span>,
+    <span class="doccomment">/// Registry didn&#39;t return a Location header</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Registry did not return a location header&quot;</span>)]</span>
+    <span class="ident">RegistryNoLocationError</span>,
+    <span class="doccomment">/// Registry token: JSON deserialization error</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Failed to decode registry token: {0}&quot;</span>)]</span>
+    <span class="ident">RegistryTokenDecodeError</span>(<span class="ident">String</span>),
+    <span class="doccomment">/// Transparent wrapper around `reqwest::Error`</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="ident">transparent</span>)]</span>
+    <span class="ident">RequestError</span>(<span class="attribute">#[<span class="ident">from</span>]</span> <span class="ident">reqwest::Error</span>),
+    <span class="doccomment">/// HTTP Server error</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Server error: url {url}, code: {code}, message: {message}&quot;</span>)]</span>
+    <span class="ident">ServerError</span> {
+        <span class="doccomment">/// HTTP status code</span>
+        <span class="ident">code</span>: <span class="ident">u16</span>,
+        <span class="doccomment">/// Request URL</span>
+        <span class="ident">url</span>: <span class="ident">String</span>,
+        <span class="doccomment">/// Error message returned by the remote server</span>
+        <span class="ident">message</span>: <span class="ident">String</span>,
+    },
+    <span class="doccomment">/// The [OCI distribution spec](https://github.com/opencontainers/distribution-spec/blob/main/spec.md)</span>
+    <span class="doccomment">/// is not respected by the remote registry</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;OCI distribution spec violation: {0}&quot;</span>)]</span>
+    <span class="ident">SpecViolationError</span>(<span class="ident">String</span>),
+    <span class="doccomment">/// HTTP auth failed - user not authorized</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Not authorized: url {url}&quot;</span>)]</span>
+    <span class="ident">UnauthorizedError</span> {
+        <span class="doccomment">/// request URL</span>
+        <span class="ident">url</span>: <span class="ident">String</span>,
+    },
+    <span class="doccomment">/// Media type not supported</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Unsupported media type: {0}&quot;</span>)]</span>
+    <span class="ident">UnsupportedMediaTypeError</span>(<span class="ident">String</span>),
+    <span class="doccomment">/// Schema version not supported</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Unsupported schema version: {0}&quot;</span>)]</span>
+    <span class="ident">UnsupportedSchemaVersionError</span>(<span class="ident">i32</span>),
+    <span class="doccomment">/// Versioned object: JSON deserialization error</span>
+    <span class="attribute">#[<span class="ident">error</span>(<span class="string">&quot;Failed to parse manifest: {0}&quot;</span>)]</span>
+    <span class="ident">VersionedParsingError</span>(<span class="ident">String</span>),
+}
+
+<span class="doccomment">/// Helper type to declare `Result` objects that might return a `OciDistributionError`</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">OciDistributionError</span><span class="op">&gt;</span>;
 
 <span class="doccomment">/// The OCI specification defines a specific error format.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// This struct represents that error format, which is formally described here:</span>
-<span class="doccomment">/// https://github.com/opencontainers/distribution-spec/blob/master/spec.md#errors-2</span>
+<span class="doccomment">/// &lt;https://github.com/opencontainers/distribution-spec/blob/master/spec.md#errors-2&gt;</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">serde::Deserialize</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OciError</span> {
     <span class="doccomment">/// The error code</span>
@@ -179,14 +377,22 @@
     }
 }
 
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">serde::Deserialize</span>)]</span>
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct</span> <span class="ident">OciEnvelope</span> {
+<span class="doccomment">/// A struct that holds a series of OCI errors</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">serde::Deserialize</span>, <span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OciEnvelope</span> {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="ident">errors</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">OciError</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">std::fmt::Display</span> <span class="kw">for</span> <span class="ident">OciEnvelope</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">std::fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">std::fmt::Result</span> {
+        <span class="kw">let</span> <span class="ident">errors</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">errors</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">to_string</span>()).<span class="ident">collect</span>();
+        <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;OCI API errors: [{}]&quot;</span>, <span class="ident">errors</span>.<span class="ident">join</span>(<span class="string">&quot;\n&quot;</span>))
+    }
 }
 
 <span class="doccomment">/// OCI error codes</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// Outlined here: https://github.com/opencontainers/distribution-spec/blob/master/spec.md#errors-2</span>
+<span class="doccomment">/// Outlined [here](https://github.com/opencontainers/distribution-spec/blob/master/spec.md#errors-2)</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">serde::Deserialize</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;SCREAMING_SNAKE_CASE&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">OciErrorCode</span> {

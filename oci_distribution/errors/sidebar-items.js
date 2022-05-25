@@ -1,1 +1,1 @@
-initSidebarItems({"enum":[["OciErrorCode","OCI error codes"]],"struct":[["OciError","The OCI specification defines a specific error format."]]});
+initSidebarItems({"enum":[["OciDistributionError","Errors that can be raised while interacting with an OCI registry"],["OciErrorCode","OCI error codes"]],"struct":[["OciEnvelope","A struct that holds a series of OCI errors"],["OciError","The OCI specification defines a specific error format."]],"type":[["Result","Helper type to declare `Result` objects that might return a `OciDistributionError`"]]});

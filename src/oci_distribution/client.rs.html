@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/oci-distribution-515f7abfb7797f9d/0f71796/src/client.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>client.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/oci-distribution-0.9.0/src/client.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>client.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../oci_distribution/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -2095,6 +2095,190 @@
 <span id="2090">2090</span>
 <span id="2091">2091</span>
 <span id="2092">2092</span>
+<span id="2093">2093</span>
+<span id="2094">2094</span>
+<span id="2095">2095</span>
+<span id="2096">2096</span>
+<span id="2097">2097</span>
+<span id="2098">2098</span>
+<span id="2099">2099</span>
+<span id="2100">2100</span>
+<span id="2101">2101</span>
+<span id="2102">2102</span>
+<span id="2103">2103</span>
+<span id="2104">2104</span>
+<span id="2105">2105</span>
+<span id="2106">2106</span>
+<span id="2107">2107</span>
+<span id="2108">2108</span>
+<span id="2109">2109</span>
+<span id="2110">2110</span>
+<span id="2111">2111</span>
+<span id="2112">2112</span>
+<span id="2113">2113</span>
+<span id="2114">2114</span>
+<span id="2115">2115</span>
+<span id="2116">2116</span>
+<span id="2117">2117</span>
+<span id="2118">2118</span>
+<span id="2119">2119</span>
+<span id="2120">2120</span>
+<span id="2121">2121</span>
+<span id="2122">2122</span>
+<span id="2123">2123</span>
+<span id="2124">2124</span>
+<span id="2125">2125</span>
+<span id="2126">2126</span>
+<span id="2127">2127</span>
+<span id="2128">2128</span>
+<span id="2129">2129</span>
+<span id="2130">2130</span>
+<span id="2131">2131</span>
+<span id="2132">2132</span>
+<span id="2133">2133</span>
+<span id="2134">2134</span>
+<span id="2135">2135</span>
+<span id="2136">2136</span>
+<span id="2137">2137</span>
+<span id="2138">2138</span>
+<span id="2139">2139</span>
+<span id="2140">2140</span>
+<span id="2141">2141</span>
+<span id="2142">2142</span>
+<span id="2143">2143</span>
+<span id="2144">2144</span>
+<span id="2145">2145</span>
+<span id="2146">2146</span>
+<span id="2147">2147</span>
+<span id="2148">2148</span>
+<span id="2149">2149</span>
+<span id="2150">2150</span>
+<span id="2151">2151</span>
+<span id="2152">2152</span>
+<span id="2153">2153</span>
+<span id="2154">2154</span>
+<span id="2155">2155</span>
+<span id="2156">2156</span>
+<span id="2157">2157</span>
+<span id="2158">2158</span>
+<span id="2159">2159</span>
+<span id="2160">2160</span>
+<span id="2161">2161</span>
+<span id="2162">2162</span>
+<span id="2163">2163</span>
+<span id="2164">2164</span>
+<span id="2165">2165</span>
+<span id="2166">2166</span>
+<span id="2167">2167</span>
+<span id="2168">2168</span>
+<span id="2169">2169</span>
+<span id="2170">2170</span>
+<span id="2171">2171</span>
+<span id="2172">2172</span>
+<span id="2173">2173</span>
+<span id="2174">2174</span>
+<span id="2175">2175</span>
+<span id="2176">2176</span>
+<span id="2177">2177</span>
+<span id="2178">2178</span>
+<span id="2179">2179</span>
+<span id="2180">2180</span>
+<span id="2181">2181</span>
+<span id="2182">2182</span>
+<span id="2183">2183</span>
+<span id="2184">2184</span>
+<span id="2185">2185</span>
+<span id="2186">2186</span>
+<span id="2187">2187</span>
+<span id="2188">2188</span>
+<span id="2189">2189</span>
+<span id="2190">2190</span>
+<span id="2191">2191</span>
+<span id="2192">2192</span>
+<span id="2193">2193</span>
+<span id="2194">2194</span>
+<span id="2195">2195</span>
+<span id="2196">2196</span>
+<span id="2197">2197</span>
+<span id="2198">2198</span>
+<span id="2199">2199</span>
+<span id="2200">2200</span>
+<span id="2201">2201</span>
+<span id="2202">2202</span>
+<span id="2203">2203</span>
+<span id="2204">2204</span>
+<span id="2205">2205</span>
+<span id="2206">2206</span>
+<span id="2207">2207</span>
+<span id="2208">2208</span>
+<span id="2209">2209</span>
+<span id="2210">2210</span>
+<span id="2211">2211</span>
+<span id="2212">2212</span>
+<span id="2213">2213</span>
+<span id="2214">2214</span>
+<span id="2215">2215</span>
+<span id="2216">2216</span>
+<span id="2217">2217</span>
+<span id="2218">2218</span>
+<span id="2219">2219</span>
+<span id="2220">2220</span>
+<span id="2221">2221</span>
+<span id="2222">2222</span>
+<span id="2223">2223</span>
+<span id="2224">2224</span>
+<span id="2225">2225</span>
+<span id="2226">2226</span>
+<span id="2227">2227</span>
+<span id="2228">2228</span>
+<span id="2229">2229</span>
+<span id="2230">2230</span>
+<span id="2231">2231</span>
+<span id="2232">2232</span>
+<span id="2233">2233</span>
+<span id="2234">2234</span>
+<span id="2235">2235</span>
+<span id="2236">2236</span>
+<span id="2237">2237</span>
+<span id="2238">2238</span>
+<span id="2239">2239</span>
+<span id="2240">2240</span>
+<span id="2241">2241</span>
+<span id="2242">2242</span>
+<span id="2243">2243</span>
+<span id="2244">2244</span>
+<span id="2245">2245</span>
+<span id="2246">2246</span>
+<span id="2247">2247</span>
+<span id="2248">2248</span>
+<span id="2249">2249</span>
+<span id="2250">2250</span>
+<span id="2251">2251</span>
+<span id="2252">2252</span>
+<span id="2253">2253</span>
+<span id="2254">2254</span>
+<span id="2255">2255</span>
+<span id="2256">2256</span>
+<span id="2257">2257</span>
+<span id="2258">2258</span>
+<span id="2259">2259</span>
+<span id="2260">2260</span>
+<span id="2261">2261</span>
+<span id="2262">2262</span>
+<span id="2263">2263</span>
+<span id="2264">2264</span>
+<span id="2265">2265</span>
+<span id="2266">2266</span>
+<span id="2267">2267</span>
+<span id="2268">2268</span>
+<span id="2269">2269</span>
+<span id="2270">2270</span>
+<span id="2271">2271</span>
+<span id="2272">2272</span>
+<span id="2273">2273</span>
+<span id="2274">2274</span>
+<span id="2275">2275</span>
+<span id="2276">2276</span>
 </pre><pre class="rust"><code><span class="doccomment">//! OCI distribution client</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! *Note*: This client is very feature poor. We hope to expand this to be a complete</span>
@@ -2102,21 +2286,25 @@
 
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::errors</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::manifest</span>::{
-    <span class="ident">ImageIndexEntry</span>, <span class="ident">OciDescriptor</span>, <span class="ident">OciImageManifest</span>, <span class="ident">OciManifest</span>, <span class="ident">Versioned</span>,
-    <span class="ident">IMAGE_LAYER_GZIP_MEDIA_TYPE</span>, <span class="ident">IMAGE_LAYER_MEDIA_TYPE</span>, <span class="ident">IMAGE_MANIFEST_LIST_MEDIA_TYPE</span>,
-    <span class="ident">IMAGE_MANIFEST_MEDIA_TYPE</span>, <span class="ident">OCI_IMAGE_INDEX_MEDIA_TYPE</span>, <span class="ident">OCI_IMAGE_MEDIA_TYPE</span>,
+    <span class="ident">ImageIndexEntry</span>, <span class="ident">OciImageIndex</span>, <span class="ident">OciImageManifest</span>, <span class="ident">OciManifest</span>, <span class="ident">Versioned</span>,
+    <span class="ident">IMAGE_CONFIG_MEDIA_TYPE</span>, <span class="ident">IMAGE_LAYER_GZIP_MEDIA_TYPE</span>, <span class="ident">IMAGE_LAYER_MEDIA_TYPE</span>,
+    <span class="ident">IMAGE_MANIFEST_LIST_MEDIA_TYPE</span>, <span class="ident">IMAGE_MANIFEST_MEDIA_TYPE</span>, <span class="ident">OCI_IMAGE_INDEX_MEDIA_TYPE</span>,
+    <span class="ident">OCI_IMAGE_MEDIA_TYPE</span>,
 };
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::secrets::RegistryAuth</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::secrets</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::sha256_digest</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::Reference</span>;
 
+<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::errors</span>::{<span class="ident">OciDistributionError</span>, <span class="prelude-ty">Result</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::token_cache</span>::{<span class="ident">RegistryOperation</span>, <span class="ident">RegistryToken</span>, <span class="ident">RegistryTokenType</span>, <span class="ident">TokenCache</span>};
-<span class="kw">use</span> <span class="ident">anyhow</span>::{<span class="ident">anyhow</span>, <span class="ident">Context</span>};
 <span class="kw">use</span> <span class="ident">futures_util::future</span>;
 <span class="kw">use</span> <span class="ident">futures_util::stream::StreamExt</span>;
 <span class="kw">use</span> <span class="ident">hyperx::header</span>::{<span class="ident">Header</span>, <span class="ident">Raw</span>};
+<span class="kw">use</span> <span class="ident">olpc_cjson::CanonicalFormatter</span>;
 <span class="kw">use</span> <span class="ident">reqwest::header::HeaderMap</span>;
 <span class="kw">use</span> <span class="ident">reqwest</span>::{<span class="ident">RequestBuilder</span>, <span class="ident">Url</span>};
+<span class="kw">use</span> <span class="ident">serde::Serialize</span>;
 <span class="kw">use</span> <span class="ident">sha2::Digest</span>;
 <span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
 <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
@@ -2138,34 +2326,15 @@
     <span class="kw">pub</span> <span class="ident">layers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ImageLayer</span><span class="op">&gt;</span>,
     <span class="doccomment">/// The digest of the image or module.</span>
     <span class="kw">pub</span> <span class="ident">digest</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
-}
-
-<span class="kw">impl</span> <span class="ident">ImageData</span> {
-    <span class="doccomment">/// Helper function to compute the digest of the image layers</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sha256_digest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">String</span> {
-        <span class="ident">sha256_digest</span>(
-            <span class="kw-2">&amp;</span><span class="self">self</span>
-                .<span class="ident">layers</span>
-                .<span class="ident">iter</span>()
-                .<span class="ident">cloned</span>()
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">l</span><span class="op">|</span> <span class="ident">l</span>.<span class="ident">data</span>)
-                .<span class="ident">flatten</span>()
-                .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span>(),
-        )
-    }
-
-    <span class="doccomment">/// Returns the image digest, either the value in the field or by computing it</span>
-    <span class="doccomment">/// If the value in the field is None, the computed value will be stored</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">digest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">String</span> {
-        <span class="self">self</span>.<span class="ident">digest</span>.<span class="ident">clone</span>().<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">sha256_digest</span>())
-    }
+    <span class="doccomment">/// The Configuration object of the image or module.</span>
+    <span class="kw">pub</span> <span class="ident">config</span>: <span class="ident">Config</span>,
+    <span class="doccomment">/// The manifest of the image or module.</span>
+    <span class="kw">pub</span> <span class="ident">manifest</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OciImageManifest</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// The data returned by an OCI registry after a successful push</span>
 <span class="doccomment">/// operation is completed</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PushResponse</span> {
-    <span class="doccomment">/// Pullable url for the image</span>
-    <span class="kw">pub</span> <span class="ident">image_url</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Pullable url for the config</span>
     <span class="kw">pub</span> <span class="ident">config_url</span>: <span class="ident">String</span>,
     <span class="doccomment">/// Pullable url for the manifest</span>
@@ -2179,27 +2348,76 @@
     <span class="kw">pub</span> <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
     <span class="doccomment">/// The media type of this layer</span>
     <span class="kw">pub</span> <span class="ident">media_type</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// This OPTIONAL property contains arbitrary metadata for this descriptor.</span>
+    <span class="doccomment">/// This OPTIONAL property MUST use the [annotation rules](https://github.com/opencontainers/image-spec/blob/main/annotations.md#rules)</span>
+    <span class="kw">pub</span> <span class="ident">annotations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">ImageLayer</span> {
     <span class="doccomment">/// Constructs a new ImageLayer struct with provided data and media type</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">media_type</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident">ImageLayer</span> { <span class="ident">data</span>, <span class="ident">media_type</span> }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
+        <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
+        <span class="ident">media_type</span>: <span class="ident">String</span>,
+        <span class="ident">annotations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    ) -&gt; <span class="self">Self</span> {
+        <span class="ident">ImageLayer</span> {
+            <span class="ident">data</span>,
+            <span class="ident">media_type</span>,
+            <span class="ident">annotations</span>,
+        }
     }
 
     <span class="doccomment">/// Constructs a new ImageLayer struct with provided data and</span>
     <span class="doccomment">/// media type application/vnd.oci.image.layer.v1.tar</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">oci_v1</span>(<span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">data</span>, <span class="ident">IMAGE_LAYER_MEDIA_TYPE</span>.<span class="ident">to_string</span>())
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">oci_v1</span>(<span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">annotations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">data</span>, <span class="ident">IMAGE_LAYER_MEDIA_TYPE</span>.<span class="ident">to_string</span>(), <span class="ident">annotations</span>)
     }
     <span class="doccomment">/// Constructs a new ImageLayer struct with provided data and</span>
     <span class="doccomment">/// media type application/vnd.oci.image.layer.v1.tar+gzip</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">oci_v1_gzip</span>(<span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
-        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">data</span>, <span class="ident">IMAGE_LAYER_GZIP_MEDIA_TYPE</span>.<span class="ident">to_string</span>())
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">oci_v1_gzip</span>(<span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">annotations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">data</span>, <span class="ident">IMAGE_LAYER_GZIP_MEDIA_TYPE</span>.<span class="ident">to_string</span>(), <span class="ident">annotations</span>)
     }
 
     <span class="doccomment">/// Helper function to compute the sha256 digest of an image layer</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sha256_digest</span>(<span class="self">self</span>) -&gt; <span class="ident">String</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sha256_digest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">String</span> {
+        <span class="ident">sha256_digest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>)
+    }
+}
+
+<span class="doccomment">/// The data and media type for a configuration object</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Config</span> {
+    <span class="doccomment">/// The data of this config object</span>
+    <span class="kw">pub</span> <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
+    <span class="doccomment">/// The media type of this object</span>
+    <span class="kw">pub</span> <span class="ident">media_type</span>: <span class="ident">String</span>,
+    <span class="doccomment">/// This OPTIONAL property contains arbitrary metadata for this descriptor.</span>
+    <span class="doccomment">/// This OPTIONAL property MUST use the [annotation rules](https://github.com/opencontainers/image-spec/blob/main/annotations.md#rules)</span>
+    <span class="kw">pub</span> <span class="ident">annotations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">Config</span> {
+    <span class="doccomment">/// Constructs a new Config struct with provided data and media type</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
+        <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
+        <span class="ident">media_type</span>: <span class="ident">String</span>,
+        <span class="ident">annotations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    ) -&gt; <span class="self">Self</span> {
+        <span class="ident">Config</span> {
+            <span class="ident">data</span>,
+            <span class="ident">media_type</span>,
+            <span class="ident">annotations</span>,
+        }
+    }
+
+    <span class="doccomment">/// Constructs a new Config struct with provided data and</span>
+    <span class="doccomment">/// media type application/vnd.oci.image.config.v1+json</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">oci_v1</span>(<span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>, <span class="ident">annotations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::new</span>(<span class="ident">data</span>, <span class="ident">IMAGE_CONFIG_MEDIA_TYPE</span>.<span class="ident">to_string</span>(), <span class="ident">annotations</span>)
+    }
+
+    <span class="doccomment">/// Helper function to compute the sha256 digest of this config object</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sha256_digest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="ident">String</span> {
         <span class="ident">sha256_digest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>)
     }
 }
@@ -2234,9 +2452,9 @@
 }
 
 <span class="kw">impl</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">ClientConfig</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Client</span> {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">anyhow::Error</span>;
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">OciDistributionError</span>;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">config</span>: <span class="ident">ClientConfig</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">config</span>: <span class="ident">ClientConfig</span>) -&gt; <span class="ident">std::result::Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">client_builder</span> <span class="op">=</span> <span class="ident">reqwest::Client::builder</span>()
             .<span class="ident">danger_accept_invalid_certs</span>(<span class="ident">config</span>.<span class="ident">accept_invalid_certificates</span>);
 
@@ -2291,19 +2509,19 @@
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
         <span class="ident">auth</span>: <span class="kw-2">&amp;</span><span class="ident">RegistryAuth</span>,
         <span class="ident">accepted_media_types</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span><span class="ident">ImageData</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ImageData</span><span class="op">&gt;</span> {
         <span class="macro">debug!</span>(<span class="string">&quot;Pulling image: {:?}&quot;</span>, <span class="ident">image</span>);
         <span class="kw">let</span> <span class="ident">op</span> <span class="op">=</span> <span class="ident">RegistryOperation::Pull</span>;
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">tokens</span>.<span class="ident">contains_key</span>(<span class="ident">image</span>, <span class="ident">op</span>) {
             <span class="self">self</span>.<span class="ident">auth</span>(<span class="ident">image</span>, <span class="ident">auth</span>, <span class="ident">op</span>).<span class="kw">await</span><span class="question-mark">?</span>;
         }
 
-        <span class="kw">let</span> (<span class="ident">manifest</span>, <span class="ident">digest</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">_pull_image_manifest</span>(<span class="ident">image</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let</span> (<span class="ident">manifest</span>, <span class="ident">digest</span>, <span class="ident">config</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">_pull_manifest_and_config</span>(<span class="ident">image</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="self">self</span>.<span class="ident">validate_layers</span>(<span class="kw-2">&amp;</span><span class="ident">manifest</span>, <span class="ident">accepted_media_types</span>)
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="kw">let</span> <span class="ident">layers</span> <span class="op">=</span> <span class="ident">manifest</span>.<span class="ident">layers</span>.<span class="ident">into_iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">layer</span><span class="op">|</span> {
+        <span class="kw">let</span> <span class="ident">layers</span> <span class="op">=</span> <span class="ident">manifest</span>.<span class="ident">layers</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">layer</span><span class="op">|</span> {
             <span class="comment">// This avoids moving `self` which is &amp;mut Self</span>
             <span class="comment">// into the async block. We only want to capture</span>
             <span class="comment">// as &amp;Self</span>
@@ -2311,8 +2529,12 @@
             <span class="kw">async</span> <span class="kw">move</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
                 <span class="macro">debug!</span>(<span class="string">&quot;Pulling image layer&quot;</span>);
-                <span class="ident">this</span>.<span class="ident">pull_layer</span>(<span class="ident">image</span>, <span class="kw-2">&amp;</span><span class="ident">layer</span>.<span class="ident">digest</span>, <span class="kw-2">&amp;mut</span> <span class="ident">out</span>).<span class="kw">await</span><span class="question-mark">?</span>;
-                <span class="prelude-val">Ok</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">anyhow::Error</span><span class="op">&gt;</span>(<span class="ident">ImageLayer::new</span>(<span class="ident">out</span>, <span class="ident">layer</span>.<span class="ident">media_type</span>))
+                <span class="ident">this</span>.<span class="ident">pull_blob</span>(<span class="ident">image</span>, <span class="kw-2">&amp;</span><span class="ident">layer</span>.<span class="ident">digest</span>, <span class="kw-2">&amp;mut</span> <span class="ident">out</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+                <span class="prelude-val">Ok</span>::<span class="op">&lt;</span><span class="kw">_</span>, <span class="ident">OciDistributionError</span><span class="op">&gt;</span>(<span class="ident">ImageLayer::new</span>(
+                    <span class="ident">out</span>,
+                    <span class="ident">layer</span>.<span class="ident">media_type</span>.<span class="ident">clone</span>(),
+                    <span class="ident">layer</span>.<span class="ident">annotations</span>.<span class="ident">clone</span>(),
+                ))
             }
         });
 
@@ -2320,6 +2542,8 @@
 
         <span class="prelude-val">Ok</span>(<span class="ident">ImageData</span> {
             <span class="ident">layers</span>,
+            <span class="ident">manifest</span>: <span class="prelude-val">Some</span>(<span class="ident">manifest</span>),
+            <span class="ident">config</span>,
             <span class="ident">digest</span>: <span class="prelude-val">Some</span>(<span class="ident">digest</span>),
         })
     }
@@ -2336,64 +2560,101 @@
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">push</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">image_ref</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
-        <span class="ident">image_data</span>: <span class="kw-2">&amp;</span><span class="ident">ImageData</span>,
-        <span class="ident">config_data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
-        <span class="ident">config_media_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+        <span class="ident">layers</span>: <span class="kw-2">&amp;</span>[<span class="ident">ImageLayer</span>],
+        <span class="ident">config</span>: <span class="ident">Config</span>,
         <span class="ident">auth</span>: <span class="kw-2">&amp;</span><span class="ident">RegistryAuth</span>,
-        <span class="ident">image_manifest</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OciImageManifest</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span><span class="ident">PushResponse</span><span class="op">&gt;</span> {
+        <span class="ident">manifest</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">OciImageManifest</span><span class="op">&gt;</span>,
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PushResponse</span><span class="op">&gt;</span> {
         <span class="macro">debug!</span>(<span class="string">&quot;Pushing image: {:?}&quot;</span>, <span class="ident">image_ref</span>);
         <span class="kw">let</span> <span class="ident">op</span> <span class="op">=</span> <span class="ident">RegistryOperation::Push</span>;
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">tokens</span>.<span class="ident">contains_key</span>(<span class="ident">image_ref</span>, <span class="ident">op</span>) {
             <span class="self">self</span>.<span class="ident">auth</span>(<span class="ident">image_ref</span>, <span class="ident">auth</span>, <span class="ident">op</span>).<span class="kw">await</span><span class="question-mark">?</span>;
         }
 
-        <span class="comment">// Start push session</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">location</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">begin_push_session</span>(<span class="ident">image_ref</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">manifest</span>: <span class="ident">OciImageManifest</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">manifest</span> {
+            <span class="prelude-val">Some</span>(<span class="ident">m</span>) =&gt; <span class="ident">m</span>,
+            <span class="prelude-val">None</span> =&gt; <span class="ident">OciImageManifest::build</span>(<span class="ident">layers</span>, <span class="kw-2">&amp;</span><span class="ident">config</span>, <span class="prelude-val">None</span>),
+        };
 
         <span class="comment">// Upload layers</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">start_byte</span> <span class="op">=</span> <span class="number">0</span>;
-        <span class="kw">for</span> <span class="ident">layer</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">image_data</span>.<span class="ident">layers</span> {
-            <span class="comment">// Destructuring assignment is not yet supported</span>
-            <span class="kw">let</span> (<span class="ident">next_location</span>, <span class="ident">next_byte</span>) <span class="op">=</span> <span class="self">self</span>
-                .<span class="ident">push_layer</span>(<span class="kw-2">&amp;</span><span class="ident">location</span>, <span class="ident">image_ref</span>, <span class="ident">layer</span>.<span class="ident">data</span>.<span class="ident">to_vec</span>(), <span class="ident">start_byte</span>)
-                .<span class="kw">await</span><span class="question-mark">?</span>;
-            <span class="ident">location</span> <span class="op">=</span> <span class="ident">next_location</span>;
-            <span class="ident">start_byte</span> <span class="op">=</span> <span class="ident">next_byte</span>;
+        <span class="kw">for</span> <span class="ident">layer</span> <span class="kw">in</span> <span class="ident">layers</span> {
+            <span class="kw">let</span> <span class="ident">digest</span> <span class="op">=</span> <span class="ident">layer</span>.<span class="ident">sha256_digest</span>();
+            <span class="kw">match</span> <span class="self">self</span>
+                .<span class="ident">push_blob_chunked</span>(<span class="ident">image_ref</span>, <span class="kw-2">&amp;</span><span class="ident">layer</span>.<span class="ident">data</span>, <span class="kw-2">&amp;</span><span class="ident">digest</span>)
+                .<span class="kw">await</span>
+            {
+                <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::SpecViolationError</span>(<span class="ident">violation</span>)) =&gt; {
+                    <span class="macro">warn!</span>(<span class="question-mark">?</span><span class="ident">violation</span>, <span class="string">&quot;Registry is not respecting the OCI Distribution Specification when doing chunked push operations&quot;</span>);
+                    <span class="macro">warn!</span>(<span class="string">&quot;Attempting monolithic push&quot;</span>);
+                    <span class="self">self</span>.<span class="ident">push_blob_monolithically</span>(<span class="ident">image_ref</span>, <span class="kw-2">&amp;</span><span class="ident">layer</span>.<span class="ident">data</span>, <span class="kw-2">&amp;</span><span class="ident">digest</span>)
+                        .<span class="kw">await</span><span class="question-mark">?</span>;
+                }
+                <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>),
+                <span class="kw">_</span> =&gt; {}
+            };
         }
 
-        <span class="comment">// End push session, upload manifest</span>
-        <span class="kw">let</span> <span class="ident">image_url</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">end_push_session</span>(<span class="kw-2">&amp;</span><span class="ident">location</span>, <span class="ident">image_ref</span>, <span class="kw-2">&amp;</span><span class="ident">image_data</span>.<span class="ident">digest</span>())
-            .<span class="kw">await</span><span class="question-mark">?</span>;
-
-        <span class="comment">// Push config and manifest to registry</span>
-        <span class="kw">let</span> <span class="ident">manifest</span>: <span class="ident">OciImageManifest</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">image_manifest</span> {
-            <span class="prelude-val">Some</span>(<span class="ident">m</span>) =&gt; <span class="ident">m</span>,
-            <span class="prelude-val">None</span> =&gt; <span class="self">self</span>.<span class="ident">generate_manifest</span>(<span class="ident">image_data</span>, <span class="ident">config_data</span>, <span class="ident">config_media_type</span>),
+        <span class="kw">let</span> <span class="ident">config_url</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>
+            .<span class="ident">push_blob_chunked</span>(<span class="ident">image_ref</span>, <span class="kw-2">&amp;</span><span class="ident">config</span>.<span class="ident">data</span>, <span class="kw-2">&amp;</span><span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">digest</span>)
+            .<span class="kw">await</span>
+        {
+            <span class="prelude-val">Ok</span>(<span class="ident">url</span>) =&gt; <span class="ident">url</span>,
+            <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::SpecViolationError</span>(<span class="ident">violation</span>)) =&gt; {
+                <span class="macro">warn!</span>(<span class="question-mark">?</span><span class="ident">violation</span>, <span class="string">&quot;Registry is not respecting the OCI Distribution Specification when doing chunked push operations&quot;</span>);
+                <span class="macro">warn!</span>(<span class="string">&quot;Attempting monolithic push&quot;</span>);
+                <span class="self">self</span>.<span class="ident">push_blob_monolithically</span>(<span class="ident">image_ref</span>, <span class="kw-2">&amp;</span><span class="ident">config</span>.<span class="ident">data</span>, <span class="kw-2">&amp;</span><span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">digest</span>)
+                    .<span class="kw">await</span><span class="question-mark">?</span>
+            }
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) =&gt; <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>),
         };
-        <span class="kw">let</span> <span class="ident">config_url</span> <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">push_config</span>(<span class="ident">image_ref</span>, <span class="ident">config_data</span>, <span class="kw-2">&amp;</span><span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">digest</span>)
-            .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">manifest_url</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">push_manifest</span>(<span class="ident">image_ref</span>, <span class="kw-2">&amp;</span><span class="ident">manifest</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+
+        <span class="kw">let</span> <span class="ident">manifest_url</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">push_manifest</span>(<span class="ident">image_ref</span>, <span class="kw-2">&amp;</span><span class="ident">manifest</span>.<span class="ident">into</span>()).<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(<span class="ident">PushResponse</span> {
-            <span class="ident">image_url</span>,
             <span class="ident">config_url</span>,
             <span class="ident">manifest_url</span>,
         })
+    }
+
+    <span class="doccomment">/// Pushes a blob to the registry as a monolith</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns the pullable location of the blob</span>
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">push_blob_monolithically</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
+        <span class="ident">blob_data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
+        <span class="ident">blob_digest</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">location</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">begin_push_monolithical_session</span>(<span class="ident">image</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">push_monolithically</span>(<span class="kw-2">&amp;</span><span class="ident">location</span>, <span class="ident">image</span>, <span class="ident">blob_data</span>, <span class="ident">blob_digest</span>)
+            .<span class="kw">await</span>
+    }
+
+    <span class="doccomment">/// Pushes a blob to the registry as a series of chunks</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns the pullable location of the blob</span>
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">push_blob_chunked</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
+        <span class="ident">blob_data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
+        <span class="ident">blob_digest</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">location</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">begin_push_chunked_session</span>(<span class="ident">image</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let</span> (<span class="ident">end_location</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">push_chunk</span>(<span class="kw-2">&amp;</span><span class="ident">location</span>, <span class="ident">image</span>, <span class="ident">blob_data</span>, <span class="number">0</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">end_push_chunked_session</span>(<span class="kw-2">&amp;</span><span class="ident">end_location</span>, <span class="ident">image</span>, <span class="ident">blob_digest</span>)
+            .<span class="kw">await</span>
     }
 
     <span class="doccomment">/// Perform an OAuth v2 auth request if necessary.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This performs authorization and then stores the token internally to be used</span>
     <span class="doccomment">/// on other requests.</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">auth</span>(
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">auth</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
         <span class="ident">authentication</span>: <span class="kw-2">&amp;</span><span class="ident">RegistryAuth</span>,
         <span class="ident">operation</span>: <span class="ident">RegistryOperation</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">debug!</span>(<span class="string">&quot;Authorizing for image: {:?}&quot;</span>, <span class="ident">image</span>);
         <span class="comment">// The version request will tell us where to go.</span>
         <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="macro">format!</span>(
@@ -2408,7 +2669,8 @@
             <span class="prelude-val">None</span> =&gt; <span class="kw">return</span> <span class="prelude-val">Ok</span>(()),
         };
 
-        <span class="kw">let</span> <span class="ident">auth</span> <span class="op">=</span> <span class="ident">WwwAuthenticate::parse_header</span>(<span class="kw-2">&amp;</span><span class="ident">Raw::from</span>(<span class="ident">dist_hdr</span>.<span class="ident">as_bytes</span>()))<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">auth</span> <span class="op">=</span> <span class="ident">WwwAuthenticate::parse_header</span>(<span class="kw-2">&amp;</span><span class="ident">Raw::from</span>(<span class="ident">dist_hdr</span>.<span class="ident">as_bytes</span>()))
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">OciDistributionError::GenericError</span>(<span class="prelude-val">Some</span>(<span class="ident">e</span>.<span class="ident">to_string</span>())))<span class="question-mark">?</span>;
         <span class="comment">// If challenge_opt is not set it means that no challenge was present, even though the header</span>
         <span class="comment">// was present.</span>
         <span class="kw">let</span> <span class="ident">challenge_opt</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">auth</span>.<span class="ident">get</span>::<span class="op">&lt;</span><span class="ident">BearerChallenge</span><span class="op">&gt;</span>() {
@@ -2459,8 +2721,8 @@
                 <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">auth_res</span>.<span class="ident">text</span>().<span class="kw">await</span><span class="question-mark">?</span>;
                 <span class="macro">debug!</span>(<span class="string">&quot;Received response from auth request: {}&quot;</span>, <span class="ident">text</span>);
                 <span class="kw">let</span> <span class="ident">token</span>: <span class="ident">RegistryToken</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>)
-                    .<span class="ident">context</span>(<span class="string">&quot;Failed to decode registry token from auth request&quot;</span>)<span class="question-mark">?</span>;
-                <span class="macro">debug!</span>(<span class="string">&quot;Succesfully authorized for image &#39;{:?}&#39;&quot;</span>, <span class="ident">image</span>);
+                    .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">OciDistributionError::RegistryTokenDecodeError</span>(<span class="ident">e</span>.<span class="ident">to_string</span>()))<span class="question-mark">?</span>;
+                <span class="macro">debug!</span>(<span class="string">&quot;Successfully authorized for image &#39;{:?}&#39;&quot;</span>, <span class="ident">image</span>);
                 <span class="self">self</span>.<span class="ident">tokens</span>
                     .<span class="ident">insert</span>(<span class="ident">image</span>, <span class="ident">operation</span>, <span class="ident">RegistryTokenType::Bearer</span>(<span class="ident">token</span>));
                 <span class="prelude-val">Ok</span>(())
@@ -2468,7 +2730,7 @@
             <span class="kw">_</span> =&gt; {
                 <span class="kw">let</span> <span class="ident">reason</span> <span class="op">=</span> <span class="ident">auth_res</span>.<span class="ident">text</span>().<span class="kw">await</span><span class="question-mark">?</span>;
                 <span class="macro">debug!</span>(<span class="string">&quot;Failed to authenticate for image &#39;{:?}&#39;: {}&quot;</span>, <span class="ident">image</span>, <span class="ident">reason</span>);
-                <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">&quot;failed to authenticate: {}&quot;</span>, <span class="ident">reason</span>))
+                <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::AuthenticationFailure</span>(<span class="ident">reason</span>))
             }
         }
     }
@@ -2485,7 +2747,7 @@
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
         <span class="ident">auth</span>: <span class="kw-2">&amp;</span><span class="ident">RegistryAuth</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">op</span> <span class="op">=</span> <span class="ident">RegistryOperation::Pull</span>;
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">tokens</span>.<span class="ident">contains_key</span>(<span class="ident">image</span>, <span class="ident">op</span>) {
             <span class="self">self</span>.<span class="ident">auth</span>(<span class="ident">image</span>, <span class="ident">auth</span>, <span class="ident">op</span>).<span class="kw">await</span><span class="question-mark">?</span>;
@@ -2513,48 +2775,16 @@
             <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">headers</span>().<span class="ident">clone</span>();
             <span class="macro">trace!</span>(<span class="ident">headers</span><span class="op">=</span><span class="question-mark">?</span><span class="ident">res</span>.<span class="ident">headers</span>(), <span class="string">&quot;Got Headers&quot;</span>);
             <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">text</span>().<span class="kw">await</span><span class="question-mark">?</span>;
-            <span class="comment">// The OCI spec technically does not allow any codes but 200, 500, 401, and 404.</span>
-            <span class="comment">// Obviously, HTTP servers are going to send other codes. This tries to catch the</span>
-            <span class="comment">// obvious ones (200, 4XX, 5XX). Anything else is just treated as an error.</span>
-            <span class="kw">match</span> <span class="ident">status</span> {
-                <span class="ident">reqwest::StatusCode::OK</span> =&gt; <span class="ident">digest_header_value</span>(<span class="ident">headers</span>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>)),
-                <span class="ident">reqwest::StatusCode::UNAUTHORIZED</span> =&gt; <span class="macro">anyhow::bail!</span>(<span class="string">&quot;Not Authorized&quot;</span>),
-                <span class="ident">s</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">is_client_error</span>() =&gt; {
-                    <span class="comment">// According to the OCI spec, we should see an error in the message body.</span>
-                    <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">OciEnvelope</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>)<span class="question-mark">?</span>;
-                    <span class="comment">// FIXME: This should not have to wrap the error.</span>
-                    <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">&quot;{} on {}&quot;</span>, <span class="ident">err</span>.<span class="ident">errors</span>[<span class="number">0</span>], <span class="ident">url</span>))
-                }
-                <span class="ident">s</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">is_server_error</span>() =&gt; <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">&quot;Server error at {}&quot;</span>, <span class="ident">url</span>)),
-                <span class="ident">s</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(
-                    <span class="string">&quot;An unexpected error occured: code={}, message=&#39;{}&#39;&quot;</span>,
-                    <span class="ident">s</span>,
-                    <span class="ident">text</span>
-                )),
-            }
+            <span class="ident">validate_registry_response</span>(<span class="ident">status</span>, <span class="kw-2">&amp;</span><span class="ident">text</span>, <span class="kw-2">&amp;</span><span class="ident">url</span>)<span class="question-mark">?</span>;
+
+            <span class="ident">digest_header_value</span>(<span class="ident">headers</span>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>))
         } <span class="kw">else</span> {
             <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">status</span>();
             <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">headers</span>().<span class="ident">clone</span>();
             <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">text</span>().<span class="kw">await</span><span class="question-mark">?</span>;
-            <span class="comment">// The OCI spec technically does not allow any codes but 200, 500, 401, and 404.</span>
-            <span class="comment">// Obviously, HTTP servers are going to send other codes. This tries to catch the</span>
-            <span class="comment">// obvious ones (200, 4XX, 5XX). Anything else is just treated as an error.</span>
-            <span class="kw">match</span> <span class="ident">status</span> {
-                <span class="ident">reqwest::StatusCode::OK</span> =&gt; <span class="ident">digest_header_value</span>(<span class="ident">headers</span>, <span class="prelude-val">None</span>),
-                <span class="ident">reqwest::StatusCode::UNAUTHORIZED</span> =&gt; <span class="macro">anyhow::bail!</span>(<span class="string">&quot;Not Authorized&quot;</span>),
-                <span class="ident">s</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">is_client_error</span>() =&gt; {
-                    <span class="comment">// According to the OCI spec, we should see an error in the message body.</span>
-                    <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">OciEnvelope</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>)<span class="question-mark">?</span>;
-                    <span class="comment">// FIXME: This should not have to wrap the error.</span>
-                    <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">&quot;{} on {}&quot;</span>, <span class="ident">err</span>.<span class="ident">errors</span>[<span class="number">0</span>], <span class="ident">url</span>))
-                }
-                <span class="ident">s</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">is_server_error</span>() =&gt; <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">&quot;Server error at {}&quot;</span>, <span class="ident">url</span>)),
-                <span class="ident">s</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(
-                    <span class="string">&quot;An unexpected error occured: code={}, message=&#39;{}&#39;&quot;</span>,
-                    <span class="ident">s</span>,
-                    <span class="ident">text</span>
-                )),
-            }
+            <span class="ident">validate_registry_response</span>(<span class="ident">status</span>, <span class="kw-2">&amp;</span><span class="ident">text</span>, <span class="kw-2">&amp;</span><span class="ident">url</span>)<span class="question-mark">?</span>;
+
+            <span class="ident">digest_header_value</span>(<span class="ident">headers</span>, <span class="prelude-val">None</span>)
         }
     }
 
@@ -2562,16 +2792,15 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">manifest</span>: <span class="kw-2">&amp;</span><span class="ident">OciImageManifest</span>,
         <span class="ident">accepted_media_types</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">manifest</span>.<span class="ident">layers</span>.<span class="ident">is_empty</span>() {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">&quot;no layers to pull&quot;</span>));
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::PullNoLayersError</span>);
         }
 
         <span class="kw">for</span> <span class="ident">layer</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="ident">manifest</span>.<span class="ident">layers</span> {
             <span class="kw">if</span> <span class="op">!</span><span class="ident">accepted_media_types</span>.<span class="ident">iter</span>().<span class="ident">any</span>(<span class="op">|</span><span class="ident">i</span><span class="op">|</span> <span class="ident">i</span>.<span class="ident">eq</span>(<span class="kw-2">&amp;</span><span class="ident">layer</span>.<span class="ident">media_type</span>)) {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(
-                    <span class="string">&quot;incompatible layer media type: {}&quot;</span>,
-                    <span class="ident">layer</span>.<span class="ident">media_type</span>
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::IncompatibleLayerMediaTypeError</span>(
+                    <span class="ident">layer</span>.<span class="ident">media_type</span>.<span class="ident">clone</span>(),
                 ));
             }
         }
@@ -2593,7 +2822,7 @@
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
         <span class="ident">auth</span>: <span class="kw-2">&amp;</span><span class="ident">RegistryAuth</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>(<span class="ident">OciImageManifest</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">OciImageManifest</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">op</span> <span class="op">=</span> <span class="ident">RegistryOperation::Pull</span>;
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">tokens</span>.<span class="ident">contains_key</span>(<span class="ident">image</span>, <span class="ident">op</span>) {
             <span class="self">self</span>.<span class="ident">auth</span>(<span class="ident">image</span>, <span class="ident">auth</span>, <span class="ident">op</span>).<span class="kw">await</span><span class="question-mark">?</span>;
@@ -2607,13 +2836,13 @@
     <span class="doccomment">/// The client will check if it&#39;s already been authenticated and if</span>
     <span class="doccomment">/// not will attempt to do.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// A Tuple is returned containing the [Manifest](crate::manifest::Manifest)</span>
+    <span class="doccomment">/// A Tuple is returned containing the [Manifest](crate::manifest::OciImageManifest)</span>
     <span class="doccomment">/// and the manifest content digest hash.</span>
     <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">pull_manifest</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
         <span class="ident">auth</span>: <span class="kw-2">&amp;</span><span class="ident">RegistryAuth</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>(<span class="ident">OciManifest</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">OciManifest</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">op</span> <span class="op">=</span> <span class="ident">RegistryOperation::Pull</span>;
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">tokens</span>.<span class="ident">contains_key</span>(<span class="ident">image</span>, <span class="ident">op</span>) {
             <span class="self">self</span>.<span class="ident">auth</span>(<span class="ident">image</span>, <span class="ident">auth</span>, <span class="ident">op</span>).<span class="kw">await</span><span class="question-mark">?</span>;
@@ -2629,10 +2858,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If a multi-platform Image Index manifest is encountered, a platform-specific</span>
     <span class="doccomment">/// Image manifest will be selected using the client&#39;s default platform resolution.</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">_pull_image_manifest</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>(<span class="ident">OciImageManifest</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">_pull_image_manifest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">OciImageManifest</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">manifest</span>, <span class="ident">digest</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">_pull_manifest</span>(<span class="ident">image</span>).<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="kw">match</span> <span class="ident">manifest</span> {
             <span class="ident">OciManifest::Image</span>(<span class="ident">image_manifest</span>) =&gt; <span class="prelude-val">Ok</span>((<span class="ident">image_manifest</span>, <span class="ident">digest</span>)),
@@ -2641,9 +2867,7 @@
                 <span class="kw">let</span> <span class="ident">digest</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">resolver</span>) <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">config</span>.<span class="ident">platform_resolver</span> {
                     <span class="ident">resolver</span>(<span class="kw-2">&amp;</span><span class="ident">image_index_manifest</span>.<span class="ident">manifests</span>)
                 } <span class="kw">else</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(
-                        <span class="string">&quot;Received Image Index/Manifest List, but platform_resolver was not defined on the client config. Consider setting platform_resolver&quot;</span>
-                    ));
+                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::ImageIndexParsingNoPlatformResolverError</span>);
                 };
 
                 <span class="kw">match</span> <span class="ident">digest</span> {
@@ -2658,13 +2882,16 @@
                             .<span class="kw">await</span>
                             .<span class="ident">and_then</span>(<span class="op">|</span>(<span class="ident">manifest</span>, <span class="ident">_digest</span>)<span class="op">|</span> <span class="kw">match</span> <span class="ident">manifest</span> {
                                 <span class="ident">OciManifest::Image</span>(<span class="ident">manifest</span>) =&gt; <span class="prelude-val">Ok</span>((<span class="ident">manifest</span>, <span class="ident">digest</span>)),
-                                <span class="ident">OciManifest::ImageIndex</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(
-                                    <span class="string">&quot;Expected Image Manifest, received Image Index manifest.&quot;</span>
-                                )),
+                                <span class="ident">OciManifest::ImageIndex</span>(<span class="kw">_</span>) =&gt; {
+                                    <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::ImageManifestNotFoundError</span>(
+                                        <span class="string">&quot;received Image Index manifest instead&quot;</span>.<span class="ident">to_string</span>(),
+                                    ))
+                                }
                             })
                     }
-                    <span class="prelude-val">None</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(
-                        <span class="string">&quot;No entry found in image index manifest matching client&#39;s default platform&quot;</span>
+                    <span class="prelude-val">None</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::ImageManifestNotFoundError</span>(
+                        <span class="string">&quot;no entry found in image index manifest matching client&#39;s default platform&quot;</span>
+                            .<span class="ident">to_string</span>(),
                     )),
                 }
             }
@@ -2675,7 +2902,7 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// If the connection has already gone through authentication, this will</span>
     <span class="doccomment">/// use the bearer token. Otherwise, this will attempt an anonymous pull.</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">_pull_manifest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>(<span class="ident">OciManifest</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">_pull_manifest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">OciManifest</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">to_v2_manifest_url</span>(<span class="ident">image</span>);
         <span class="macro">debug!</span>(<span class="string">&quot;Pulling image manifest from {}&quot;</span>, <span class="ident">url</span>);
 
@@ -2685,50 +2912,29 @@
             .<span class="ident">into_request_builder</span>()
             .<span class="ident">send</span>()
             .<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">headers</span>().<span class="ident">clone</span>();
+        <span class="kw">let</span> <span class="ident">status</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">status</span>();
+        <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">text</span>().<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="comment">// The OCI spec technically does not allow any codes but 200, 500, 401, and 404.</span>
-        <span class="comment">// Obviously, HTTP servers are going to send other codes. This tries to catch the</span>
-        <span class="comment">// obvious ones (200, 4XX, 5XX). Anything else is just treated as an error.</span>
-        <span class="kw">match</span> <span class="ident">res</span>.<span class="ident">status</span>() {
-            <span class="ident">reqwest::StatusCode::OK</span> =&gt; {
-                <span class="kw">let</span> <span class="ident">headers</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">headers</span>().<span class="ident">clone</span>();
-                <span class="kw">let</span> <span class="ident">text</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">text</span>().<span class="kw">await</span><span class="question-mark">?</span>;
-                <span class="kw">let</span> <span class="ident">digest</span> <span class="op">=</span> <span class="ident">digest_header_value</span>(<span class="ident">headers</span>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>))<span class="question-mark">?</span>;
+        <span class="ident">validate_registry_response</span>(<span class="ident">status</span>, <span class="kw-2">&amp;</span><span class="ident">text</span>, <span class="kw-2">&amp;</span><span class="ident">url</span>)<span class="question-mark">?</span>;
 
-                <span class="self">self</span>.<span class="ident">validate_image_manifest</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">digest</span> <span class="op">=</span> <span class="ident">digest_header_value</span>(<span class="ident">headers</span>, <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>))<span class="question-mark">?</span>;
 
-                <span class="macro">debug!</span>(<span class="string">&quot;Parsing response as Manifest: {}&quot;</span>, <span class="ident">text</span>);
-                <span class="kw">let</span> <span class="ident">manifest</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>).<span class="ident">with_context</span>(<span class="op">|</span><span class="op">|</span> {
-                    <span class="macro">format!</span>(
-                        <span class="string">&quot;Failed to parse response from pulling manifest for &#39;{:?}&#39; as a Manifest&quot;</span>,
-                        <span class="ident">image</span>
-                    )
-                })<span class="question-mark">?</span>;
-                <span class="prelude-val">Ok</span>((<span class="ident">manifest</span>, <span class="ident">digest</span>))
-            }
-            <span class="ident">s</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">is_client_error</span>() =&gt; {
-                <span class="comment">// According to the OCI spec, we should see an error in the message body.</span>
-                <span class="kw">let</span> <span class="ident">err</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">json</span>::<span class="op">&lt;</span><span class="ident">OciEnvelope</span><span class="op">&gt;</span>().<span class="kw">await</span><span class="question-mark">?</span>;
-                <span class="comment">// FIXME: This should not have to wrap the error.</span>
-                <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">&quot;{} on {}&quot;</span>, <span class="ident">err</span>.<span class="ident">errors</span>[<span class="number">0</span>], <span class="ident">url</span>))
-            }
-            <span class="ident">s</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">is_server_error</span>() =&gt; <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">&quot;Server error at {}&quot;</span>, <span class="ident">url</span>)),
-            <span class="ident">s</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(
-                <span class="string">&quot;An unexpected error occurred: code={}, message=&#39;{}&#39;&quot;</span>,
-                <span class="ident">s</span>,
-                <span class="ident">res</span>.<span class="ident">text</span>().<span class="kw">await</span><span class="question-mark">?</span>
-            )),
-        }
+        <span class="self">self</span>.<span class="ident">validate_image_manifest</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+
+        <span class="macro">debug!</span>(<span class="string">&quot;Parsing response as Manifest: {}&quot;</span>, <span class="ident">text</span>);
+        <span class="kw">let</span> <span class="ident">manifest</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="kw-2">&amp;</span><span class="ident">text</span>)
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">OciDistributionError::ManifestParsingError</span>(<span class="ident">e</span>.<span class="ident">to_string</span>()))<span class="question-mark">?</span>;
+        <span class="prelude-val">Ok</span>((<span class="ident">manifest</span>, <span class="ident">digest</span>))
     }
 
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">validate_image_manifest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">validate_image_manifest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">debug!</span>(<span class="string">&quot;validating manifest: {}&quot;</span>, <span class="ident">text</span>);
         <span class="kw">let</span> <span class="ident">versioned</span>: <span class="ident">Versioned</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>(<span class="ident">text</span>)
-            .<span class="ident">with_context</span>(<span class="op">|</span><span class="op">|</span> <span class="string">&quot;Failed to parse manifest as a Versioned object&quot;</span>)<span class="question-mark">?</span>;
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">OciDistributionError::VersionedParsingError</span>(<span class="ident">e</span>.<span class="ident">to_string</span>()))<span class="question-mark">?</span>;
         <span class="kw">if</span> <span class="ident">versioned</span>.<span class="ident">schema_version</span> <span class="op">!</span><span class="op">=</span> <span class="number">2</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(
-                <span class="string">&quot;unsupported schema version: {}&quot;</span>,
-                <span class="ident">versioned</span>.<span class="ident">schema_version</span>
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::UnsupportedSchemaVersionError</span>(
+                <span class="ident">versioned</span>.<span class="ident">schema_version</span>,
             ));
         }
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">media_type</span>) <span class="op">=</span> <span class="ident">versioned</span>.<span class="ident">media_type</span> {
@@ -2736,7 +2942,7 @@
                 <span class="op">&amp;&amp;</span> <span class="ident">media_type</span> <span class="op">!</span><span class="op">=</span> <span class="ident">OCI_IMAGE_MEDIA_TYPE</span>
                 <span class="op">&amp;&amp;</span> <span class="ident">media_type</span> <span class="op">!</span><span class="op">=</span> <span class="ident">IMAGE_MANIFEST_LIST_MEDIA_TYPE</span>
             {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">&quot;unsupported media type: {}&quot;</span>, <span class="ident">media_type</span>));
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::UnsupportedMediaTypeError</span>(<span class="ident">media_type</span>));
             }
         }
 
@@ -2755,27 +2961,55 @@
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
         <span class="ident">auth</span>: <span class="kw-2">&amp;</span><span class="ident">RegistryAuth</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>(<span class="ident">OciImageManifest</span>, <span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">OciImageManifest</span>, <span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">op</span> <span class="op">=</span> <span class="ident">RegistryOperation::Pull</span>;
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">tokens</span>.<span class="ident">contains_key</span>(<span class="ident">image</span>, <span class="ident">op</span>) {
             <span class="self">self</span>.<span class="ident">auth</span>(<span class="ident">image</span>, <span class="ident">auth</span>, <span class="ident">op</span>).<span class="kw">await</span><span class="question-mark">?</span>;
         }
 
-        <span class="self">self</span>.<span class="ident">_pull_manifest_and_config</span>(<span class="ident">image</span>).<span class="kw">await</span>
+        <span class="self">self</span>.<span class="ident">_pull_manifest_and_config</span>(<span class="ident">image</span>)
+            .<span class="kw">await</span>
+            .<span class="ident">and_then</span>(<span class="op">|</span>(<span class="ident">manifest</span>, <span class="ident">digest</span>, <span class="ident">config</span>)<span class="op">|</span> {
+                <span class="prelude-val">Ok</span>((
+                    <span class="ident">manifest</span>,
+                    <span class="ident">digest</span>,
+                    <span class="ident">String::from_utf8</span>(<span class="ident">config</span>.<span class="ident">data</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> {
+                        <span class="ident">OciDistributionError::GenericError</span>(<span class="prelude-val">Some</span>(<span class="macro">format!</span>(
+                            <span class="string">&quot;Cannot not UTF8 compliant: {}&quot;</span>,
+                            <span class="ident">e</span>
+                        )))
+                    })<span class="question-mark">?</span>,
+                ))
+            })
     }
 
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">_pull_manifest_and_config</span>(
         <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>(<span class="ident">OciImageManifest</span>, <span class="ident">String</span>, <span class="ident">String</span>)<span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">OciImageManifest</span>, <span class="ident">String</span>, <span class="ident">Config</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">manifest</span>, <span class="ident">digest</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">_pull_image_manifest</span>(<span class="ident">image</span>).<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
         <span class="macro">debug!</span>(<span class="string">&quot;Pulling config layer&quot;</span>);
-        <span class="self">self</span>.<span class="ident">pull_layer</span>(<span class="ident">image</span>, <span class="kw-2">&amp;</span><span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">digest</span>, <span class="kw-2">&amp;mut</span> <span class="ident">out</span>)
+        <span class="self">self</span>.<span class="ident">pull_blob</span>(<span class="ident">image</span>, <span class="kw-2">&amp;</span><span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">digest</span>, <span class="kw-2">&amp;mut</span> <span class="ident">out</span>)
             .<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">media_type</span> <span class="op">=</span> <span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">media_type</span>.<span class="ident">clone</span>();
+        <span class="kw">let</span> <span class="ident">annotations</span> <span class="op">=</span> <span class="ident">manifest</span>.<span class="ident">annotations</span>.<span class="ident">clone</span>();
+        <span class="prelude-val">Ok</span>((<span class="ident">manifest</span>, <span class="ident">digest</span>, <span class="ident">Config::new</span>(<span class="ident">out</span>, <span class="ident">media_type</span>, <span class="ident">annotations</span>)))
+    }
 
-        <span class="prelude-val">Ok</span>((<span class="ident">manifest</span>, <span class="ident">digest</span>, <span class="ident">String::from_utf8</span>(<span class="ident">out</span>)<span class="question-mark">?</span>))
+    <span class="doccomment">/// Push a manifest list to an OCI registry.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This pushes a manifest list to an OCI registry.</span>
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">push_manifest_list</span>(
+        <span class="kw-2">&amp;mut</span> <span class="self">self</span>,
+        <span class="ident">reference</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
+        <span class="ident">auth</span>: <span class="kw-2">&amp;</span><span class="ident">RegistryAuth</span>,
+        <span class="ident">manifest</span>: <span class="ident">OciImageIndex</span>,
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">_response</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">auth</span>(<span class="ident">reference</span>, <span class="ident">auth</span>, <span class="ident">RegistryOperation::Push</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="self">self</span>.<span class="ident">push_manifest</span>(<span class="ident">reference</span>, <span class="kw-2">&amp;</span><span class="ident">OciManifest::ImageIndex</span>(<span class="ident">manifest</span>))
+            .<span class="kw">await</span>
     }
 
     <span class="doccomment">/// Pull a single layer from an OCI registry.</span>
@@ -2785,12 +3019,12 @@
     <span class="doccomment">/// repository and the registry, but it is not used to verify that</span>
     <span class="doccomment">/// the digest is a layer inside of the image. (The manifest is</span>
     <span class="doccomment">/// used for that.)</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">pull_layer</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsyncWrite</span> <span class="op">+</span> <span class="ident">Unpin</span><span class="op">&gt;</span>(
+    <span class="kw">pub</span> <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">pull_blob</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">AsyncWrite</span> <span class="op">+</span> <span class="ident">Unpin</span><span class="op">&gt;</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
         <span class="ident">digest</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="kw-2">mut</span> <span class="ident">out</span>: <span class="ident">T</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">to_v2_blob_url</span>(<span class="ident">image</span>.<span class="ident">resolve_registry</span>(), <span class="ident">image</span>.<span class="ident">repository</span>(), <span class="ident">digest</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">stream</span> <span class="op">=</span> <span class="ident">RequestBuilderWrapper::from_client</span>(<span class="self">self</span>, <span class="op">|</span><span class="ident">client</span><span class="op">|</span> <span class="ident">client</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">url</span>))
             .<span class="ident">apply_accept</span>(<span class="ident">MIME_TYPES_DISTRIBUTION_MANIFEST</span>)<span class="question-mark">?</span>
@@ -2807,11 +3041,29 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="doccomment">/// Begins a session to push an image to registry</span>
+    <span class="doccomment">/// Begins a session to push an image to registry in a monolithical way</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns URL with session UUID</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">begin_push_session</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">begin_push_monolithical_session</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">to_v2_blob_upload_url</span>(<span class="ident">image</span>);
+        <span class="macro">debug!</span>(<span class="question-mark">?</span><span class="ident">url</span>, <span class="string">&quot;begin_push_monolithical_session&quot;</span>);
+        <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">RequestBuilderWrapper::from_client</span>(<span class="self">self</span>, <span class="op">|</span><span class="ident">client</span><span class="op">|</span> <span class="ident">client</span>.<span class="ident">post</span>(<span class="ident">url</span>))
+            .<span class="ident">apply_auth</span>(<span class="ident">image</span>, <span class="ident">RegistryOperation::Push</span>)<span class="question-mark">?</span>
+            .<span class="ident">into_request_builder</span>()
+            .<span class="ident">send</span>()
+            .<span class="kw">await</span><span class="question-mark">?</span>;
+
+        <span class="comment">// OCI spec requires the status code be 202 Accepted to successfully begin the push process</span>
+        <span class="self">self</span>.<span class="ident">extract_location_header</span>(<span class="ident">image</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="ident">reqwest::StatusCode::ACCEPTED</span>)
+            .<span class="kw">await</span>
+    }
+
+    <span class="doccomment">/// Begins a session to push an image to registry as a series of chunks</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns URL with session UUID</span>
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">begin_push_chunked_session</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">to_v2_blob_upload_url</span>(<span class="ident">image</span>);
+        <span class="macro">debug!</span>(<span class="question-mark">?</span><span class="ident">url</span>, <span class="string">&quot;begin_push_session&quot;</span>);
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">RequestBuilderWrapper::from_client</span>(<span class="self">self</span>, <span class="op">|</span><span class="ident">client</span><span class="op">|</span> <span class="ident">client</span>.<span class="ident">post</span>(<span class="ident">url</span>))
             .<span class="ident">apply_auth</span>(<span class="ident">image</span>, <span class="ident">RegistryOperation::Push</span>)<span class="question-mark">?</span>
             .<span class="ident">into_request_builder</span>()
@@ -2824,16 +3076,17 @@
             .<span class="kw">await</span>
     }
 
-    <span class="doccomment">/// Closes the push session</span>
+    <span class="doccomment">/// Closes the chunked push session</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns the pullable URL for the image</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">end_push_session</span>(
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">end_push_chunked_session</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">location</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
         <span class="ident">digest</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="ident">Url::parse_with_params</span>(<span class="ident">location</span>, <span class="kw-2">&amp;</span>[(<span class="string">&quot;digest&quot;</span>, <span class="ident">digest</span>)])<span class="question-mark">?</span>;
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="ident">Url::parse_with_params</span>(<span class="ident">location</span>, <span class="kw-2">&amp;</span>[(<span class="string">&quot;digest&quot;</span>, <span class="ident">digest</span>)])
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">OciDistributionError::GenericError</span>(<span class="prelude-val">Some</span>(<span class="ident">e</span>.<span class="ident">to_string</span>())))<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">RequestBuilderWrapper::from_client</span>(<span class="self">self</span>, <span class="op">|</span><span class="ident">client</span><span class="op">|</span> <span class="ident">client</span>.<span class="ident">put</span>(<span class="ident">url</span>.<span class="ident">clone</span>()))
             .<span class="ident">apply_auth</span>(<span class="ident">image</span>, <span class="ident">RegistryOperation::Push</span>)<span class="question-mark">?</span>
             .<span class="ident">into_request_builder</span>()
@@ -2844,18 +3097,58 @@
             .<span class="kw">await</span>
     }
 
-    <span class="doccomment">/// Pushes a single layer (blob) of an image to registry</span>
+    <span class="doccomment">/// Pushes a layer to a registry as a monolithical blob.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns the URL location for the next layer</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">push_layer</span>(
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">push_monolithically</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">location</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
-        <span class="ident">layer</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
-        <span class="ident">start_byte</span>: <span class="ident">usize</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">usize</span>)<span class="op">&gt;</span> {
+        <span class="ident">layer</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
+        <span class="ident">blob_digest</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">url</span> <span class="op">=</span> <span class="ident">url::Url::parse</span>(<span class="ident">location</span>).<span class="ident">unwrap</span>();
+        <span class="ident">url</span>.<span class="ident">query_pairs_mut</span>().<span class="ident">append_pair</span>(<span class="string">&quot;digest&quot;</span>, <span class="ident">blob_digest</span>);
+        <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="ident">url</span>.<span class="ident">to_string</span>();
+
+        <span class="macro">debug!</span>(<span class="ident">size</span> <span class="op">=</span> <span class="ident">layer</span>.<span class="ident">len</span>(), <span class="ident">location</span> <span class="op">=</span> <span class="question-mark">?</span><span class="ident">url</span>, <span class="string">&quot;Pushing monolithically&quot;</span>);
         <span class="kw">if</span> <span class="ident">layer</span>.<span class="ident">is_empty</span>() {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">&quot;cannot push a layer without data&quot;</span>));
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::PushNoDataError</span>);
+        };
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">headers</span> <span class="op">=</span> <span class="ident">HeaderMap::new</span>();
+        <span class="ident">headers</span>.<span class="ident">insert</span>(
+            <span class="string">&quot;Content-Length&quot;</span>,
+            <span class="macro">format!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">layer</span>.<span class="ident">len</span>()).<span class="ident">parse</span>().<span class="ident">unwrap</span>(),
+        );
+        <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/octet-stream&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
+
+        <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">RequestBuilderWrapper::from_client</span>(<span class="self">self</span>, <span class="op">|</span><span class="ident">client</span><span class="op">|</span> <span class="ident">client</span>.<span class="ident">put</span>(<span class="kw-2">&amp;</span><span class="ident">url</span>))
+            .<span class="ident">apply_auth</span>(<span class="ident">image</span>, <span class="ident">RegistryOperation::Push</span>)<span class="question-mark">?</span>
+            .<span class="ident">into_request_builder</span>()
+            .<span class="ident">headers</span>(<span class="ident">headers</span>)
+            .<span class="ident">body</span>(<span class="ident">layer</span>.<span class="ident">to_vec</span>())
+            .<span class="ident">send</span>()
+            .<span class="kw">await</span><span class="question-mark">?</span>;
+
+        <span class="comment">// Returns location</span>
+        <span class="self">self</span>.<span class="ident">extract_location_header</span>(<span class="ident">image</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="ident">reqwest::StatusCode::CREATED</span>)
+            .<span class="kw">await</span>
+    }
+
+    <span class="doccomment">/// Pushes a single chunk of a blob to a registry,</span>
+    <span class="doccomment">/// as part of a chunked blob upload.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Returns the URL location for the next layer</span>
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">push_chunk</span>(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">location</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
+        <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
+        <span class="ident">layer</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
+        <span class="ident">start_byte</span>: <span class="ident">usize</span>,
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="ident">String</span>, <span class="ident">usize</span>)<span class="op">&gt;</span> {
+        <span class="macro">debug!</span>(<span class="string">&quot;Pushing chunk. size={}, location={}&quot;</span>, <span class="ident">layer</span>.<span class="ident">len</span>(), <span class="ident">location</span>);
+        <span class="kw">if</span> <span class="ident">layer</span>.<span class="ident">is_empty</span>() {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::PushNoDataError</span>);
         };
         <span class="kw">let</span> <span class="ident">end_byte</span> <span class="op">=</span> <span class="ident">start_byte</span> <span class="op">+</span> <span class="ident">layer</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="number">1</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">headers</span> <span class="op">=</span> <span class="ident">HeaderMap::new</span>();
@@ -2873,7 +3166,7 @@
             .<span class="ident">apply_auth</span>(<span class="ident">image</span>, <span class="ident">RegistryOperation::Push</span>)<span class="question-mark">?</span>
             .<span class="ident">into_request_builder</span>()
             .<span class="ident">headers</span>(<span class="ident">headers</span>)
-            .<span class="ident">body</span>(<span class="ident">layer</span>)
+            .<span class="ident">body</span>(<span class="ident">layer</span>.<span class="ident">to_vec</span>())
             .<span class="ident">send</span>()
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -2885,46 +3178,53 @@
         ))
     }
 
-    <span class="doccomment">/// Pushes the config as a blob to the registry</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Returns the pullable location of the config</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">push_config</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
-        <span class="ident">config_data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
-        <span class="ident">config_digest</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">location</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">begin_push_session</span>(<span class="ident">image</span>).<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="kw">let</span> (<span class="ident">end_location</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="self">self</span>
-            .<span class="ident">push_layer</span>(<span class="kw-2">&amp;</span><span class="ident">location</span>, <span class="ident">image</span>, <span class="ident">config_data</span>.<span class="ident">to_vec</span>(), <span class="number">0</span>)
-            .<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="self">self</span>.<span class="ident">end_push_session</span>(<span class="kw-2">&amp;</span><span class="ident">end_location</span>, <span class="ident">image</span>, <span class="ident">config_digest</span>)
-            .<span class="kw">await</span>
-    }
-
     <span class="doccomment">/// Pushes the manifest for a specified image</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Returns pullable manifest URL</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">push_manifest</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
-        <span class="ident">manifest</span>: <span class="kw-2">&amp;</span><span class="ident">OciImageManifest</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">push_manifest</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>, <span class="ident">manifest</span>: <span class="kw-2">&amp;</span><span class="ident">OciManifest</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">to_v2_manifest_url</span>(<span class="ident">image</span>);
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">headers</span> <span class="op">=</span> <span class="ident">HeaderMap::new</span>();
-        <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="string">&quot;Content-Type&quot;</span>, <span class="ident">OCI_IMAGE_MEDIA_TYPE</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
+        <span class="kw">let</span> <span class="ident">content_type</span> <span class="op">=</span> <span class="ident">manifest</span>.<span class="ident">content_type</span>();
+        <span class="ident">headers</span>.<span class="ident">insert</span>(<span class="string">&quot;Content-Type&quot;</span>, <span class="ident">content_type</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>());
 
+        <span class="comment">// Serialize the manifest with a canonical json formatter, as described at</span>
+        <span class="comment">// https://github.com/opencontainers/image-spec/blob/main/considerations.md#json</span>
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">body</span> <span class="op">=</span> <span class="ident">Vec::new</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ser</span> <span class="op">=</span> <span class="ident">serde_json::Serializer::with_formatter</span>(<span class="kw-2">&amp;mut</span> <span class="ident">body</span>, <span class="ident">CanonicalFormatter::new</span>());
+        <span class="ident">manifest</span>.<span class="ident">serialize</span>(<span class="kw-2">&amp;mut</span> <span class="ident">ser</span>).<span class="ident">unwrap</span>();
+
+        <span class="comment">// Calculate the digest of the manifest, this is useful</span>
+        <span class="comment">// if the remote registry is violating the OCI Distribution Specification.</span>
+        <span class="comment">// See below for more details.</span>
+        <span class="kw">let</span> <span class="ident">manifest_hash</span> <span class="op">=</span> <span class="ident">sha256_digest</span>(<span class="kw-2">&amp;</span><span class="ident">body</span>);
+
+        <span class="macro">debug!</span>(<span class="question-mark">?</span><span class="ident">url</span>, <span class="question-mark">?</span><span class="ident">content_type</span>, <span class="string">&quot;push manifest&quot;</span>);
         <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">RequestBuilderWrapper::from_client</span>(<span class="self">self</span>, <span class="op">|</span><span class="ident">client</span><span class="op">|</span> <span class="ident">client</span>.<span class="ident">put</span>(<span class="ident">url</span>.<span class="ident">clone</span>()))
             .<span class="ident">apply_auth</span>(<span class="ident">image</span>, <span class="ident">RegistryOperation::Push</span>)<span class="question-mark">?</span>
             .<span class="ident">into_request_builder</span>()
             .<span class="ident">headers</span>(<span class="ident">headers</span>)
-            .<span class="ident">body</span>(<span class="ident">serde_json::to_string</span>(<span class="ident">manifest</span>)<span class="question-mark">?</span>)
+            .<span class="ident">body</span>(<span class="ident">body</span>)
             .<span class="ident">send</span>()
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="self">self</span>.<span class="ident">extract_location_header</span>(<span class="ident">image</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="ident">reqwest::StatusCode::CREATED</span>)
-            .<span class="kw">await</span>
+        <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="self">self</span>
+            .<span class="ident">extract_location_header</span>(<span class="ident">image</span>, <span class="ident">res</span>, <span class="kw-2">&amp;</span><span class="ident">reqwest::StatusCode::CREATED</span>)
+            .<span class="kw">await</span>;
+
+        <span class="kw">if</span> <span class="macro">matches!</span>(<span class="ident">ret</span>, <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::RegistryNoLocationError</span>)) {
+            <span class="comment">// The registry is violating the OCI Distribution Spec, BUT the OCI</span>
+            <span class="comment">// image/artifact has been uploaded successfully.</span>
+            <span class="comment">// The `Location` header contains the sha256 digest of the manifest,</span>
+            <span class="comment">// we can reuse the value we calculated before.</span>
+            <span class="comment">// The workaround is there because repositories such as</span>
+            <span class="comment">// AWS ECR are violating this aspect of the spec. This at least let the</span>
+            <span class="comment">// oci-distribution users interact with these registries.</span>
+            <span class="macro">warn!</span>(<span class="string">&quot;Registry is not respecting the OCI Distribution Specification: it didn&#39;t return the Location of the uploaded Manifest inside of the response headers. Working around this issue...&quot;</span>);
+            <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">manifest_hash</span>);
+        }
+
+        <span class="ident">ret</span>
     }
 
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">extract_location_header</span>(
@@ -2932,19 +3232,28 @@
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
         <span class="ident">res</span>: <span class="ident">reqwest::Response</span>,
         <span class="ident">expected_status</span>: <span class="kw-2">&amp;</span><span class="ident">reqwest::StatusCode</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="macro">debug!</span>(<span class="ident">expected_status_code</span><span class="op">=</span><span class="question-mark">?</span><span class="ident">expected_status</span>.<span class="ident">as_u16</span>(),
+            <span class="ident">status_code</span><span class="op">=</span><span class="question-mark">?</span><span class="ident">res</span>.<span class="ident">status</span>().<span class="ident">as_u16</span>(),
+            <span class="string">&quot;extract location header&quot;</span>);
         <span class="kw">if</span> <span class="ident">res</span>.<span class="ident">status</span>().<span class="ident">eq</span>(<span class="ident">expected_status</span>) {
             <span class="kw">let</span> <span class="ident">location_header</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">headers</span>().<span class="ident">get</span>(<span class="string">&quot;Location&quot;</span>);
+            <span class="macro">debug!</span>(<span class="ident">location</span><span class="op">=</span><span class="question-mark">?</span><span class="ident">location_header</span>, <span class="string">&quot;Location header&quot;</span>);
             <span class="kw">match</span> <span class="ident">location_header</span> {
-                <span class="prelude-val">None</span> =&gt; <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">&quot;registry did not return a location header&quot;</span>)),
+                <span class="prelude-val">None</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::RegistryNoLocationError</span>),
                 <span class="prelude-val">Some</span>(<span class="ident">lh</span>) =&gt; <span class="self">self</span>.<span class="ident">location_header_to_url</span>(<span class="ident">image</span>, <span class="ident">lh</span>),
             }
-        } <span class="kw">else</span> {
-            <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(
-                <span class="string">&quot;An unexpected error occured: code={}, message=&#39;{}&#39;&quot;</span>,
+        } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">res</span>.<span class="ident">status</span>().<span class="ident">is_success</span>() <span class="op">&amp;&amp;</span> <span class="ident">expected_status</span>.<span class="ident">is_success</span>() {
+            <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::SpecViolationError</span>(<span class="macro">format!</span>(
+                <span class="string">&quot;Expected HTTP Status {}, got {} instead&quot;</span>,
+                <span class="ident">expected_status</span>,
                 <span class="ident">res</span>.<span class="ident">status</span>(),
-                <span class="ident">res</span>.<span class="ident">text</span>().<span class="kw">await</span><span class="question-mark">?</span>
-            ))
+            )))
+        } <span class="kw">else</span> {
+            <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">url</span>().<span class="ident">to_string</span>();
+            <span class="kw">let</span> <span class="ident">code</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">status</span>().<span class="ident">as_u16</span>();
+            <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">res</span>.<span class="ident">text</span>().<span class="kw">await</span><span class="question-mark">?</span>;
+            <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::ServerError</span> { <span class="ident">url</span>, <span class="ident">code</span>, <span class="ident">message</span> })
         }
     }
 
@@ -2956,8 +3265,8 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
         <span class="ident">location_header</span>: <span class="kw-2">&amp;</span><span class="ident">reqwest::header::HeaderValue</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">lh</span> <span class="op">=</span> <span class="ident">location_header</span>.<span class="ident">to_str</span>().<span class="ident">map_err</span>(<span class="ident">anyhow::Error::new</span>)<span class="question-mark">?</span>;
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">lh</span> <span class="op">=</span> <span class="ident">location_header</span>.<span class="ident">to_str</span>()<span class="question-mark">?</span>;
         <span class="kw">if</span> <span class="ident">lh</span>.<span class="ident">starts_with</span>(<span class="string">&quot;/v2/&quot;</span>) {
             <span class="prelude-val">Ok</span>(<span class="macro">format!</span>(
                 <span class="string">&quot;{}://{}{}&quot;</span>,
@@ -2968,42 +3277,6 @@
         } <span class="kw">else</span> {
             <span class="prelude-val">Ok</span>(<span class="ident">lh</span>.<span class="ident">to_string</span>())
         }
-    }
-
-    <span class="kw">fn</span> <span class="ident">generate_manifest</span>(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        <span class="ident">image_data</span>: <span class="kw-2">&amp;</span><span class="ident">ImageData</span>,
-        <span class="ident">config_data</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
-        <span class="ident">config_media_type</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>,
-    ) -&gt; <span class="ident">OciImageManifest</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">manifest</span> <span class="op">=</span> <span class="ident">OciImageManifest::default</span>();
-
-        <span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">media_type</span> <span class="op">=</span> <span class="ident">config_media_type</span>.<span class="ident">to_string</span>();
-        <span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">size</span> <span class="op">=</span> <span class="ident">config_data</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i64</span>;
-        <span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">digest</span> <span class="op">=</span> <span class="ident">sha256_digest</span>(<span class="ident">config_data</span>);
-
-        <span class="kw">for</span> <span class="ident">layer</span> <span class="kw">in</span> <span class="ident">image_data</span>.<span class="ident">layers</span>.<span class="ident">clone</span>() {
-            <span class="kw">let</span> <span class="ident">digest</span> <span class="op">=</span> <span class="ident">sha256_digest</span>(<span class="kw-2">&amp;</span><span class="ident">layer</span>.<span class="ident">data</span>);
-
-            <span class="comment">//TODO: Determine necessity of generating an image title</span>
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">annotations</span> <span class="op">=</span> <span class="ident">HashMap::new</span>();
-            <span class="ident">annotations</span>.<span class="ident">insert</span>(
-                <span class="string">&quot;org.opencontainers.image.title&quot;</span>.<span class="ident">to_string</span>(),
-                <span class="ident">digest</span>.<span class="ident">to_string</span>(),
-            );
-
-            <span class="kw">let</span> <span class="ident">descriptor</span> <span class="op">=</span> <span class="ident">OciDescriptor</span> {
-                <span class="ident">size</span>: <span class="ident">layer</span>.<span class="ident">data</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i64</span>,
-                <span class="ident">digest</span>,
-                <span class="ident">media_type</span>: <span class="ident">layer</span>.<span class="ident">media_type</span>,
-                <span class="ident">annotations</span>: <span class="prelude-val">Some</span>(<span class="ident">annotations</span>),
-                ..<span class="ident">Default::default</span>()
-            };
-
-            <span class="ident">manifest</span>.<span class="ident">layers</span>.<span class="ident">push</span>(<span class="ident">descriptor</span>);
-        }
-
-        <span class="ident">manifest</span>
     }
 
     <span class="doccomment">/// Convert a Reference to a v2 manifest URL.</span>
@@ -3052,6 +3325,36 @@
     }
 }
 
+<span class="doccomment">/// The OCI spec technically does not allow any codes but 200, 500, 401, and 404.</span>
+<span class="doccomment">/// Obviously, HTTP servers are going to send other codes. This tries to catch the</span>
+<span class="doccomment">/// obvious ones (200, 4XX, 5XX). Anything else is just treated as an error.</span>
+<span class="kw">fn</span> <span class="ident">validate_registry_response</span>(<span class="ident">status</span>: <span class="ident">reqwest::StatusCode</span>, <span class="ident">text</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>, <span class="ident">url</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+    <span class="kw">match</span> <span class="ident">status</span> {
+        <span class="ident">reqwest::StatusCode::OK</span> =&gt; <span class="prelude-val">Ok</span>(()),
+        <span class="ident">reqwest::StatusCode::UNAUTHORIZED</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::UnauthorizedError</span> {
+            <span class="ident">url</span>: <span class="ident">url</span>.<span class="ident">to_string</span>(),
+        }),
+        <span class="ident">s</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">is_success</span>() =&gt; <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::SpecViolationError</span>(<span class="macro">format!</span>(
+            <span class="string">&quot;Expected HTTP Status {}, got {} instead&quot;</span>,
+            <span class="ident">reqwest::StatusCode::OK</span>,
+            <span class="ident">status</span>,
+        ))),
+        <span class="ident">s</span> <span class="kw">if</span> <span class="ident">s</span>.<span class="ident">is_client_error</span>() =&gt; {
+            <span class="comment">// According to the OCI spec, we should see an error in the message body.</span>
+            <span class="kw">let</span> <span class="ident">envelope</span> <span class="op">=</span> <span class="ident">serde_json::from_str</span>::<span class="op">&lt;</span><span class="ident">OciEnvelope</span><span class="op">&gt;</span>(<span class="ident">text</span>)<span class="question-mark">?</span>;
+            <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::RegistryError</span> {
+                <span class="ident">envelope</span>,
+                <span class="ident">url</span>: <span class="ident">url</span>.<span class="ident">to_string</span>(),
+            })
+        }
+        <span class="ident">s</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::ServerError</span> {
+            <span class="ident">code</span>: <span class="ident">s</span>.<span class="ident">as_u16</span>(),
+            <span class="ident">url</span>: <span class="ident">url</span>.<span class="ident">to_string</span>(),
+            <span class="ident">message</span>: <span class="ident">text</span>.<span class="ident">to_string</span>(),
+        }),
+    }
+}
+
 <span class="doccomment">/// The request builder wrapper allows to be instantiated from a</span>
 <span class="doccomment">/// `Client` and allows composable operations on the request builder,</span>
 <span class="doccomment">/// to produce a `RequestBuilder` object that can be executed.</span>
@@ -3084,11 +3387,15 @@
 
 <span class="comment">// Composable functions applicable to a `RequestBuilderWrapper`</span>
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">RequestBuilderWrapper</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">apply_accept</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">accept</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>]) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span><span class="ident">RequestBuilderWrapper</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">apply_accept</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">accept</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span><span class="ident">str</span>]) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RequestBuilderWrapper</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">request_builder</span> <span class="op">=</span> <span class="self">self</span>
             .<span class="ident">request_builder</span>
             .<span class="ident">try_clone</span>()
-            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">anyhow!</span>(<span class="string">&quot;could not clone request builder&quot;</span>))<span class="question-mark">?</span>
+            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
+                <span class="ident">OciDistributionError::GenericError</span>(<span class="prelude-val">Some</span>(
+                    <span class="string">&quot;could not clone request builder&quot;</span>.<span class="ident">to_string</span>(),
+                ))
+            })<span class="question-mark">?</span>
             .<span class="ident">header</span>(<span class="string">&quot;Accept&quot;</span>, <span class="ident">Vec::from</span>(<span class="ident">accept</span>).<span class="ident">join</span>(<span class="string">&quot;, &quot;</span>));
 
         <span class="prelude-val">Ok</span>(<span class="ident">RequestBuilderWrapper</span> {
@@ -3107,7 +3414,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="ident">Reference</span>,
         <span class="ident">op</span>: <span class="ident">RegistryOperation</span>,
-    ) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span><span class="ident">RequestBuilderWrapper</span><span class="op">&gt;</span> {
+    ) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">RequestBuilderWrapper</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">headers</span> <span class="op">=</span> <span class="ident">HeaderMap::new</span>();
 
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">token</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">client</span>.<span class="ident">tokens</span>.<span class="ident">get</span>(<span class="ident">image</span>, <span class="ident">op</span>) {
@@ -3123,7 +3430,11 @@
                         <span class="ident">request_builder</span>: <span class="self">self</span>
                             .<span class="ident">request_builder</span>
                             .<span class="ident">try_clone</span>()
-                            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">anyhow!</span>(<span class="string">&quot;could not clone request builder&quot;</span>))<span class="question-mark">?</span>
+                            .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
+                                <span class="ident">OciDistributionError::GenericError</span>(<span class="prelude-val">Some</span>(
+                                    <span class="string">&quot;could not clone request builder&quot;</span>.<span class="ident">to_string</span>(),
+                                ))
+                            })<span class="question-mark">?</span>
                             .<span class="ident">headers</span>(<span class="ident">headers</span>)
                             .<span class="ident">basic_auth</span>(<span class="ident">username</span>.<span class="ident">to_string</span>(), <span class="prelude-val">Some</span>(<span class="ident">password</span>.<span class="ident">to_string</span>())),
                     });
@@ -3135,7 +3446,11 @@
             <span class="ident">request_builder</span>: <span class="self">self</span>
                 .<span class="ident">request_builder</span>
                 .<span class="ident">try_clone</span>()
-                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="macro">anyhow!</span>(<span class="string">&quot;could not clone request builder&quot;</span>))<span class="question-mark">?</span>
+                .<span class="ident">ok_or_else</span>(<span class="op">|</span><span class="op">|</span> {
+                    <span class="ident">OciDistributionError::GenericError</span>(<span class="prelude-val">Some</span>(
+                        <span class="string">&quot;could not clone request builder&quot;</span>.<span class="ident">to_string</span>(),
+                    ))
+                })<span class="question-mark">?</span>
                 .<span class="ident">headers</span>(<span class="ident">headers</span>),
         })
     }
@@ -3336,7 +3651,7 @@
 <span class="doccomment">/// Can optionally supply a response body (i.e. the manifest itself) to</span>
 <span class="doccomment">/// fallback to manually hashing this content. This should only be done if the</span>
 <span class="doccomment">/// response body contains the image manifest.</span>
-<span class="kw">fn</span> <span class="ident">digest_header_value</span>(<span class="ident">headers</span>: <span class="ident">HeaderMap</span>, <span class="ident">body</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">digest_header_value</span>(<span class="ident">headers</span>: <span class="ident">HeaderMap</span>, <span class="ident">body</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">digest_header</span> <span class="op">=</span> <span class="ident">headers</span>.<span class="ident">get</span>(<span class="string">&quot;Docker-Content-Digest&quot;</span>);
     <span class="kw">match</span> <span class="ident">digest_header</span> {
         <span class="prelude-val">None</span> =&gt; {
@@ -3347,26 +3662,31 @@
                 <span class="macro">debug!</span>(<span class="op">%</span><span class="ident">hex</span>, <span class="string">&quot;Computed digest of manifest payload.&quot;</span>);
                 <span class="prelude-val">Ok</span>(<span class="ident">hex</span>)
             } <span class="kw">else</span> {
-                <span class="prelude-val">Err</span>(<span class="macro">anyhow::anyhow!</span>(<span class="string">&quot;registry did not return a digest header&quot;</span>))
+                <span class="prelude-val">Err</span>(<span class="ident">OciDistributionError::RegistryNoDigestError</span>)
             }
         }
         <span class="prelude-val">Some</span>(<span class="ident">hv</span>) =&gt; <span class="ident">hv</span>
             .<span class="ident">to_str</span>()
             .<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">s</span>.<span class="ident">to_string</span>())
-            .<span class="ident">map_err</span>(<span class="ident">anyhow::Error::new</span>),
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">OciDistributionError::GenericError</span>(<span class="prelude-val">Some</span>(<span class="ident">e</span>.<span class="ident">to_string</span>()))),
     }
-}
-
-<span class="doccomment">/// Computes the SHA256 digest of a byte vector</span>
-<span class="kw">fn</span> <span class="ident">sha256_digest</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">String</span> {
-    <span class="macro">format!</span>(<span class="string">&quot;sha256:{:x}&quot;</span>, <span class="ident">sha2::Sha256::digest</span>(<span class="ident">bytes</span>))
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">test</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::manifest</span>;
+    <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::manifest</span>::{<span class="self">self</span>, <span class="ident">IMAGE_DOCKER_LAYER_GZIP_MEDIA_TYPE</span>};
     <span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
+    <span class="kw">use</span> <span class="ident">std::result::Result</span>;
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;test-registry&quot;</span>)]</span>
+    <span class="kw">use</span> <span class="ident">testcontainers</span>::{
+        <span class="ident">clients</span>,
+        <span class="ident">images</span>::{
+            <span class="self">self</span>,
+            <span class="ident">generic</span>::{<span class="ident">GenericImage</span>, <span class="ident">WaitFor</span>},
+        },
+        <span class="ident">Docker</span>,
+    };
 
     <span class="kw">const</span> <span class="ident">HELLO_IMAGE_NO_TAG</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;webassembly.azurecr.io/hello-wasm&quot;</span>;
     <span class="kw">const</span> <span class="ident">HELLO_IMAGE_TAG</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;webassembly.azurecr.io/hello-wasm:v1&quot;</span>;
@@ -3385,7 +3705,7 @@
     <span class="kw">const</span> <span class="ident">DOCKER_IO_IMAGE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;docker.io/library/hello-world@sha256:37a0b92b08d4919615c3ee023f7ddb068d12b8387475d64c622ac30f45c29c51&quot;</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_apply_accept</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">anyhow::Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">test_apply_accept</span>() -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert_eq!</span>(
             <span class="ident">RequestBuilderWrapper::from_client</span>(<span class="kw-2">&amp;</span><span class="ident">Client::default</span>(), <span class="op">|</span><span class="ident">client</span><span class="op">|</span> <span class="ident">client</span>
                 .<span class="ident">get</span>(<span class="string">&quot;https://example.com/some/module.wasm&quot;</span>))
@@ -3410,7 +3730,7 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_apply_auth_no_token</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">anyhow::Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">test_apply_auth_no_token</span>() -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="macro">assert!</span>(
             <span class="op">!</span><span class="ident">RequestBuilderWrapper::from_client</span>(<span class="kw-2">&amp;</span><span class="ident">Client::default</span>(), <span class="op">|</span><span class="ident">client</span><span class="op">|</span> <span class="ident">client</span>
                 .<span class="ident">get</span>(<span class="string">&quot;https://example.com/some/module.wasm&quot;</span>))
@@ -3428,7 +3748,7 @@
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
-    <span class="kw">fn</span> <span class="ident">test_apply_auth_bearer_token</span>() -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">anyhow::Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">test_apply_auth_bearer_token</span>() -&gt; <span class="ident">anyhow::Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">use</span> <span class="ident">hmac</span>::{<span class="ident">Hmac</span>, <span class="ident">NewMac</span>};
         <span class="kw">use</span> <span class="ident">jwt::SignWithKey</span>;
         <span class="kw">use</span> <span class="ident">sha2::Sha256</span>;
@@ -3842,7 +4162,7 @@
     }
 
     <span class="attribute">#[<span class="ident">tokio::test</span>]</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_pull_layer</span>() {
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_pull_blob</span>() {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident">Client::default</span>();
 
         <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="ident">image</span> <span class="kw">in</span> <span class="ident">TEST_IMAGES</span> {
@@ -3866,9 +4186,9 @@
             <span class="comment">// This call likes to flake, so we try it at least 5 times</span>
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">last_error</span> <span class="op">=</span> <span class="prelude-val">None</span>;
             <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">1</span>..<span class="number">6</span> {
-                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">c</span>.<span class="ident">pull_layer</span>(<span class="kw-2">&amp;</span><span class="ident">reference</span>, <span class="kw-2">&amp;</span><span class="ident">layer0</span>.<span class="ident">digest</span>, <span class="kw-2">&amp;mut</span> <span class="ident">file</span>).<span class="kw">await</span> {
+                <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">c</span>.<span class="ident">pull_blob</span>(<span class="kw-2">&amp;</span><span class="ident">reference</span>, <span class="kw-2">&amp;</span><span class="ident">layer0</span>.<span class="ident">digest</span>, <span class="kw-2">&amp;mut</span> <span class="ident">file</span>).<span class="kw">await</span> {
                     <span class="macro">println!</span>(
-                        <span class="string">&quot;Got error on pull_layer call attempt {}. Will retry in 1s: {:?}&quot;</span>,
+                        <span class="string">&quot;Got error on pull_blob call attempt {}. Will retry in 1s: {:?}&quot;</span>,
                         <span class="ident">i</span>, <span class="ident">e</span>
                     );
                     <span class="ident">last_error</span>.<span class="ident">replace</span>(<span class="ident">e</span>);
@@ -3895,10 +4215,7 @@
 
             <span class="comment">// This call likes to flake, so we try it at least 5 times</span>
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">last_error</span> <span class="op">=</span> <span class="prelude-val">None</span>;
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">image_data</span> <span class="op">=</span> <span class="ident">ImageData</span> {
-                <span class="ident">layers</span>: <span class="ident">Vec::with_capacity</span>(<span class="number">0</span>),
-                <span class="ident">digest</span>: <span class="prelude-val">None</span>,
-            };
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">image_data</span> <span class="op">=</span> <span class="prelude-val">None</span>;
             <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">1</span>..<span class="number">6</span> {
                 <span class="kw">match</span> <span class="ident">Client::default</span>()
                     .<span class="ident">pull</span>(
@@ -3909,7 +4226,7 @@
                     .<span class="kw">await</span>
                 {
                     <span class="prelude-val">Ok</span>(<span class="ident">data</span>) =&gt; {
-                        <span class="ident">image_data</span> <span class="op">=</span> <span class="ident">data</span>;
+                        <span class="ident">image_data</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">data</span>);
                         <span class="ident">last_error</span> <span class="op">=</span> <span class="prelude-val">None</span>;
                         <span class="kw">break</span>;
                     }
@@ -3928,6 +4245,8 @@
                 <span class="macro">panic!</span>(<span class="string">&quot;Unable to pull layer: {:?}&quot;</span>, <span class="ident">e</span>);
             }
 
+            <span class="macro">assert!</span>(<span class="ident">image_data</span>.<span class="ident">is_some</span>());
+            <span class="kw">let</span> <span class="ident">image_data</span> <span class="op">=</span> <span class="ident">image_data</span>.<span class="ident">unwrap</span>();
             <span class="macro">assert!</span>(<span class="op">!</span><span class="ident">image_data</span>.<span class="ident">layers</span>.<span class="ident">is_empty</span>());
             <span class="macro">assert!</span>(<span class="ident">image_data</span>.<span class="ident">digest</span>.<span class="ident">is_some</span>());
         }
@@ -3957,15 +4276,24 @@
         }
     }
 
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;test-registry&quot;</span>)]</span>
+    <span class="kw">fn</span> <span class="ident">registry_image</span>() -&gt; <span class="ident">GenericImage</span> {
+        <span class="ident">images::generic::GenericImage::new</span>(<span class="string">&quot;docker.io/library/registry:2&quot;</span>)
+            .<span class="ident">with_wait_for</span>(<span class="ident">WaitFor::message_on_stderr</span>(<span class="string">&quot;listening on &quot;</span>))
+    }
+
     <span class="attribute">#[<span class="ident">tokio::test</span>]</span>
-    <span class="attribute">#[<span class="ident">ignore</span>]</span>
-    <span class="doccomment">/// Requires local registry resolveable at `oci.registry.local`</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">can_push_layer</span>() {
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;test-registry&quot;</span>)]</span>
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">can_push_chunk</span>() {
+        <span class="kw">let</span> <span class="ident">docker</span> <span class="op">=</span> <span class="ident">clients::Cli::default</span>();
+        <span class="kw">let</span> <span class="ident">test_container</span> <span class="op">=</span> <span class="ident">docker</span>.<span class="ident">run</span>(<span class="ident">registry_image</span>());
+        <span class="kw">let</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">test_container</span>.<span class="ident">get_host_port</span>(<span class="number">5000</span>).<span class="ident">expect</span>(<span class="string">&quot;no port exposed&quot;</span>);
+
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident">Client::new</span>(<span class="ident">ClientConfig</span> {
             <span class="ident">protocol</span>: <span class="ident">ClientProtocol::Http</span>,
             ..<span class="ident">Default::default</span>()
         });
-        <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="string">&quot;oci.registry.local/hello-wasm:v1&quot;</span>;
+        <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;localhost:{}/hello-wasm:v1&quot;</span>, <span class="ident">port</span>);
         <span class="kw">let</span> <span class="ident">image</span>: <span class="ident">Reference</span> <span class="op">=</span> <span class="ident">url</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>();
 
         <span class="ident">c</span>.<span class="ident">auth</span>(<span class="kw-2">&amp;</span><span class="ident">image</span>, <span class="kw-2">&amp;</span><span class="ident">RegistryAuth::Anonymous</span>, <span class="ident">RegistryOperation::Push</span>)
@@ -3973,14 +4301,14 @@
             .<span class="ident">expect</span>(<span class="string">&quot;result from auth request&quot;</span>);
 
         <span class="kw">let</span> <span class="ident">location</span> <span class="op">=</span> <span class="ident">c</span>
-            .<span class="ident">begin_push_session</span>(<span class="kw-2">&amp;</span><span class="ident">image</span>)
+            .<span class="ident">begin_push_chunked_session</span>(<span class="kw-2">&amp;</span><span class="ident">image</span>)
             .<span class="kw">await</span>
             .<span class="ident">expect</span>(<span class="string">&quot;failed to begin push session&quot;</span>);
 
         <span class="kw">let</span> <span class="ident">image_data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec!</span>[<span class="string">b&quot;iamawebassemblymodule&quot;</span>.<span class="ident">to_vec</span>()];
 
         <span class="kw">let</span> (<span class="ident">next_location</span>, <span class="ident">next_byte</span>) <span class="op">=</span> <span class="ident">c</span>
-            .<span class="ident">push_layer</span>(<span class="kw-2">&amp;</span><span class="ident">location</span>, <span class="kw-2">&amp;</span><span class="ident">image</span>, <span class="ident">image_data</span>[<span class="number">0</span>].<span class="ident">clone</span>(), <span class="number">0</span>)
+            .<span class="ident">push_chunk</span>(<span class="kw-2">&amp;</span><span class="ident">location</span>, <span class="kw-2">&amp;</span><span class="ident">image</span>, <span class="kw-2">&amp;</span><span class="ident">image_data</span>[<span class="number">0</span>], <span class="number">0</span>)
             .<span class="kw">await</span>
             .<span class="ident">expect</span>(<span class="string">&quot;failed to push layer&quot;</span>);
 
@@ -3992,23 +4320,26 @@
         );
 
         <span class="kw">let</span> <span class="ident">layer_location</span> <span class="op">=</span> <span class="ident">c</span>
-            .<span class="ident">end_push_session</span>(<span class="kw-2">&amp;</span><span class="ident">next_location</span>, <span class="kw-2">&amp;</span><span class="ident">image</span>, <span class="kw-2">&amp;</span><span class="ident">sha256_digest</span>(<span class="kw-2">&amp;</span><span class="ident">image_data</span>[<span class="number">0</span>]))
+            .<span class="ident">end_push_chunked_session</span>(<span class="kw-2">&amp;</span><span class="ident">next_location</span>, <span class="kw-2">&amp;</span><span class="ident">image</span>, <span class="kw-2">&amp;</span><span class="ident">sha256_digest</span>(<span class="kw-2">&amp;</span><span class="ident">image_data</span>[<span class="number">0</span>]))
             .<span class="kw">await</span>
             .<span class="ident">expect</span>(<span class="string">&quot;failed to end push session&quot;</span>);
 
-        <span class="macro">assert_eq!</span>(<span class="ident">layer_location</span>, <span class="string">&quot;http://oci.registry.local/v2/hello-wasm/blobs/sha256:6165c4ad43c0803798b6f2e49d6348c915d52c999a5f890846cee77ea65d230b&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">layer_location</span>, <span class="macro">format!</span>(<span class="string">&quot;http://localhost:{}/v2/hello-wasm/blobs/sha256:6165c4ad43c0803798b6f2e49d6348c915d52c999a5f890846cee77ea65d230b&quot;</span>, <span class="ident">port</span>));
     }
 
     <span class="attribute">#[<span class="ident">tokio::test</span>]</span>
-    <span class="attribute">#[<span class="ident">ignore</span>]</span>
-    <span class="doccomment">/// Requires local registry resolveable at `oci.registry.local`</span>
-    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">can_push_multiple_layers</span>() {
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;test-registry&quot;</span>)]</span>
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">can_push_multiple_chunks</span>() {
+        <span class="kw">let</span> <span class="ident">docker</span> <span class="op">=</span> <span class="ident">clients::Cli::default</span>();
+        <span class="kw">let</span> <span class="ident">test_container</span> <span class="op">=</span> <span class="ident">docker</span>.<span class="ident">run</span>(<span class="ident">registry_image</span>());
+        <span class="kw">let</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">test_container</span>.<span class="ident">get_host_port</span>(<span class="number">5000</span>).<span class="ident">expect</span>(<span class="string">&quot;no port exposed&quot;</span>);
+
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident">Client::new</span>(<span class="ident">ClientConfig</span> {
             <span class="ident">protocol</span>: <span class="ident">ClientProtocol::Http</span>,
             ..<span class="ident">Default::default</span>()
         });
         <span class="kw">let</span> <span class="ident">sample_uuid</span> <span class="op">=</span> <span class="string">&quot;6987887f-0196-45ee-91a1-2dfad901bea0&quot;</span>;
-        <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="string">&quot;oci.registry.local/hello-wasm:v1&quot;</span>;
+        <span class="kw">let</span> <span class="ident">url</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;localhost:{}/hello-wasm:v1&quot;</span>, <span class="ident">port</span>);
         <span class="kw">let</span> <span class="ident">image</span>: <span class="ident">Reference</span> <span class="op">=</span> <span class="ident">url</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>();
 
         <span class="ident">c</span>.<span class="ident">auth</span>(<span class="kw-2">&amp;</span><span class="ident">image</span>, <span class="kw-2">&amp;</span><span class="ident">RegistryAuth::Anonymous</span>, <span class="ident">RegistryOperation::Push</span>)
@@ -4022,7 +4353,7 @@
         ];
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">location</span> <span class="op">=</span> <span class="ident">c</span>
-            .<span class="ident">begin_push_session</span>(<span class="kw-2">&amp;</span><span class="ident">image</span>)
+            .<span class="ident">begin_push_chunked_session</span>(<span class="kw-2">&amp;</span><span class="ident">image</span>)
             .<span class="kw">await</span>
             .<span class="ident">expect</span>(<span class="string">&quot;failed to begin push session&quot;</span>);
 
@@ -4030,7 +4361,7 @@
 
         <span class="kw">for</span> <span class="ident">layer</span> <span class="kw">in</span> <span class="ident">image_data</span>.<span class="ident">clone</span>() {
             <span class="kw">let</span> (<span class="ident">next_location</span>, <span class="ident">next_byte</span>) <span class="op">=</span> <span class="ident">c</span>
-                .<span class="ident">push_layer</span>(<span class="kw-2">&amp;</span><span class="ident">location</span>, <span class="kw-2">&amp;</span><span class="ident">image</span>, <span class="ident">layer</span>.<span class="ident">clone</span>(), <span class="ident">start_byte</span>)
+                .<span class="ident">push_chunk</span>(<span class="kw-2">&amp;</span><span class="ident">location</span>, <span class="kw-2">&amp;</span><span class="ident">image</span>, <span class="kw-2">&amp;</span><span class="ident">layer</span>, <span class="ident">start_byte</span>)
                 .<span class="kw">await</span>
                 .<span class="ident">expect</span>(<span class="string">&quot;failed to push layer&quot;</span>);
 
@@ -4044,7 +4375,7 @@
         }
 
         <span class="kw">let</span> <span class="ident">layer_location</span> <span class="op">=</span> <span class="ident">c</span>
-            .<span class="ident">end_push_session</span>(
+            .<span class="ident">end_push_chunked_session</span>(
                 <span class="kw-2">&amp;</span><span class="ident">location</span>,
                 <span class="kw-2">&amp;</span><span class="ident">image</span>,
                 <span class="kw-2">&amp;</span><span class="ident">sha256_digest</span>(
@@ -4058,15 +4389,19 @@
             .<span class="kw">await</span>
             .<span class="ident">expect</span>(<span class="string">&quot;failed to end push session&quot;</span>);
 
-        <span class="macro">assert_eq!</span>(<span class="ident">layer_location</span>, <span class="string">&quot;http://oci.registry.local/v2/hello-wasm/blobs/sha256:5aef3de484a7d350ece6f5483047712be7c9a228998ba16242b3e50b5f16605a&quot;</span>);
+        <span class="macro">assert_eq!</span>(<span class="ident">layer_location</span>, <span class="macro">format!</span>(<span class="string">&quot;http://localhost:{}/v2/hello-wasm/blobs/sha256:5aef3de484a7d350ece6f5483047712be7c9a228998ba16242b3e50b5f16605a&quot;</span>, <span class="ident">port</span>));
     }
 
     <span class="attribute">#[<span class="ident">tokio::test</span>]</span>
-    <span class="attribute">#[<span class="ident">ignore</span>]</span>
-    <span class="doccomment">/// Requires local registry resolveable at `oci.registry.local`</span>
+    <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">feature</span> <span class="op">=</span> <span class="string">&quot;test-registry&quot;</span>)]</span>
     <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_image_roundtrip</span>() {
+        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">tracing_subscriber::fmt::try_init</span>();
+        <span class="kw">let</span> <span class="ident">docker</span> <span class="op">=</span> <span class="ident">clients::Cli::default</span>();
+        <span class="kw">let</span> <span class="ident">test_container</span> <span class="op">=</span> <span class="ident">docker</span>.<span class="ident">run</span>(<span class="ident">registry_image</span>());
+        <span class="kw">let</span> <span class="ident">port</span> <span class="op">=</span> <span class="ident">test_container</span>.<span class="ident">get_host_port</span>(<span class="number">5000</span>).<span class="ident">expect</span>(<span class="string">&quot;no port exposed&quot;</span>);
+
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident">Client::new</span>(<span class="ident">ClientConfig</span> {
-            <span class="ident">protocol</span>: <span class="ident">ClientProtocol::HttpsExcept</span>(<span class="macro">vec!</span>[<span class="string">&quot;oci.registry.local&quot;</span>.<span class="ident">to_string</span>()]),
+            <span class="ident">protocol</span>: <span class="ident">ClientProtocol::HttpsExcept</span>(<span class="macro">vec!</span>[<span class="macro">format!</span>(<span class="string">&quot;localhost:{}&quot;</span>, <span class="ident">port</span>)]),
             ..<span class="ident">Default::default</span>()
         });
 
@@ -4089,7 +4424,7 @@
             .<span class="kw">await</span>
             .<span class="ident">expect</span>(<span class="string">&quot;failed to pull image&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">push_image</span>: <span class="ident">Reference</span> <span class="op">=</span> <span class="string">&quot;oci.registry.local/hello-wasm:v1&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">push_image</span>: <span class="ident">Reference</span> <span class="op">=</span> <span class="macro">format!</span>(<span class="string">&quot;localhost:{}/hello-wasm:v1&quot;</span>, <span class="ident">port</span>).<span class="ident">parse</span>().<span class="ident">unwrap</span>();
         <span class="ident">c</span>.<span class="ident">auth</span>(
             <span class="kw-2">&amp;</span><span class="ident">push_image</span>,
             <span class="kw-2">&amp;</span><span class="ident">RegistryAuth::Anonymous</span>,
@@ -4098,25 +4433,15 @@
         .<span class="kw">await</span>
         .<span class="ident">expect</span>(<span class="string">&quot;authenticated&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">config_data</span> <span class="op">=</span> <span class="string">b&quot;{}&quot;</span>.<span class="ident">to_vec</span>();
-
         <span class="ident">c</span>.<span class="ident">push</span>(
             <span class="kw-2">&amp;</span><span class="ident">push_image</span>,
-            <span class="kw-2">&amp;</span><span class="ident">image_data</span>,
-            <span class="kw-2">&amp;</span><span class="ident">config_data</span>,
-            <span class="ident">manifest::WASM_CONFIG_MEDIA_TYPE</span>,
+            <span class="kw-2">&amp;</span><span class="ident">image_data</span>.<span class="ident">layers</span>,
+            <span class="ident">image_data</span>.<span class="ident">config</span>.<span class="ident">clone</span>(),
             <span class="kw-2">&amp;</span><span class="ident">RegistryAuth::Anonymous</span>,
-            <span class="prelude-val">None</span>,
+            <span class="prelude-val">Some</span>(<span class="ident">manifest</span>.<span class="ident">clone</span>()),
         )
         .<span class="kw">await</span>
         .<span class="ident">expect</span>(<span class="string">&quot;failed to push image&quot;</span>);
-
-        <span class="kw">let</span> <span class="ident">new_manifest</span> <span class="op">=</span>
-            <span class="ident">c</span>.<span class="ident">generate_manifest</span>(<span class="kw-2">&amp;</span><span class="ident">image_data</span>, <span class="kw-2">&amp;</span><span class="ident">config_data</span>, <span class="ident">manifest::WASM_CONFIG_MEDIA_TYPE</span>);
-
-        <span class="ident">c</span>.<span class="ident">push_manifest</span>(<span class="kw-2">&amp;</span><span class="ident">push_image</span>, <span class="kw-2">&amp;</span><span class="ident">new_manifest</span>)
-            .<span class="kw">await</span>
-            .<span class="ident">expect</span>(<span class="string">&quot;error pushing manifest&quot;</span>);
 
         <span class="kw">let</span> <span class="ident">pulled_image_data</span> <span class="op">=</span> <span class="ident">c</span>
             .<span class="ident">pull</span>(
@@ -4185,6 +4510,49 @@
             .<span class="kw">await</span>
             .<span class="ident">unwrap</span>();
         <span class="macro">assert_eq!</span>(<span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">media_type</span>, <span class="ident">manifest::WASM_CONFIG_MEDIA_TYPE</span>);
+    }
+
+    <span class="attribute">#[<span class="ident">tokio::test</span>]</span>
+    <span class="attribute">#[<span class="ident">ignore</span>]</span>
+    <span class="kw">async</span> <span class="kw">fn</span> <span class="ident">test_roundtrip_multiple_layers</span>() {
+        <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">tracing_subscriber::fmt::try_init</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident">Client::new</span>(<span class="ident">ClientConfig</span> {
+            <span class="ident">protocol</span>: <span class="ident">ClientProtocol::HttpsExcept</span>(<span class="macro">vec!</span>[<span class="string">&quot;oci.registry.local&quot;</span>.<span class="ident">to_string</span>()]),
+            ..<span class="ident">Default::default</span>()
+        });
+        <span class="kw">let</span> <span class="ident">src_image</span> <span class="op">=</span> <span class="ident">Reference::try_from</span>(<span class="string">&quot;registry:2.7.1&quot;</span>).<span class="ident">expect</span>(<span class="string">&quot;failed to parse reference&quot;</span>);
+        <span class="kw">let</span> <span class="ident">dest_image</span> <span class="op">=</span> <span class="ident">Reference::try_from</span>(<span class="string">&quot;oci.registry.local/registry:roundtrip-test&quot;</span>)
+            .<span class="ident">expect</span>(<span class="string">&quot;failed to parse reference&quot;</span>);
+
+        <span class="kw">let</span> <span class="ident">image</span> <span class="op">=</span> <span class="ident">c</span>
+            .<span class="ident">pull</span>(
+                <span class="kw-2">&amp;</span><span class="ident">src_image</span>,
+                <span class="kw-2">&amp;</span><span class="ident">RegistryAuth::Anonymous</span>,
+                <span class="macro">vec!</span>[<span class="ident">IMAGE_DOCKER_LAYER_GZIP_MEDIA_TYPE</span>],
+            )
+            .<span class="kw">await</span>
+            .<span class="ident">expect</span>(<span class="string">&quot;Failed to pull manifest&quot;</span>);
+        <span class="macro">assert!</span>(<span class="ident">image</span>.<span class="ident">layers</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">1</span>);
+
+        <span class="kw">let</span> <span class="ident">ImageData</span> {
+            <span class="ident">layers</span>,
+            <span class="ident">config</span>,
+            <span class="ident">manifest</span>,
+            ..
+        } <span class="op">=</span> <span class="ident">image</span>;
+        <span class="ident">c</span>.<span class="ident">push</span>(
+            <span class="kw-2">&amp;</span><span class="ident">dest_image</span>,
+            <span class="kw-2">&amp;</span><span class="ident">layers</span>,
+            <span class="ident">config</span>,
+            <span class="kw-2">&amp;</span><span class="ident">RegistryAuth::Anonymous</span>,
+            <span class="ident">manifest</span>,
+        )
+        .<span class="kw">await</span>
+        .<span class="ident">expect</span>(<span class="string">&quot;Failed to pull manifest&quot;</span>);
+
+        <span class="ident">c</span>.<span class="ident">pull_image_manifest</span>(<span class="kw-2">&amp;</span><span class="ident">dest_image</span>, <span class="kw-2">&amp;</span><span class="ident">RegistryAuth::Anonymous</span>)
+            .<span class="kw">await</span>
+            .<span class="ident">expect</span>(<span class="string">&quot;Failed to pull manifest&quot;</span>);
     }
 }
 </code></pre></div>

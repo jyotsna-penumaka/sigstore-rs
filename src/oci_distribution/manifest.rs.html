@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/git/checkouts/oci-distribution-515f7abfb7797f9d/0f71796/src/manifest.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>manifest.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/oci-distribution-0.9.0/src/manifest.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>manifest.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../oci_distribution/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -323,8 +323,186 @@
 <span id="318">318</span>
 <span id="319">319</span>
 <span id="320">320</span>
+<span id="321">321</span>
+<span id="322">322</span>
+<span id="323">323</span>
+<span id="324">324</span>
+<span id="325">325</span>
+<span id="326">326</span>
+<span id="327">327</span>
+<span id="328">328</span>
+<span id="329">329</span>
+<span id="330">330</span>
+<span id="331">331</span>
+<span id="332">332</span>
+<span id="333">333</span>
+<span id="334">334</span>
+<span id="335">335</span>
+<span id="336">336</span>
+<span id="337">337</span>
+<span id="338">338</span>
+<span id="339">339</span>
+<span id="340">340</span>
+<span id="341">341</span>
+<span id="342">342</span>
+<span id="343">343</span>
+<span id="344">344</span>
+<span id="345">345</span>
+<span id="346">346</span>
+<span id="347">347</span>
+<span id="348">348</span>
+<span id="349">349</span>
+<span id="350">350</span>
+<span id="351">351</span>
+<span id="352">352</span>
+<span id="353">353</span>
+<span id="354">354</span>
+<span id="355">355</span>
+<span id="356">356</span>
+<span id="357">357</span>
+<span id="358">358</span>
+<span id="359">359</span>
+<span id="360">360</span>
+<span id="361">361</span>
+<span id="362">362</span>
+<span id="363">363</span>
+<span id="364">364</span>
+<span id="365">365</span>
+<span id="366">366</span>
+<span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
+<span id="388">388</span>
+<span id="389">389</span>
+<span id="390">390</span>
+<span id="391">391</span>
+<span id="392">392</span>
+<span id="393">393</span>
+<span id="394">394</span>
+<span id="395">395</span>
+<span id="396">396</span>
+<span id="397">397</span>
+<span id="398">398</span>
+<span id="399">399</span>
+<span id="400">400</span>
+<span id="401">401</span>
+<span id="402">402</span>
+<span id="403">403</span>
+<span id="404">404</span>
+<span id="405">405</span>
+<span id="406">406</span>
+<span id="407">407</span>
+<span id="408">408</span>
+<span id="409">409</span>
+<span id="410">410</span>
+<span id="411">411</span>
+<span id="412">412</span>
+<span id="413">413</span>
+<span id="414">414</span>
+<span id="415">415</span>
+<span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
+<span id="457">457</span>
+<span id="458">458</span>
+<span id="459">459</span>
+<span id="460">460</span>
+<span id="461">461</span>
+<span id="462">462</span>
+<span id="463">463</span>
+<span id="464">464</span>
+<span id="465">465</span>
+<span id="466">466</span>
+<span id="467">467</span>
+<span id="468">468</span>
+<span id="469">469</span>
+<span id="470">470</span>
+<span id="471">471</span>
+<span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
 </pre><pre class="rust"><code><span class="doccomment">//! OCI Manifest</span>
 <span class="kw">use</span> <span class="ident">std::collections::HashMap</span>;
+
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">client</span>::{<span class="ident">Config</span>, <span class="ident">ImageLayer</span>},
+    <span class="ident">sha256_digest</span>,
+};
 
 <span class="doccomment">/// The mediatype for WASM layers.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">WASM_LAYER_MEDIA_TYPE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;application/vnd.wasm.content.layer.v1+wasm&quot;</span>;
@@ -347,6 +525,8 @@
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">IMAGE_LAYER_MEDIA_TYPE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;application/vnd.oci.image.layer.v1.tar&quot;</span>;
 <span class="doccomment">/// The mediatype for a layer that is gzipped.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">IMAGE_LAYER_GZIP_MEDIA_TYPE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;application/vnd.oci.image.layer.v1.tar+gzip&quot;</span>;
+<span class="doccomment">/// The mediatype that Docker uses for a layer that is tarred.</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">IMAGE_DOCKER_LAYER_TAR_MEDIA_TYPE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span> <span class="string">&quot;application/vnd.docker.image.rootfs.diff.tar&quot;</span>;
 <span class="doccomment">/// The mediatype that Docker uses for a layer that is gzipped.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">IMAGE_DOCKER_LAYER_GZIP_MEDIA_TYPE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span>
     <span class="string">&quot;application/vnd.docker.image.rootfs.diff.tar.gzip&quot;</span>;
@@ -356,8 +536,6 @@
 <span class="doccomment">/// The mediatype for a layer that is nondistributable and gzipped.</span>
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">IMAGE_LAYER_NONDISTRIBUTABLE_GZIP_MEDIA_TYPE</span>: <span class="kw-2">&amp;</span><span class="ident">str</span> <span class="op">=</span>
     <span class="string">&quot;application/vnd.oci.image.layer.nondistributable.v1.tar+gzip&quot;</span>;
-
-<span class="comment">// TODO: Annotation key constants. https://github.com/opencontainers/image-spec/blob/master/annotations.md#pre-defined-annotation-keys</span>
 
 <span class="doccomment">/// An image, or image index, OCI manifest</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">serde::Serialize</span>, <span class="ident">serde::Deserialize</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
@@ -369,10 +547,19 @@
     <span class="ident">ImageIndex</span>(<span class="ident">OciImageIndex</span>),
 }
 
+<span class="kw">impl</span> <span class="ident">OciManifest</span> {
+    <span class="doccomment">/// Returns the appropriate content-type for each variant.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">content_type</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident">OciManifest::Image</span>(<span class="kw">_</span>) =&gt; <span class="ident">OCI_IMAGE_MEDIA_TYPE</span>,
+            <span class="ident">OciManifest::ImageIndex</span>(<span class="kw">_</span>) =&gt; <span class="ident">IMAGE_MANIFEST_LIST_MEDIA_TYPE</span>,
+        }
+    }
+}
+
 <span class="doccomment">/// The OCI image manifest describes an OCI image.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// It is part of the OCI specification, and is defined here:</span>
-<span class="doccomment">/// https://github.com/opencontainers/image-spec/blob/main/manifest.md</span>
+<span class="doccomment">/// It is part of the OCI specification, and is defined [here](https://github.com/opencontainers/image-spec/blob/main/manifest.md)</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">serde::Deserialize</span>, <span class="ident">serde::Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;camelCase&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OciImageManifest</span> {
@@ -385,8 +572,9 @@
 
     <span class="doccomment">/// This is an optional media type describing this manifest.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// It is reserved for compatibility, but the specification does not seem</span>
-    <span class="doccomment">/// to recommend setting it.</span>
+    <span class="doccomment">/// This property SHOULD be used and [remain compatible](https://github.com/opencontainers/image-spec/blob/main/media-types.md#compatibility-matrix)</span>
+    <span class="doccomment">/// with earlier versions of this specification and with other similar external formats.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">media_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// The image configuration.</span>
@@ -405,6 +593,7 @@
     <span class="doccomment">/// The specification says &quot;If there are no annotations then this property</span>
     <span class="doccomment">/// MUST either be absent or be an empty map.&quot;</span>
     <span class="doccomment">/// TO accomodate either, this is optional.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">annotations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
@@ -420,6 +609,99 @@
     }
 }
 
+<span class="kw">impl</span> <span class="ident">OciImageManifest</span> {
+    <span class="doccomment">/// Create a new OciImageManifest using the given parameters</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// This can be useful to create an OCI Image Manifest with</span>
+    <span class="doccomment">/// custom annotations.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">build</span>(
+        <span class="ident">layers</span>: <span class="kw-2">&amp;</span>[<span class="ident">ImageLayer</span>],
+        <span class="ident">config</span>: <span class="kw-2">&amp;</span><span class="ident">Config</span>,
+        <span class="ident">annotations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    ) -&gt; <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">manifest</span> <span class="op">=</span> <span class="ident">OciImageManifest::default</span>();
+
+        <span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">media_type</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">media_type</span>.<span class="ident">to_string</span>();
+        <span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">size</span> <span class="op">=</span> <span class="ident">config</span>.<span class="ident">data</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i64</span>;
+        <span class="ident">manifest</span>.<span class="ident">config</span>.<span class="ident">digest</span> <span class="op">=</span> <span class="ident">sha256_digest</span>(<span class="kw-2">&amp;</span><span class="ident">config</span>.<span class="ident">data</span>);
+        <span class="ident">manifest</span>.<span class="ident">annotations</span> <span class="op">=</span> <span class="ident">annotations</span>;
+
+        <span class="kw">for</span> <span class="ident">layer</span> <span class="kw">in</span> <span class="ident">layers</span> {
+            <span class="kw">let</span> <span class="ident">digest</span> <span class="op">=</span> <span class="ident">sha256_digest</span>(<span class="kw-2">&amp;</span><span class="ident">layer</span>.<span class="ident">data</span>);
+
+            <span class="kw">let</span> <span class="ident">descriptor</span> <span class="op">=</span> <span class="ident">OciDescriptor</span> {
+                <span class="ident">size</span>: <span class="ident">layer</span>.<span class="ident">data</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">i64</span>,
+                <span class="ident">digest</span>,
+                <span class="ident">media_type</span>: <span class="ident">layer</span>.<span class="ident">media_type</span>.<span class="ident">to_string</span>(),
+                <span class="ident">annotations</span>: <span class="ident">layer</span>.<span class="ident">annotations</span>.<span class="ident">clone</span>(),
+                ..<span class="ident">Default::default</span>()
+            };
+
+            <span class="ident">manifest</span>.<span class="ident">layers</span>.<span class="ident">push</span>(<span class="ident">descriptor</span>);
+        }
+
+        <span class="ident">manifest</span>
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">OciImageIndex</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OciManifest</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">m</span>: <span class="ident">OciImageIndex</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::ImageIndex</span>(<span class="ident">m</span>)
+    }
+}
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">OciImageManifest</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">OciManifest</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">m</span>: <span class="ident">OciImageManifest</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident"><span class="self">Self</span>::Image</span>(<span class="ident">m</span>)
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">std::fmt::Display</span> <span class="kw">for</span> <span class="ident">OciManifest</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">std::fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">std::fmt::Result</span> {
+        <span class="kw">match</span> <span class="self">self</span> {
+            <span class="ident">OciManifest::Image</span>(<span class="ident">oci_image_manifest</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">oci_image_manifest</span>),
+            <span class="ident">OciManifest::ImageIndex</span>(<span class="ident">oci_image_index</span>) =&gt; <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">oci_image_index</span>),
+        }
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">std::fmt::Display</span> <span class="kw">for</span> <span class="ident">OciImageIndex</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">std::fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">std::fmt::Result</span> {
+        <span class="kw">let</span> <span class="ident">media_type</span> <span class="op">=</span> <span class="self">self</span>
+            .<span class="ident">media_type</span>
+            .<span class="ident">clone</span>()
+            .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">String::from</span>(<span class="string">&quot;N/A&quot;</span>));
+        <span class="kw">let</span> <span class="ident">manifests</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">manifests</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">m</span><span class="op">|</span> <span class="ident">m</span>.<span class="ident">to_string</span>()).<span class="ident">collect</span>();
+        <span class="macro">write!</span>(
+            <span class="ident">f</span>,
+            <span class="string">&quot;OCI Image Index( schema-version: &#39;{}&#39;, media-type: &#39;{}&#39;, manifests: &#39;{}&#39; )&quot;</span>,
+            <span class="self">self</span>.<span class="ident">schema_version</span>,
+            <span class="ident">media_type</span>,
+            <span class="ident">manifests</span>.<span class="ident">join</span>(<span class="string">&quot;,&quot;</span>),
+        )
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">std::fmt::Display</span> <span class="kw">for</span> <span class="ident">OciImageManifest</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">std::fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">std::fmt::Result</span> {
+        <span class="kw">let</span> <span class="ident">media_type</span> <span class="op">=</span> <span class="self">self</span>
+            .<span class="ident">media_type</span>
+            .<span class="ident">clone</span>()
+            .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">String::from</span>(<span class="string">&quot;N/A&quot;</span>));
+        <span class="kw">let</span> <span class="ident">annotations</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">annotations</span>.<span class="ident">clone</span>().<span class="ident">unwrap_or_default</span>();
+        <span class="kw">let</span> <span class="ident">layers</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">layers</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">l</span><span class="op">|</span> <span class="ident">l</span>.<span class="ident">to_string</span>()).<span class="ident">collect</span>();
+
+        <span class="macro">write!</span>(
+            <span class="ident">f</span>,
+            <span class="string">&quot;OCI Image Manifest( schema-version: &#39;{}&#39;, media-type: &#39;{}&#39;, config: &#39;{}&#39;, layers: &#39;{:?}&#39;, annotations: &#39;{:?}&#39; )&quot;</span>,
+            <span class="self">self</span>.<span class="ident">schema_version</span>,
+            <span class="ident">media_type</span>,
+            <span class="self">self</span>.<span class="ident">config</span>,
+            <span class="ident">layers</span>,
+            <span class="ident">annotations</span>,
+        )
+    }
+}
+
 <span class="doccomment">/// Versioned provides a struct with the manifest&#39;s schemaVersion and mediaType.</span>
 <span class="doccomment">/// Incoming content with unknown schema versions can be decoded against this</span>
 <span class="doccomment">/// struct to check the version.</span>
@@ -430,13 +712,13 @@
     <span class="kw">pub</span> <span class="ident">schema_version</span>: <span class="ident">i32</span>,
 
     <span class="doccomment">/// media_type is the media type of this schema.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">media_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// The OCI descriptor is a generic object used to describe other objects.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// It is defined in the OCI Image Specification:</span>
-<span class="doccomment">/// https://github.com/opencontainers/image-spec/blob/main/descriptor.md#properties</span>
+<span class="doccomment">/// It is defined in the [OCI Image Specification](https://github.com/opencontainers/image-spec/blob/main/descriptor.md#properties):</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">serde::Deserialize</span>, <span class="ident">serde::Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;camelCase&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OciDescriptor</span> {
@@ -466,12 +748,27 @@
     <span class="doccomment">/// This OPTIONAL property specifies a list of URIs from which this</span>
     <span class="doccomment">/// object MAY be downloaded. Each entry MUST conform to RFC 3986.</span>
     <span class="doccomment">/// Entries SHOULD use the http and https schemes, as defined in RFC 7230.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">urls</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// This OPTIONAL property contains arbitrary metadata for this descriptor.</span>
     <span class="doccomment">/// This OPTIONAL property MUST use the annotation rules.</span>
-    <span class="doccomment">/// https://github.com/opencontainers/image-spec/blob/main/annotations.md#rules</span>
+    <span class="doccomment">/// &lt;https://github.com/opencontainers/image-spec/blob/main/annotations.md#rules&gt;</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">annotations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">std::fmt::Display</span> <span class="kw">for</span> <span class="ident">OciDescriptor</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">std::fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">std::fmt::Result</span> {
+        <span class="kw">let</span> <span class="ident">urls</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">urls</span>.<span class="ident">clone</span>().<span class="ident">unwrap_or_default</span>();
+        <span class="kw">let</span> <span class="ident">annotations</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">annotations</span>.<span class="ident">clone</span>().<span class="ident">unwrap_or_default</span>();
+
+        <span class="macro">write!</span>(
+            <span class="ident">f</span>,
+            <span class="string">&quot;( media-type: &#39;{}&#39;, digest: &#39;{}&#39;, size: &#39;{}&#39;, urls: &#39;{:?}&#39;, annotations: &#39;{:?}&#39; )&quot;</span>,
+            <span class="self">self</span>.<span class="ident">media_type</span>, <span class="self">self</span>.<span class="ident">digest</span>, <span class="self">self</span>.<span class="ident">size</span>, <span class="ident">urls</span>, <span class="ident">annotations</span>,
+        )
+    }
 }
 
 <span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">OciDescriptor</span> {
@@ -488,8 +785,7 @@
 
 <span class="doccomment">/// The image index is a higher-level manifest which points to specific image manifest.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// It is part of the OCI specification, and is defined here:</span>
-<span class="doccomment">/// https://github.com/opencontainers/image-spec/blob/main/image-index.md</span>
+<span class="doccomment">/// It is part of the OCI specification, and is defined [here](https://github.com/opencontainers/image-spec/blob/main/image-index.md):</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">serde::Deserialize</span>, <span class="ident">serde::Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;camelCase&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">OciImageIndex</span> {
@@ -504,18 +800,26 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// It is reserved for compatibility, but the specification does not seem</span>
     <span class="doccomment">/// to recommend setting it.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">media_type</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// This property contains a list of manifests for specific platforms.</span>
     <span class="doccomment">/// The spec says this field must be present but the value may be an empty array.</span>
     <span class="kw">pub</span> <span class="ident">manifests</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ImageIndexEntry</span><span class="op">&gt;</span>,
+
+    <span class="doccomment">/// The annotations for this manifest</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// The specification says &quot;If there are no annotations then this property</span>
+    <span class="doccomment">/// MUST either be absent or be an empty map.&quot;</span>
+    <span class="doccomment">/// TO accomodate either, this is optional.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
+    <span class="kw">pub</span> <span class="ident">annotations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="doccomment">/// The manifest entry of an `ImageIndex`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// It is part of the OCI specification, and is defined in the `manifests`</span>
-<span class="doccomment">/// section here:</span>
-<span class="doccomment">/// https://github.com/opencontainers/image-spec/blob/main/image-index.md#image-index-property-descriptions</span>
+<span class="doccomment">/// section [here](https://github.com/opencontainers/image-spec/blob/main/image-index.md#image-index-property-descriptions):</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">serde::Deserialize</span>, <span class="ident">serde::Serialize</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;camelCase&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ImageIndexEntry</span> {
@@ -544,18 +848,36 @@
     <span class="kw">pub</span> <span class="ident">size</span>: <span class="ident">i64</span>,
     <span class="doccomment">/// This OPTIONAL property describes the minimum runtime requirements of the image.</span>
     <span class="doccomment">/// This property SHOULD be present if its target is platform-specific.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">platform</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Platform</span><span class="op">&gt;</span>,
 
     <span class="doccomment">/// This OPTIONAL property contains arbitrary metadata for the image index.</span>
     <span class="doccomment">/// This OPTIONAL property MUST use the [annotation rules](https://github.com/opencontainers/image-spec/blob/main/annotations.md#rules).</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">annotations</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">std::fmt::Display</span> <span class="kw">for</span> <span class="ident">ImageIndexEntry</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">std::fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">std::fmt::Result</span> {
+        <span class="kw">let</span> <span class="ident">platform</span> <span class="op">=</span> <span class="self">self</span>
+            .<span class="ident">platform</span>
+            .<span class="ident">clone</span>()
+            .<span class="ident">map</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> <span class="ident">p</span>.<span class="ident">to_string</span>())
+            .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">String::from</span>(<span class="string">&quot;N/A&quot;</span>));
+        <span class="kw">let</span> <span class="ident">annotations</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">annotations</span>.<span class="ident">clone</span>().<span class="ident">unwrap_or_default</span>();
+
+        <span class="macro">write!</span>(
+            <span class="ident">f</span>,
+            <span class="string">&quot;(media-type: &#39;{}&#39;, digest: &#39;{}&#39;, size: &#39;{}&#39;, platform: &#39;{}&#39;, annotations: {:?})&quot;</span>,
+            <span class="self">self</span>.<span class="ident">media_type</span>, <span class="self">self</span>.<span class="ident">digest</span>, <span class="self">self</span>.<span class="ident">size</span>, <span class="ident">platform</span>, <span class="ident">annotations</span>,
+        )
+    }
 }
 
 <span class="doccomment">/// Platform specific fields of an Image Index manifest entry.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// It is part of the OCI specification, and is in the `platform`</span>
-<span class="doccomment">/// section here:</span>
-<span class="doccomment">/// https://github.com/opencontainers/image-spec/blob/main/image-index.md#image-index-property-descriptions</span>
+<span class="doccomment">/// section [here](https://github.com/opencontainers/image-spec/blob/main/image-index.md#image-index-property-descriptions):</span>
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">serde::Deserialize</span>, <span class="ident">serde::Serialize</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
 <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename_all</span> <span class="op">=</span> <span class="string">&quot;camelCase&quot;</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Platform</span> {
@@ -573,18 +895,42 @@
     <span class="doccomment">/// to work with the host OS version.</span>
     <span class="doccomment">/// Valid values are implementation-defined. e.g. `10.0.14393.1066` on `windows`.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;os.version&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">os_version</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="doccomment">/// This OPTIONAL property specifies an array of strings, each specifying a mandatory OS feature.</span>
     <span class="doccomment">/// When `os` is `windows`, image indexes SHOULD use, and implementations SHOULD understand the following values:</span>
     <span class="doccomment">/// - `win32k`: image requires `win32k.sys` on the host (Note: `win32k.sys` is missing on Nano Server)</span>
     <span class="doccomment">/// When `os` is not `windows`, values are implementation-defined and SHOULD be submitted to this specification for standardization.</span>
     <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">rename</span> <span class="op">=</span> <span class="string">&quot;os.features&quot;</span>)]</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">os_features</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="doccomment">/// This OPTIONAL property specifies the variant of the CPU.</span>
     <span class="doccomment">/// Image indexes SHOULD use, and implementations SHOULD understand, `variant` values listed in the [Platform Variants](#platform-variants) table.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">variant</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>,
     <span class="doccomment">/// This property is RESERVED for future versions of the specification.</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">skip_serializing_if</span> <span class="op">=</span> <span class="string">&quot;Option::is_none&quot;</span>)]</span>
     <span class="kw">pub</span> <span class="ident">features</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+}
+
+<span class="kw">impl</span> <span class="ident">std::fmt::Display</span> <span class="kw">for</span> <span class="ident">Platform</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;mut</span> <span class="ident">std::fmt::Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="ident">std::fmt::Result</span> {
+        <span class="kw">let</span> <span class="ident">os_version</span> <span class="op">=</span> <span class="self">self</span>
+            .<span class="ident">os_version</span>
+            .<span class="ident">clone</span>()
+            .<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">String::from</span>(<span class="string">&quot;N/A&quot;</span>));
+        <span class="kw">let</span> <span class="ident">os_features</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">os_features</span>.<span class="ident">clone</span>().<span class="ident">unwrap_or_default</span>();
+        <span class="kw">let</span> <span class="ident">variant</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">variant</span>.<span class="ident">clone</span>().<span class="ident">unwrap_or_else</span>(<span class="op">|</span><span class="op">|</span> <span class="ident">String::from</span>(<span class="string">&quot;N/A&quot;</span>));
+        <span class="kw">let</span> <span class="ident">features</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">os_features</span>.<span class="ident">clone</span>().<span class="ident">unwrap_or_default</span>();
+        <span class="macro">write!</span>(<span class="ident">f</span>, <span class="string">&quot;( architecture: &#39;{}&#39;, os: &#39;{}&#39;, os-version: &#39;{}&#39;, os-features: &#39;{:?}&#39;, variant: &#39;{}&#39;, features: &#39;{:?}&#39; )&quot;</span>,
+            <span class="self">self</span>.<span class="ident">architecture</span>,
+            <span class="self">self</span>.<span class="ident">os</span>,
+            <span class="ident">os_version</span>,
+            <span class="ident">os_features</span>,
+            <span class="ident">variant</span>,
+            <span class="ident">features</span>,
+        )
+    }
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>

@@ -944,6 +944,9 @@
 <span id="939">939</span>
 <span id="940">940</span>
 <span id="941">941</span>
+<span id="942">942</span>
+<span id="943">943</span>
+<span id="944">944</span>
 </pre><pre class="rust"><code><span class="comment">//</span>
 <span class="comment">// Copyright 2021 The Sigstore Authors.</span>
 <span class="comment">//</span>
@@ -1539,6 +1542,7 @@ JsB89BPhZYch0U0hKANx5TY+ncrm0s8bfJxxHoenAEFhwhuXeb4PqIrtoQ==
         <span class="kw">let</span> <span class="ident">layer</span> <span class="op">=</span> <span class="ident">oci_distribution::client::ImageLayer</span> {
             <span class="ident">media_type</span>: <span class="ident"><span class="kw">super</span>::SIGSTORE_OCI_MEDIA_TYPE</span>.<span class="ident">to_string</span>(),
             <span class="ident">data</span>: <span class="ident">Vec::new</span>(),
+            <span class="ident">annotations</span>: <span class="prelude-val">None</span>,
         };
 
         <span class="kw">let</span> <span class="ident">rekor_pub_key</span> <span class="op">=</span> <span class="ident">get_rekor_public_key</span>();
@@ -1570,6 +1574,7 @@ JsB89BPhZYch0U0hKANx5TY+ncrm0s8bfJxxHoenAEFhwhuXeb4PqIrtoQ==
         <span class="kw">let</span> <span class="ident">layer</span> <span class="op">=</span> <span class="ident">oci_distribution::client::ImageLayer</span> {
             <span class="ident">media_type</span>: <span class="string">&quot;not what you would expect&quot;</span>.<span class="ident">into</span>(),
             <span class="ident">data</span>: <span class="ident">Vec::new</span>(),
+            <span class="ident">annotations</span>: <span class="prelude-val">None</span>,
         };
 
         <span class="kw">let</span> <span class="ident">rekor_pub_key</span> <span class="op">=</span> <span class="ident">get_rekor_public_key</span>();
@@ -1602,6 +1607,7 @@ JsB89BPhZYch0U0hKANx5TY+ncrm0s8bfJxxHoenAEFhwhuXeb4PqIrtoQ==
         <span class="kw">let</span> <span class="ident">layer</span> <span class="op">=</span> <span class="ident">oci_distribution::client::ImageLayer</span> {
             <span class="ident">media_type</span>: <span class="ident"><span class="kw">super</span>::SIGSTORE_OCI_MEDIA_TYPE</span>.<span class="ident">to_string</span>(),
             <span class="ident">data</span>: <span class="string">&quot;some other contents&quot;</span>.<span class="ident">into</span>(),
+            <span class="ident">annotations</span>: <span class="prelude-val">None</span>,
         };
 
         <span class="kw">let</span> <span class="ident">rekor_pub_key</span> <span class="op">=</span> <span class="ident">get_rekor_public_key</span>();
