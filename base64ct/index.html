@@ -4,31 +4,33 @@
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../base64ct/index.html"><div class="logo-container">
                     <img src="https://raw.githubusercontent.com/RustCrypto/meta/master/logo.svg" alt="logo"></div>
-        </a><h2 class="location"><a href="#">Crate base64ct</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 1.5.0</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><section><div class="block"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></div></section><div id="sidebar-vars" data-name="base64ct" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../base64ct/index.html">
+        </a><h2 class="location"><a href="#">Crate base64ct</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 1.5.1</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><section><div class="block"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#traits">Traits</a></li></ul></div></section><div id="sidebar-vars" data-name="base64ct" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../base64ct/index.html">
                         <img src="https://raw.githubusercontent.com/RustCrypto/meta/master/logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
     <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">base64ct</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/base64ct/lib.rs.html#1-104">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="rustcrypto-constant-time-base64"><a href="#rustcrypto-constant-time-base64">RustCrypto: Constant-Time Base64</a></h2>
-<p><a href="https://crates.io/crates/base64ct"><img src="https://img.shields.io/crates/v/base64ct.svg" alt="crate" /></a>
+<p><a href="https://crates.io/crates/base64ct"><img src="https://buildstats.info/crate/base64ct" alt="crate" /></a>
 <a href="https://docs.rs/base64ct/"><img src="https://docs.rs/base64ct/badge.svg" alt="Docs" /></a>
 <a href="https://github.com/RustCrypto/formats/actions/workflows/base64ct.yml"><img src="https://github.com/RustCrypto/formats/actions/workflows/base64ct.yml/badge.svg" alt="Build Status" /></a>
 <img src="https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg" alt="Apache2/MIT licensed" />
 <img src="https://img.shields.io/badge/rustc-1.56+-blue.svg" alt="Rust Version" />
 <a href="https://rustcrypto.zulipchat.com/#narrow/stream/300570-formats"><img src="https://img.shields.io/badge/zulip-join_chat-blue.svg" alt="Project Chat" /></a></p>
 <p>Pure Rust implementation of Base64 (<a href="https://tools.ietf.org/html/rfc4648">RFC 4648</a>).</p>
-<p>Implements multiple Base64 variants without data-dependent branches or lookup
+<p>Implements multiple Base64 alphabets without data-dependent branches or lookup
 tables, thereby providing portable “best effort” constant-time operation.</p>
 <p>Supports <code>no_std</code> environments and avoids heap allocations in the core API
 (but also provides optional <code>alloc</code> support for convenience).</p>
 <p><a href="https://docs.rs/base64ct/">Documentation</a></p>
 <h3 id="about"><a href="#about">About</a></h3>
-<p>This crate implements several Base64 variants in constant-time for sidechannel
+<p>This crate implements several Base64 alphabets in constant-time for sidechannel
 resistance, aimed at purposes like encoding/decoding the “PEM” format used to
-store things like cryptographic private keys.</p>
+store things like cryptographic private keys (i.e. in the <a href="https://github.com/RustCrypto/formats/tree/master/pem-rfc7468"><code>pem-rfc7468</code></a> crate).</p>
 <p>The paper <a href="https://arxiv.org/pdf/2108.04600.pdf">Util::Lookup: Exploiting key decoding in cryptographic libraries</a>
 demonstrates how the leakage from non-constant-time Base64 parsers can be used
 to practically extract RSA private keys from SGX enclaves.</p>
 <p>The padded variants require (<code>=</code>) padding. Unpadded variants expressly
 reject such padding.</p>
-<p>Whitespace is expressly disallowed.</p>
+<p>Whitespace is expressly disallowed, with the exception of the
+<a href="https://docs.rs/base64ct/latest/base64ct/struct.Decoder.html#method.new_wrapped"><code>Decoder::new_wrapped</code></a> and <a href="https://docs.rs/base64ct/latest/base64ct/struct.Encoder.html#method.new_wrapped"><code>Encoder::new_wrapped</code></a> modes which provide
+fixed-width line wrapping.</p>
 <h3 id="supported-base64-variants"><a href="#supported-base64-variants">Supported Base64 variants</a></h3>
 <ul>
 <li>Standard Base64: <code>[A-Z]</code>, <code>[a-z]</code>, <code>[0-9]</code>, <code>+</code>, <code>/</code></li>
@@ -100,5 +102,5 @@ Derived code is dual licensed MIT + Apache 2 (with permission from Sc00bz).</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="enum" href="enum.LineEnding.html" title="base64ct::LineEnding enum">LineEnding</a></div><div class="item-right docblock-short"><p>Line endings: variants of newline characters that can be used with Base64.</p>
 </div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2>
 <div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.Encoding.html" title="base64ct::Encoding trait">Encoding</a></div><div class="item-right docblock-short"><p>Base64 encoding trait.</p>
-</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="base64ct" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0 (fe5b13d68 2022-05-18)" ></div>
+</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="base64ct" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0 (a8314ef7d 2022-06-27)" ></div>
 </body></html>

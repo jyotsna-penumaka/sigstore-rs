@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/oauth2-4.2.0/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/oauth2-4.2.2/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../oauth2/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -3711,7 +3711,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="attribute">#[<span class="ident">non_exhaustive</span>]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">AuthType</span> {
-    <span class="doccomment">/// The client_id and client_secret will be included as part of the request body.</span>
+    <span class="doccomment">/// The client_id and client_secret (if set) will be included as part of the request body.</span>
     <span class="ident">RequestBody</span>,
     <span class="doccomment">/// The client_id and client_secret will be included using the basic auth authentication scheme.</span>
     <span class="ident">BasicAuth</span>,
@@ -3852,7 +3852,10 @@
     <span class="doccomment">/// server.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// The default is to use HTTP Basic authentication, as recommended in</span>
-    <span class="doccomment">/// [Section 2.3.1 of RFC 6749](https://tools.ietf.org/html/rfc6749#section-2.3.1).</span>
+    <span class="doccomment">/// [Section 2.3.1 of RFC 6749](https://tools.ietf.org/html/rfc6749#section-2.3.1). Note that</span>
+    <span class="doccomment">/// if a client secret is omitted (i.e., `client_secret` is set to `None` when calling</span>
+    <span class="doccomment">/// [`Client::new`]), [`AuthType::RequestBody`] is used regardless of the `auth_type` passed to</span>
+    <span class="doccomment">/// this function.</span>
     <span class="doccomment">///</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_auth_type</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">auth_type</span>: <span class="ident">AuthType</span>) -&gt; <span class="self">Self</span> {
         <span class="self">self</span>.<span class="ident">auth_type</span> <span class="op">=</span> <span class="ident">auth_type</span>;
@@ -5151,32 +5154,29 @@
     }
 
     <span class="comment">// FIXME: add support for auth extensions? e.g., client_secret_jwt and private_key_jwt</span>
-    <span class="kw">match</span> <span class="ident">auth_type</span> {
-        <span class="ident">AuthType::RequestBody</span> =&gt; {
-            <span class="ident">params</span>.<span class="ident">push</span>((<span class="string">&quot;client_id&quot;</span>, <span class="ident">client_id</span>));
-            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">client_secret</span>) <span class="op">=</span> <span class="ident">client_secret</span> {
-                <span class="ident">params</span>.<span class="ident">push</span>((<span class="string">&quot;client_secret&quot;</span>, <span class="ident">client_secret</span>.<span class="ident">secret</span>()));
-            }
-        }
-        <span class="ident">AuthType::BasicAuth</span> =&gt; {
+    <span class="kw">match</span> (<span class="ident">auth_type</span>, <span class="ident">client_secret</span>) {
+        <span class="comment">// Basic auth only makes sense when a client secret is provided. Otherwise, always pass the</span>
+        <span class="comment">// client ID in the request body.</span>
+        (<span class="ident">AuthType::BasicAuth</span>, <span class="prelude-val">Some</span>(<span class="ident">secret</span>)) =&gt; {
             <span class="comment">// Section 2.3.1 of RFC 6749 requires separately url-encoding the id and secret</span>
             <span class="comment">// before using them as HTTP Basic auth username and password. Note that this is</span>
             <span class="comment">// not standard for ordinary Basic auth, so curl won&#39;t do it for us.</span>
             <span class="kw">let</span> <span class="ident">urlencoded_id</span>: <span class="ident">String</span> <span class="op">=</span>
                 <span class="ident">form_urlencoded::byte_serialize</span>(<span class="kw-2">&amp;</span><span class="ident">client_id</span>.<span class="ident">as_bytes</span>()).<span class="ident">collect</span>();
-
-            <span class="kw">let</span> <span class="ident">urlencoded_secret</span> <span class="op">=</span> <span class="ident">client_secret</span>.<span class="ident">map</span>(<span class="op">|</span><span class="ident">secret</span><span class="op">|</span> {
-                <span class="ident">form_urlencoded::byte_serialize</span>(<span class="ident">secret</span>.<span class="ident">secret</span>().<span class="ident">as_bytes</span>()).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>()
-            });
-            <span class="kw">let</span> <span class="ident">b64_credential</span> <span class="op">=</span> <span class="ident">base64::encode</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(
-                <span class="string">&quot;{}:{}&quot;</span>,
-                <span class="kw-2">&amp;</span><span class="ident">urlencoded_id</span>,
-                <span class="ident">urlencoded_secret</span>.<span class="ident">as_deref</span>().<span class="ident">unwrap_or</span>(<span class="string">&quot;&quot;</span>)
-            ));
+            <span class="kw">let</span> <span class="ident">urlencoded_secret</span>: <span class="ident">String</span> <span class="op">=</span>
+                <span class="ident">form_urlencoded::byte_serialize</span>(<span class="ident">secret</span>.<span class="ident">secret</span>().<span class="ident">as_bytes</span>()).<span class="ident">collect</span>();
+            <span class="kw">let</span> <span class="ident">b64_credential</span> <span class="op">=</span>
+                <span class="ident">base64::encode</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;{}:{}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">urlencoded_id</span>, <span class="ident">urlencoded_secret</span>));
             <span class="ident">headers</span>.<span class="ident">append</span>(
                 <span class="ident">AUTHORIZATION</span>,
                 <span class="ident">HeaderValue::from_str</span>(<span class="kw-2">&amp;</span><span class="macro">format!</span>(<span class="string">&quot;Basic {}&quot;</span>, <span class="kw-2">&amp;</span><span class="ident">b64_credential</span>)).<span class="ident">unwrap</span>(),
             );
+        }
+        (<span class="ident">AuthType::RequestBody</span>, <span class="kw">_</span>) <span class="op">|</span> (<span class="ident">AuthType::BasicAuth</span>, <span class="prelude-val">None</span>) =&gt; {
+            <span class="ident">params</span>.<span class="ident">push</span>((<span class="string">&quot;client_id&quot;</span>, <span class="ident">client_id</span>));
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">client_secret</span>) <span class="op">=</span> <span class="ident">client_secret</span> {
+                <span class="ident">params</span>.<span class="ident">push</span>((<span class="string">&quot;client_secret&quot;</span>, <span class="ident">client_secret</span>.<span class="ident">secret</span>()));
+            }
         }
     }
 
@@ -6334,5 +6334,5 @@
     <span class="ident">Other</span>(<span class="ident">String</span>),
 }
 </code></pre></div>
-</section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="oauth2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0 (fe5b13d68 2022-05-18)" ></div>
+</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-current-crate="oauth2" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0 (a8314ef7d 2022-06-27)" ></div>
 </body></html>

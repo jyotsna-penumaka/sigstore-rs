@@ -7,7 +7,7 @@
     <h1 class="fqn"><span class="in-band">Macro <a href="index.html">serde_plain</a>::<wbr><a class="macro" href="#">derive_deserialize_from_fromstr</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/serde_plain/macros.rs.html#156-192">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><div class="docblock item-decl"><div class="example-wrap"><pre class="rust macro"><code><span class="macro">macro_rules!</span> <span class="ident">derive_deserialize_from_fromstr</span> {
     (<span class="macro-nonterminal">$</span><span class="kw">type</span>:<span class="macro-nonterminal">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">expectation</span>:<span class="ident">expr</span>) =&gt; { ... };
 }</code></pre></div>
-</div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Derives <a href="../serde/ser/trait.Serialize.html"><code>Deserialize</code></a> for a type that implements <a href="https://doc.rust-lang.org/1.61.0/core/str/traits/trait.FromStr.html"><code>FromStr</code></a>.</p>
+</div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Derives <a href="../serde/ser/trait.Serialize.html"><code>Deserialize</code></a> for a type that implements <a href="https://doc.rust-lang.org/1.62.0/core/str/traits/trait.FromStr.html"><code>FromStr</code></a>.</p>
 
 <div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">std::str::FromStr</span>;
 <span class="kw">use</span> <span class="ident">std::num::ParseIntError</span>;
@@ -27,5 +27,5 @@
 invoke the <a href="fn.from_str.html"><code>from_str</code></a> function on the target type
 internally. First argument is the name of the type, the second is a message
 for the expectation error (human readable type effectively).</p>
-</div></details></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="serde_plain" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0 (fe5b13d68 2022-05-18)" ></div>
+</div></details></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="serde_plain" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.62.0 (a8314ef7d 2022-06-27)" ></div>
 </body></html>
