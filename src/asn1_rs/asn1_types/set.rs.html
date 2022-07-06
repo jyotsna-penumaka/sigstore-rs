@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/asn1-rs-0.3.1/src/asn1_types/set.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>set.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/asn1-rs-0.5.1/src/asn1_types/set.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>set.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../asn1_rs/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -370,6 +370,26 @@
 <span id="365">365</span>
 <span id="366">366</span>
 <span id="367">367</span>
+<span id="368">368</span>
+<span id="369">369</span>
+<span id="370">370</span>
+<span id="371">371</span>
+<span id="372">372</span>
+<span id="373">373</span>
+<span id="374">374</span>
+<span id="375">375</span>
+<span id="376">376</span>
+<span id="377">377</span>
+<span id="378">378</span>
+<span id="379">379</span>
+<span id="380">380</span>
+<span id="381">381</span>
+<span id="382">382</span>
+<span id="383">383</span>
+<span id="384">384</span>
+<span id="385">385</span>
+<span id="386">386</span>
+<span id="387">387</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="kw">crate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">alloc::borrow::Cow</span>;
 <span class="kw">use</span> <span class="ident">alloc::vec::Vec</span>;
@@ -424,7 +444,7 @@
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// ```</span>
-<span class="doccomment">/// use asn1_rs::Set;</span>
+<span class="doccomment">/// use asn1_rs::{Error, Set};</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// // build set</span>
 <span class="doccomment">/// let it = [2, 3, 4].iter();</span>
@@ -434,7 +454,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// // iterate objects</span>
 <span class="doccomment">/// let mut sum = 0;</span>
-<span class="doccomment">/// for item in set.der_iter::&lt;u32&gt;() {</span>
+<span class="doccomment">/// for item in set.der_iter::&lt;u32, Error&gt;() {</span>
 <span class="doccomment">///     // item has type `Result&lt;u32&gt;`, since parsing the serialized bytes could fail</span>
 <span class="doccomment">///     sum += item.expect(&quot;parsing list item failed&quot;);</span>
 <span class="doccomment">/// }</span>
@@ -471,19 +491,20 @@
     <span class="doccomment">/// - [`Set::parse`] takes a reference on the set data, but does not consume it,</span>
     <span class="doccomment">/// - [`Set::from_der_and_then`] does the parsing of the set and applying the function</span>
     <span class="doccomment">///   in one step, ensuring there are only references (and dropping the temporary set).</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">and_then</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">op</span>: <span class="ident">F</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">U</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">and_then</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">F</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">op</span>: <span class="ident">F</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, [<span class="ident">u8</span>]<span class="op">&gt;</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>,
+        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="ident">Cow</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, [<span class="ident">u8</span>]<span class="op">&gt;</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>,
     {
         <span class="ident">op</span>(<span class="self">self</span>.<span class="ident">content</span>)
     }
 
     <span class="doccomment">/// Same as [`Set::from_der_and_then`], but using BER encoding (no constraints).</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_ber_and_then</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>], <span class="ident">op</span>: <span class="ident">F</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">U</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_ber_and_then</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">F</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>], <span class="ident">op</span>: <span class="ident">F</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>,
+        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>,
+        <span class="ident">E</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Error</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> (<span class="ident">rem</span>, <span class="ident">seq</span>) <span class="op">=</span> <span class="ident">Set::from_ber</span>(<span class="ident">bytes</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> (<span class="ident">rem</span>, <span class="ident">seq</span>) <span class="op">=</span> <span class="ident">Set::from_ber</span>(<span class="ident">bytes</span>).<span class="ident">map_err</span>(<span class="ident">Err::convert</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">seq</span>.<span class="ident">content</span> {
             <span class="ident">Cow::Borrowed</span>(<span class="ident">b</span>) =&gt; <span class="ident">b</span>,
             <span class="comment">// Since &#39;any&#39; is built from &#39;bytes&#39;, it is borrowed by construction</span>
@@ -514,11 +535,12 @@
     <span class="doccomment">///     )</span>
     <span class="doccomment">/// }</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_der_and_then</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>], <span class="ident">op</span>: <span class="ident">F</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">U</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_der_and_then</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">F</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="ident">bytes</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>], <span class="ident">op</span>: <span class="ident">F</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident">U</span><span class="op">&gt;</span>,
+        <span class="ident">F</span>: <span class="ident">FnOnce</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident">U</span>, <span class="ident">E</span><span class="op">&gt;</span>,
+        <span class="ident">E</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Error</span><span class="op">&gt;</span>,
     {
-        <span class="kw">let</span> (<span class="ident">rem</span>, <span class="ident">seq</span>) <span class="op">=</span> <span class="ident">Set::from_der</span>(<span class="ident">bytes</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> (<span class="ident">rem</span>, <span class="ident">seq</span>) <span class="op">=</span> <span class="ident">Set::from_der</span>(<span class="ident">bytes</span>).<span class="ident">map_err</span>(<span class="ident">Err::convert</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">data</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">seq</span>.<span class="ident">content</span> {
             <span class="ident">Cow::Borrowed</span>(<span class="ident">b</span>) =&gt; <span class="ident">b</span>,
             <span class="comment">// Since &#39;any&#39; is built from &#39;bytes&#39;, it is borrowed by construction</span>
@@ -529,9 +551,9 @@
     }
 
     <span class="doccomment">/// Apply the parsing function to the set content (non-consuming version)</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span>,
+        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>,
     {
         <span class="kw">let</span> <span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>;
         <span class="ident">f</span>(<span class="ident">input</span>)
@@ -546,22 +568,23 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// This function fails if the set contains `Owned` data, because the parsing function</span>
     <span class="doccomment">/// takes a reference on data (which is dropped).</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_into</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse_into</span><span class="op">&lt;</span><span class="ident">F</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">f</span>: <span class="ident">F</span>) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span><span class="op">&gt;</span>,
+        <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>,
+        <span class="ident">E</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Error</span><span class="op">&gt;</span>,
     {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">content</span> {
             <span class="ident">Cow::Borrowed</span>(<span class="ident">b</span>) =&gt; <span class="ident">f</span>(<span class="ident">b</span>),
-            <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">nom::Err::Error</span>(<span class="ident">Error::LifetimeError</span>)),
+            <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">nom::Err::Error</span>(<span class="ident">Error::LifetimeError</span>.<span class="ident">into</span>())),
         }
     }
 
     <span class="doccomment">/// Return an iterator over the set content, attempting to decode objects as BER</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method can be used when all objects from the set have the same type.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ber_iter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="ident">SetIterator</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">BerParser</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ber_iter</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="ident">SetIterator</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">BerParser</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">T</span>: <span class="ident">FromBer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+        <span class="ident">T</span>: <span class="ident">FromBer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span><span class="op">&gt;</span>,
     {
         <span class="ident">SetIterator::new</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>)
     }
@@ -569,25 +592,27 @@
     <span class="doccomment">/// Return an iterator over the set content, attempting to decode objects as DER</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// This method can be used when all objects from the set have the same type.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">der_iter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="ident">SetIterator</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">DerParser</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">der_iter</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="ident">SetIterator</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">T</span>, <span class="ident">DerParser</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">T</span>: <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+        <span class="ident">T</span>: <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span><span class="op">&gt;</span>,
     {
         <span class="ident">SetIterator::new</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">content</span>)
     }
 
     <span class="doccomment">/// Attempt to parse the set as a `SET OF` items (BER), and return the parsed items as a `Vec`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ber_set_of</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">ber_set_of</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">T</span>: <span class="ident">FromBer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+        <span class="ident">T</span>: <span class="ident">FromBer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span><span class="op">&gt;</span>,
+        <span class="ident">E</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Error</span><span class="op">&gt;</span>,
     {
         <span class="self">self</span>.<span class="ident">ber_iter</span>().<span class="ident">collect</span>()
     }
 
     <span class="doccomment">/// Attempt to parse the set as a `SET OF` items (DER), and return the parsed items as a `Vec`.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">der_set_of</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">der_set_of</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">T</span>: <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+        <span class="ident">T</span>: <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span><span class="op">&gt;</span>,
+        <span class="ident">E</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Error</span><span class="op">&gt;</span>,
     {
         <span class="self">self</span>.<span class="ident">der_iter</span>().<span class="ident">collect</span>()
     }
@@ -596,15 +621,17 @@
     <span class="doccomment">/// and return the parsed items as a `Vec`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note: if `Self` is an `Owned` object, the data will be duplicated (causing allocations) into separate objects.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_ber_set_of</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_ber_set_of</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span><span class="op">&gt;</span> <span class="ident">T</span>: <span class="ident">FromBer</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span><span class="op">&gt;</span>,
+        <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span><span class="op">&gt;</span> <span class="ident">T</span>: <span class="ident">FromBer</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span>, <span class="ident">E</span><span class="op">&gt;</span>,
+        <span class="ident">E</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Error</span><span class="op">&gt;</span>,
         <span class="ident">T</span>: <span class="ident">ToStatic</span><span class="op">&lt;</span><span class="ident">Owned</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;</span>,
     {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">content</span> {
-            <span class="ident">Cow::Borrowed</span>(<span class="ident">bytes</span>) =&gt; <span class="ident">SetIterator</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">BerParser</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">bytes</span>).<span class="ident">collect</span>(),
+            <span class="ident">Cow::Borrowed</span>(<span class="ident">bytes</span>) =&gt; <span class="ident">SetIterator</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">BerParser</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">bytes</span>).<span class="ident">collect</span>(),
             <span class="ident">Cow::Owned</span>(<span class="ident">data</span>) =&gt; {
-                <span class="kw">let</span> <span class="ident">v1</span> <span class="op">=</span> <span class="ident">SetIterator</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">BerParser</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">v1</span> <span class="op">=</span>
+                    <span class="ident">SetIterator</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">BerParser</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">v2</span> <span class="op">=</span> <span class="ident">v1</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">t</span>.<span class="ident">to_static</span>()).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
                 <span class="prelude-val">Ok</span>(<span class="ident">v2</span>)
             }
@@ -615,28 +642,31 @@
     <span class="doccomment">/// and return the parsed items as a `Vec`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note: if `Self` is an `Owned` object, the data will be duplicated (causing allocations) into separate objects.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_der_set_of</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_der_set_of</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span><span class="op">&gt;</span> <span class="ident">T</span>: <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span><span class="op">&gt;</span>,
+        <span class="kw">for</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span><span class="op">&gt;</span> <span class="ident">T</span>: <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span>, <span class="ident">E</span><span class="op">&gt;</span>,
+        <span class="ident">E</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Error</span><span class="op">&gt;</span>,
         <span class="ident">T</span>: <span class="ident">ToStatic</span><span class="op">&lt;</span><span class="ident">Owned</span> <span class="op">=</span> <span class="ident">T</span><span class="op">&gt;</span>,
     {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">content</span> {
-            <span class="ident">Cow::Borrowed</span>(<span class="ident">bytes</span>) =&gt; <span class="ident">SetIterator</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">DerParser</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">bytes</span>).<span class="ident">collect</span>(),
+            <span class="ident">Cow::Borrowed</span>(<span class="ident">bytes</span>) =&gt; <span class="ident">SetIterator</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">DerParser</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">bytes</span>).<span class="ident">collect</span>(),
             <span class="ident">Cow::Owned</span>(<span class="ident">data</span>) =&gt; {
-                <span class="kw">let</span> <span class="ident">v1</span> <span class="op">=</span> <span class="ident">SetIterator</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">DerParser</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">v1</span> <span class="op">=</span>
+                    <span class="ident">SetIterator</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">DerParser</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="kw-2">&amp;</span><span class="ident">data</span>).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">v2</span> <span class="op">=</span> <span class="ident">v1</span>.<span class="ident">iter</span>().<span class="ident">map</span>(<span class="op">|</span><span class="ident">t</span><span class="op">|</span> <span class="ident">t</span>.<span class="ident">to_static</span>()).<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
                 <span class="prelude-val">Ok</span>(<span class="ident">v2</span>)
             }
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_der_set_of_ref</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span><span class="op">&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_der_set_of_ref</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">E</span><span class="op">&gt;</span>(<span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>, <span class="ident">E</span><span class="op">&gt;</span>
     <span class="kw">where</span>
-        <span class="ident">T</span>: <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+        <span class="ident">T</span>: <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">E</span><span class="op">&gt;</span>,
+        <span class="ident">E</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">Error</span><span class="op">&gt;</span>,
     {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">content</span> {
-            <span class="ident">Cow::Borrowed</span>(<span class="ident">bytes</span>) =&gt; <span class="ident">SetIterator</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">DerParser</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">bytes</span>).<span class="ident">collect</span>(),
-            <span class="ident">Cow::Owned</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(<span class="ident">Error::LifetimeError</span>),
+            <span class="ident">Cow::Borrowed</span>(<span class="ident">bytes</span>) =&gt; <span class="ident">SetIterator</span>::<span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">DerParser</span>, <span class="ident">E</span><span class="op">&gt;</span><span class="ident">::new</span>(<span class="ident">bytes</span>).<span class="ident">collect</span>(),
+            <span class="ident">Cow::Owned</span>(<span class="kw">_</span>) =&gt; <span class="prelude-val">Err</span>(<span class="ident">Error::LifetimeError</span>.<span class="ident">into</span>()),
         }
     }
 }
@@ -661,6 +691,14 @@
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
 
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">any</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Set</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="ident">TryFrom::try_from</span>(<span class="kw-2">&amp;</span><span class="ident">any</span>)
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Set</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">any</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Set</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="ident">any</span>.<span class="ident">tag</span>().<span class="ident">assert_eq</span>(<span class="ident"><span class="self">Self</span>::TAG</span>)<span class="question-mark">?</span>;
         <span class="ident">any</span>.<span class="ident">header</span>.<span class="ident">assert_constructed</span>()<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="ident">Set</span> {
@@ -674,6 +712,8 @@
         <span class="prelude-val">Ok</span>(())
     }
 }
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">DerAutoDerive</span> <span class="kw">for</span> <span class="ident">Set</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {}
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Tagged</span> <span class="kw">for</span> <span class="ident">Set</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">const</span> <span class="ident">TAG</span>: <span class="ident">Tag</span> <span class="op">=</span> <span class="ident">Tag::Set</span>;

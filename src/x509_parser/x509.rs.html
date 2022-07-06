@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/x509-parser-0.13.2/src/x509.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>x509.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/x509-parser-0.14.0/src/x509.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>x509.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../x509_parser/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -648,14 +648,6 @@
 <span id="643">643</span>
 <span id="644">644</span>
 <span id="645">645</span>
-<span id="646">646</span>
-<span id="647">647</span>
-<span id="648">648</span>
-<span id="649">649</span>
-<span id="650">650</span>
-<span id="651">651</span>
-<span id="652">652</span>
-<span id="653">653</span>
 </pre><pre class="rust"><code><span class="doccomment">//! X.509 objects and types</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! Based on RFC5280</span>
@@ -664,23 +656,21 @@
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::error</span>::{<span class="ident">X509Error</span>, <span class="ident">X509Result</span>};
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::objects</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::public_key</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident"><span class="kw">crate</span>::traits::FromDer</span>;
 
-<span class="kw">use</span> <span class="ident"><span class="self">self</span>::asn1_rs::Oid</span>;
+<span class="kw">use</span> <span class="ident">asn1_rs</span>::{<span class="ident">Any</span>, <span class="ident">BitString</span>, <span class="ident">DerSequence</span>, <span class="ident">FromBer</span>, <span class="ident">FromDer</span>, <span class="ident">Oid</span>, <span class="ident">ParseResult</span>};
 <span class="kw">use</span> <span class="ident">data_encoding::HEXUPPER</span>;
-<span class="kw">use</span> <span class="ident">der_parser::ber</span>::{<span class="ident">parse_ber_integer</span>, <span class="ident">BitStringObject</span>, <span class="ident">MAX_OBJECT_SIZE</span>};
+<span class="kw">use</span> <span class="ident">der_parser::ber::MAX_OBJECT_SIZE</span>;
 <span class="kw">use</span> <span class="ident">der_parser::der</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">der_parser::error</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">der_parser::num_bigint::BigUint</span>;
 <span class="kw">use</span> <span class="ident">der_parser</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">nom::branch::alt</span>;
 <span class="kw">use</span> <span class="ident">nom::bytes::complete::take</span>;
-<span class="kw">use</span> <span class="ident">nom::combinator</span>::{<span class="ident">complete</span>, <span class="ident">map</span>, <span class="ident">map_opt</span>, <span class="ident">map_res</span>, <span class="ident">opt</span>};
+<span class="kw">use</span> <span class="ident">nom::combinator</span>::{<span class="ident">complete</span>, <span class="ident">map</span>};
 <span class="kw">use</span> <span class="ident">nom::multi</span>::{<span class="ident">many0</span>, <span class="ident">many1</span>};
 <span class="kw">use</span> <span class="ident">nom</span>::{<span class="prelude-val">Err</span>, <span class="ident">Offset</span>};
 <span class="kw">use</span> <span class="ident">oid_registry</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">rusticata_macros::newtype_enum</span>;
-<span class="kw">use</span> <span class="ident">std::convert::TryFrom</span>;
 <span class="kw">use</span> <span class="ident">std::fmt</span>;
 <span class="kw">use</span> <span class="ident">std::iter::FromIterator</span>;
 
@@ -709,7 +699,7 @@
 }
 
 <span class="comment">// Parse [0] EXPLICIT Version DEFAULT v1</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">X509Version</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">X509Error</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">X509Version</span> {
     <span class="kw">fn</span> <span class="ident">from_der</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">X509Result</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> (<span class="ident">rem</span>, <span class="ident">hdr</span>) <span class="op">=</span>
             <span class="ident">der_read_element_header</span>(<span class="ident">i</span>).<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">Err::Error</span>(<span class="ident">X509Error::InvalidVersion</span>)))<span class="question-mark">?</span>;
@@ -736,13 +726,13 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AttributeTypeAndValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="ident">attr_type</span>: <span class="ident">Oid</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
-    <span class="ident">attr_value</span>: <span class="ident">DerObject</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="comment">// ANY -- DEFINED BY AttributeType</span>
+    <span class="ident">attr_value</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="comment">// ANY -- DEFINED BY AttributeType</span>
 }
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">AttributeTypeAndValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Builds a new `AttributeTypeAndValue`</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">attr_type</span>: <span class="ident">Oid</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">attr_value</span>: <span class="ident">DerObject</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">attr_type</span>: <span class="ident">Oid</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">attr_value</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
         <span class="ident">AttributeTypeAndValue</span> {
             <span class="ident">attr_type</span>,
             <span class="ident">attr_value</span>,
@@ -755,59 +745,61 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">attr_type</span>
     }
 
-    <span class="doccomment">/// Returns the attribute value, as raw `DerObject`</span>
+    <span class="doccomment">/// Returns the attribute value, as `ANY`</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">attr_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">DerObject</span> {
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">attr_value</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="ident">Any</span> {
         <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">attr_value</span>
     }
 
     <span class="doccomment">/// Attempt to get the content as `str`.</span>
     <span class="doccomment">/// This can fail if the object does not contain a string type.</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// Note: the [`TryFrom`] trait is implemented for `&amp;str`, so this is equivalent to `attr.try_into()`.</span>
+    <span class="doccomment">/// Note: the [`TryFrom`](core::convert::TryFrom) trait is implemented for `&amp;str`, so this is</span>
+    <span class="doccomment">/// equivalent to `attr.try_into()`.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Only NumericString, PrintableString, UTF8String and IA5String</span>
     <span class="doccomment">/// are considered here. Other string types can be read using `as_slice`.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="ident">X509Error</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">attr_value</span>.<span class="ident">as_str</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">into</span>())
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_str</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>, <span class="ident">X509Error</span><span class="op">&gt;</span> {
+        <span class="comment">// TODO: replace this with helper function, when it is added to asn1-rs</span>
+        <span class="kw">match</span> <span class="self">self</span>.<span class="ident">attr_value</span>.<span class="ident">tag</span>() {
+            <span class="ident">Tag::NumericString</span> <span class="op">|</span> <span class="ident">Tag::PrintableString</span> <span class="op">|</span> <span class="ident">Tag::Utf8String</span> <span class="op">|</span> <span class="ident">Tag::Ia5String</span> =&gt; {
+                <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">core::str::from_utf8</span>(<span class="self">self</span>.<span class="ident">attr_value</span>.<span class="ident">data</span>)
+                    .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">X509Error::InvalidAttributes</span>)<span class="question-mark">?</span>;
+                <span class="prelude-val">Ok</span>(<span class="ident">s</span>)
+            }
+            <span class="ident">t</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">X509Error::Der</span>(<span class="ident">Error::unexpected_tag</span>(<span class="prelude-val">None</span>, <span class="ident">t</span>))),
+        }
     }
 
-    <span class="doccomment">/// Attempt to get the content as a slice.</span>
-    <span class="doccomment">/// This can fail if the object does not contain a type directly equivalent to a slice (e.g a</span>
-    <span class="doccomment">/// sequence).</span>
-    <span class="doccomment">///</span>
-    <span class="doccomment">/// Note: the [`TryFrom`] trait is implemented for `&amp;[u8]`, so this is equivalent to `attr.try_into()`.</span>
+    <span class="doccomment">/// Get the content as a slice.</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_slice</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>], <span class="ident">X509Error</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">attr_value</span>.<span class="ident">as_slice</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">into</span>())
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_slice</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>] {
+        <span class="self">self</span>.<span class="ident">attr_value</span>.<span class="ident">as_bytes</span>()
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">AttributeTypeAndValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span> <span class="ident">core::convert::TryFrom</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">AttributeTypeAndValue</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span> {
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">X509Error</span>;
 
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">AttributeTypeAndValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">AttributeTypeAndValue</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
         <span class="ident">value</span>.<span class="ident">attr_value</span>.<span class="ident">as_str</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">into</span>())
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="ident">AttributeTypeAndValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>] {
-    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">X509Error</span>;
-
-    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">value</span>: <span class="ident">AttributeTypeAndValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident"><span class="self">Self</span>::Error</span><span class="op">&gt;</span> {
-        <span class="ident">value</span>.<span class="ident">attr_value</span>.<span class="ident">as_slice</span>().<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">into</span>())
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span> <span class="ident">From</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">AttributeTypeAndValue</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>] {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">AttributeTypeAndValue</span><span class="op">&lt;</span><span class="lifetime">&#39;b</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="ident">value</span>.<span class="ident">as_slice</span>()
     }
 }
 
 <span class="comment">// AttributeTypeAndValue   ::= SEQUENCE {</span>
 <span class="comment">//     type    AttributeType,</span>
 <span class="comment">//     value   AttributeValue }</span>
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AttributeTypeAndValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">X509Error</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AttributeTypeAndValue</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">from_der</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">X509Result</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="self">Self</span><span class="op">&gt;</span> {
         <span class="ident">parse_der_sequence_defined_g</span>(<span class="op">|</span><span class="ident">i</span>, <span class="kw">_</span><span class="op">|</span> {
-            <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">attr_type</span>) <span class="op">=</span> <span class="ident">map_res</span>(<span class="ident">parse_der_oid</span>, <span class="op">|</span><span class="ident">x</span>: <span class="ident">DerObject</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">|</span> <span class="ident">x</span>.<span class="ident">as_oid_val</span>())(<span class="ident">i</span>)
-                .<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidX509Name</span>))<span class="question-mark">?</span>;
+            <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">attr_type</span>) <span class="op">=</span> <span class="ident">Oid::from_der</span>(<span class="ident">i</span>).<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidX509Name</span>))<span class="question-mark">?</span>;
             <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">attr_value</span>) <span class="op">=</span> <span class="ident">parse_attribute_value</span>(<span class="ident">i</span>).<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidX509Name</span>))<span class="question-mark">?</span>;
             <span class="kw">let</span> <span class="ident">attr</span> <span class="op">=</span> <span class="ident">AttributeTypeAndValue::new</span>(<span class="ident">attr_type</span>, <span class="ident">attr_value</span>);
             <span class="prelude-val">Ok</span>((<span class="ident">i</span>, <span class="ident">attr</span>))
@@ -817,15 +809,15 @@
 
 <span class="comment">// AttributeValue          ::= ANY -- DEFINED BY AttributeType</span>
 <span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="kw">fn</span> <span class="ident">parse_attribute_value</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">DerResult</span> {
-    <span class="ident">alt</span>((<span class="ident">parse_der</span>, <span class="ident">parse_malformed_string</span>))(<span class="ident">i</span>)
+<span class="kw">fn</span> <span class="ident">parse_attribute_value</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident">Any</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="ident">alt</span>((<span class="ident">Any::from_der</span>, <span class="ident">parse_malformed_string</span>))(<span class="ident">i</span>)
 }
 
-<span class="kw">fn</span> <span class="ident">parse_malformed_string</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">DerResult</span> {
-    <span class="kw">let</span> (<span class="ident">rem</span>, <span class="ident">hdr</span>) <span class="op">=</span> <span class="ident">der_read_element_header</span>(<span class="ident">i</span>)<span class="question-mark">?</span>;
+<span class="kw">fn</span> <span class="ident">parse_malformed_string</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">ParseResult</span><span class="op">&lt;</span><span class="ident">Any</span>, <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> (<span class="ident">rem</span>, <span class="ident">hdr</span>) <span class="op">=</span> <span class="ident">Header::from_der</span>(<span class="ident">i</span>)<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">hdr</span>.<span class="ident">length</span>().<span class="ident">definite</span>()<span class="question-mark">?</span>;
     <span class="kw">if</span> <span class="ident">len</span> <span class="op">&gt;</span> <span class="ident">MAX_OBJECT_SIZE</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">nom::Err::Error</span>(<span class="ident">BerError::InvalidLength</span>));
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">nom::Err::Error</span>(<span class="ident">Error::InvalidLength</span>));
     }
     <span class="kw">match</span> <span class="ident">hdr</span>.<span class="ident">tag</span>() {
         <span class="ident">Tag::PrintableString</span> =&gt; {
@@ -833,12 +825,15 @@
             <span class="comment">// Accept it without validating charset, because some tools do not respect the charset</span>
             <span class="comment">// restrictions (for ex. they use &#39;*&#39; while explicingly disallowed)</span>
             <span class="kw">let</span> (<span class="ident">rem</span>, <span class="ident">data</span>) <span class="op">=</span> <span class="ident">take</span>(<span class="ident">len</span> <span class="kw">as</span> <span class="ident">usize</span>)(<span class="ident">rem</span>)<span class="question-mark">?</span>;
-            <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">std::str::from_utf8</span>(<span class="ident">data</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">BerError::BerValueError</span>)<span class="question-mark">?</span>;
-            <span class="kw">let</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">DerObjectContent::PrintableString</span>(<span class="ident">s</span>);
-            <span class="kw">let</span> <span class="ident">obj</span> <span class="op">=</span> <span class="ident">DerObject::from_header_and_content</span>(<span class="ident">hdr</span>, <span class="ident">content</span>);
+            <span class="comment">// check valid encoding</span>
+            <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">std::str::from_utf8</span>(<span class="ident">data</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">Error::BerValueError</span>)<span class="question-mark">?</span>;
+            <span class="kw">let</span> <span class="ident">obj</span> <span class="op">=</span> <span class="ident">Any::new</span>(<span class="ident">hdr</span>, <span class="ident">data</span>);
             <span class="prelude-val">Ok</span>((<span class="ident">rem</span>, <span class="ident">obj</span>))
         }
-        <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">nom::Err::Error</span>(<span class="ident">BerError::InvalidTag</span>)),
+        <span class="ident">t</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">nom::Err::Error</span>(<span class="ident">Error::unexpected_tag</span>(
+            <span class="prelude-val">Some</span>(<span class="ident">Tag::PrintableString</span>),
+            <span class="ident">t</span>,
+        ))),
     }
 }
 
@@ -870,7 +865,7 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RelativeDistinguishedName</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">X509Error</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RelativeDistinguishedName</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">from_der</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">X509Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="ident">parse_der_set_defined_g</span>(<span class="op">|</span><span class="ident">i</span>, <span class="kw">_</span><span class="op">|</span> {
             <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">set</span>) <span class="op">=</span> <span class="ident">many1</span>(<span class="ident">complete</span>(<span class="ident">AttributeTypeAndValue::from_der</span>))(<span class="ident">i</span>)<span class="question-mark">?</span>;
@@ -883,7 +878,7 @@
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SubjectPublicKeyInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">pub</span> <span class="ident">algorithm</span>: <span class="ident">AlgorithmIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">subject_public_key</span>: <span class="ident">BitStringObject</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">subject_public_key</span>: <span class="ident">BitString</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
     <span class="doccomment">/// A raw unparsed PKIX, ASN.1 DER form (see RFC 5280, Section 4.1).</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Note: use the [`Self::parsed()`] function to parse this object.</span>
@@ -893,12 +888,12 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">SubjectPublicKeyInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Attempt to parse the public key, and return the parsed version or an error</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parsed</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">PublicKey</span>, <span class="ident">X509Error</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">subject_public_key</span>.<span class="ident">data</span>;
+        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">subject_public_key</span>.<span class="ident">data</span>;
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">algorithm</span>.<span class="ident">algorithm</span> <span class="op">==</span> <span class="ident">OID_PKCS1_RSAENCRYPTION</span> {
             <span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">key</span>) <span class="op">=</span> <span class="ident">RSAPublicKey::from_der</span>(<span class="ident">b</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">X509Error::InvalidSPKI</span>)<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(<span class="ident">PublicKey::RSA</span>(<span class="ident">key</span>))
         } <span class="kw">else</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">algorithm</span>.<span class="ident">algorithm</span> <span class="op">==</span> <span class="ident">OID_KEY_TYPE_EC_PUBLIC_KEY</span> {
-            <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="ident">ECPoint::from</span>(<span class="ident">b</span>);
+            <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> <span class="ident">ECPoint::from</span>(<span class="ident">b</span>.<span class="ident">as_ref</span>());
             <span class="prelude-val">Ok</span>(<span class="ident">PublicKey::EC</span>(<span class="ident">key</span>))
         } <span class="kw">else</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">algorithm</span>.<span class="ident">algorithm</span> <span class="op">==</span> <span class="ident">OID_KEY_TYPE_DSA</span> {
             <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">parse_der_integer</span>(<span class="ident">b</span>)
@@ -906,16 +901,12 @@
                 .<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidSPKI</span>))<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(<span class="ident">PublicKey::DSA</span>(<span class="ident">s</span>))
         } <span class="kw">else</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">algorithm</span>.<span class="ident">algorithm</span> <span class="op">==</span> <span class="ident">OID_GOST_R3410_2001</span> {
-            <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">parse_der_octetstring</span>(<span class="ident">b</span>)
-                .<span class="ident">and_then</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">obj</span>)<span class="op">|</span> <span class="ident">obj</span>.<span class="ident">as_slice</span>().<span class="ident">map_err</span>(<span class="ident">Err::Error</span>))
-                .<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidSPKI</span>))<span class="question-mark">?</span>;
+            <span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">s</span>) <span class="op">=</span> <span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="ident">::from_der</span>(<span class="ident">b</span>).<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidSPKI</span>))<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(<span class="ident">PublicKey::GostR3410</span>(<span class="ident">s</span>))
         } <span class="kw">else</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">algorithm</span>.<span class="ident">algorithm</span> <span class="op">==</span> <span class="ident">OID_KEY_TYPE_GOST_R3410_2012_256</span>
             <span class="op">|</span><span class="op">|</span> <span class="self">self</span>.<span class="ident">algorithm</span>.<span class="ident">algorithm</span> <span class="op">==</span> <span class="ident">OID_KEY_TYPE_GOST_R3410_2012_512</span>
         {
-            <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">parse_der_octetstring</span>(<span class="ident">b</span>)
-                .<span class="ident">and_then</span>(<span class="op">|</span>(<span class="kw">_</span>, <span class="ident">obj</span>)<span class="op">|</span> <span class="ident">obj</span>.<span class="ident">as_slice</span>().<span class="ident">map_err</span>(<span class="ident">Err::Error</span>))
-                .<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidSPKI</span>))<span class="question-mark">?</span>;
+            <span class="kw">let</span> (<span class="kw">_</span>, <span class="ident">s</span>) <span class="op">=</span> <span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="ident">::from_der</span>(<span class="ident">b</span>).<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidSPKI</span>))<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(<span class="ident">PublicKey::GostR3410_2012</span>(<span class="ident">s</span>))
         } <span class="kw">else</span> {
             <span class="prelude-val">Ok</span>(<span class="ident">PublicKey::Unknown</span>(<span class="ident">b</span>))
@@ -923,19 +914,13 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SubjectPublicKeyInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">X509Error</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">SubjectPublicKeyInfo</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Parse the SubjectPublicKeyInfo struct portion of a DER-encoded X.509 Certificate</span>
     <span class="kw">fn</span> <span class="ident">from_der</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">X509Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">start_i</span> <span class="op">=</span> <span class="ident">i</span>;
         <span class="ident">parse_der_sequence_defined_g</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">i</span>, <span class="kw">_</span><span class="op">|</span> {
             <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">algorithm</span>) <span class="op">=</span> <span class="ident">AlgorithmIdentifier::from_der</span>(<span class="ident">i</span>)<span class="question-mark">?</span>;
-            <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">subject_public_key</span>) <span class="op">=</span> <span class="ident">map_res</span>(<span class="ident">parse_der_bitstring</span>, <span class="op">|</span><span class="ident">x</span>: <span class="ident">DerObject</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">|</span> {
-                <span class="kw">match</span> <span class="ident">x</span>.<span class="ident">content</span> {
-                    <span class="ident">DerObjectContent::BitString</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">b</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">b</span>.<span class="ident">to_owned</span>()), <span class="comment">// XXX padding ignored</span>
-                    <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">BerError::BerTypeError</span>),
-                }
-            })(<span class="ident">i</span>)
-            .<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidSPKI</span>))<span class="question-mark">?</span>;
+            <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">subject_public_key</span>) <span class="op">=</span> <span class="ident">BitString::from_der</span>(<span class="ident">i</span>).<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidSPKI</span>))<span class="question-mark">?</span>;
             <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">start_i</span>.<span class="ident">offset</span>(<span class="ident">i</span>);
             <span class="kw">let</span> <span class="ident">raw</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">start_i</span>[..<span class="ident">len</span>];
             <span class="kw">let</span> <span class="ident">spki</span> <span class="op">=</span> <span class="ident">SubjectPublicKeyInfo</span> {
@@ -962,27 +947,32 @@
 <span class="doccomment">/// algorithm.  The OBJECT IDENTIFIER component identifies the algorithm</span>
 <span class="doccomment">/// (such as DSA with SHA-1).  The contents of the optional parameters</span>
 <span class="doccomment">/// field will vary according to the algorithm identified.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Debug</span>, <span class="ident">PartialEq</span>, <span class="ident">DerSequence</span>)]</span>
+<span class="attribute">#[<span class="ident">error</span>(<span class="ident">X509Error</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">AlgorithmIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="attribute">#[<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">X509Error::InvalidAlgorithmIdentifier</span>)]</span>
     <span class="kw">pub</span> <span class="ident">algorithm</span>: <span class="ident">Oid</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
-    <span class="kw">pub</span> <span class="ident">parameters</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">DerObject</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    <span class="attribute">#[<span class="ident">optional</span>]</span>
+    <span class="kw">pub</span> <span class="ident">parameters</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">AlgorithmIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">clippy::needless_lifetimes</span>)]</span>
-    <span class="kw">fn</span> <span class="ident">from_der</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">X509Result</span><span class="op">&lt;</span><span class="ident">AlgorithmIdentifier</span><span class="op">&gt;</span> {
-        <span class="ident">parse_der_sequence_defined_g</span>(<span class="op">|</span><span class="ident">i</span>, <span class="kw">_</span><span class="op">|</span> {
-            <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">algorithm</span>) <span class="op">=</span> <span class="ident">map_res</span>(<span class="ident">parse_der_oid</span>, <span class="op">|</span><span class="ident">x</span><span class="op">|</span> <span class="ident">x</span>.<span class="ident">as_oid_val</span>())(<span class="ident">i</span>)
-                .<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidAlgorithmIdentifier</span>))<span class="question-mark">?</span>;
-            <span class="kw">let</span> (<span class="ident">i</span>, <span class="ident">parameters</span>) <span class="op">=</span>
-                <span class="ident">opt</span>(<span class="ident">complete</span>(<span class="ident">parse_der</span>))(<span class="ident">i</span>).<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidAlgorithmIdentifier</span>))<span class="question-mark">?</span>;
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">AlgorithmIdentifier</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Create a new `AlgorithmIdentifier`</span>
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">algorithm</span>: <span class="ident">Oid</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">parameters</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span>) -&gt; <span class="self">Self</span> {
+        <span class="self">Self</span> {
+            <span class="ident">algorithm</span>,
+            <span class="ident">parameters</span>,
+        }
+    }
 
-            <span class="kw">let</span> <span class="ident">alg</span> <span class="op">=</span> <span class="ident">AlgorithmIdentifier</span> {
-                <span class="ident">algorithm</span>,
-                <span class="ident">parameters</span>,
-            };
-            <span class="prelude-val">Ok</span>((<span class="ident">i</span>, <span class="ident">alg</span>))
-        })(<span class="ident">i</span>)
+    <span class="doccomment">/// Get the algorithm OID</span>
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">oid</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Oid</span> {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">algorithm</span>
+    }
+
+    <span class="doccomment">/// Get a reference to the algorithm parameters, if present</span>
+    <span class="kw">pub</span> <span class="kw">const</span> <span class="kw">fn</span> <span class="ident">parameters</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Any</span><span class="op">&gt;</span> {
+        <span class="self">self</span>.<span class="ident">parameters</span>.<span class="ident">as_ref</span>()
     }
 }
 
@@ -1132,7 +1122,7 @@
     }
 }
 
-<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">X509Name</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">FromDer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">X509Error</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">X509Name</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Parse the X.501 type Name, used for ex in issuer and subject of a X.509 certificate</span>
     <span class="kw">fn</span> <span class="ident">from_der</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]) -&gt; <span class="ident">X509Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">start_i</span> <span class="op">=</span> <span class="ident">i</span>;
@@ -1175,17 +1165,26 @@
 
 <span class="comment">// Attempt to convert attribute to string. If type is not a string, return value is the hex</span>
 <span class="comment">// encoding of the attribute value</span>
-<span class="kw">fn</span> <span class="ident">attribute_value_to_string</span>(<span class="ident">attr</span>: <span class="kw-2">&amp;</span><span class="ident">DerObject</span>, <span class="ident">_attr_type</span>: <span class="kw-2">&amp;</span><span class="ident">Oid</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">X509Error</span><span class="op">&gt;</span> {
-    <span class="kw">match</span> <span class="ident">attr</span>.<span class="ident">content</span> {
-        <span class="ident">DerObjectContent::NumericString</span>(<span class="ident">s</span>)
-        <span class="op">|</span> <span class="ident">DerObjectContent::PrintableString</span>(<span class="ident">s</span>)
-        <span class="op">|</span> <span class="ident">DerObjectContent::UTF8String</span>(<span class="ident">s</span>)
-        <span class="op">|</span> <span class="ident">DerObjectContent::IA5String</span>(<span class="ident">s</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">s</span>.<span class="ident">to_owned</span>()),
+<span class="kw">fn</span> <span class="ident">attribute_value_to_string</span>(<span class="ident">attr</span>: <span class="kw-2">&amp;</span><span class="ident">Any</span>, <span class="ident">_attr_type</span>: <span class="kw-2">&amp;</span><span class="ident">Oid</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">X509Error</span><span class="op">&gt;</span> {
+    <span class="comment">// TODO: replace this with helper function, when it is added to asn1-rs</span>
+    <span class="kw">match</span> <span class="ident">attr</span>.<span class="ident">tag</span>() {
+        <span class="ident">Tag::NumericString</span>
+        <span class="op">|</span> <span class="ident">Tag::BmpString</span>
+        <span class="op">|</span> <span class="ident">Tag::VisibleString</span>
+        <span class="op">|</span> <span class="ident">Tag::PrintableString</span>
+        <span class="op">|</span> <span class="ident">Tag::GeneralString</span>
+        <span class="op">|</span> <span class="ident">Tag::ObjectDescriptor</span>
+        <span class="op">|</span> <span class="ident">Tag::GraphicString</span>
+        <span class="op">|</span> <span class="ident">Tag::T61String</span>
+        <span class="op">|</span> <span class="ident">Tag::VideotexString</span>
+        <span class="op">|</span> <span class="ident">Tag::Utf8String</span>
+        <span class="op">|</span> <span class="ident">Tag::Ia5String</span> =&gt; {
+            <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">core::str::from_utf8</span>(<span class="ident">attr</span>.<span class="ident">data</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">X509Error::InvalidAttributes</span>)<span class="question-mark">?</span>;
+            <span class="prelude-val">Ok</span>(<span class="ident">s</span>.<span class="ident">to_owned</span>())
+        }
         <span class="kw">_</span> =&gt; {
             <span class="comment">// type is not a string, get slice and convert it to base64</span>
-            <span class="ident">attr</span>.<span class="ident">as_slice</span>()
-                .<span class="ident">map</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> <span class="ident">HEXUPPER</span>.<span class="ident">encode</span>(<span class="ident">s</span>))
-                .<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">X509Error::InvalidX509Name</span>))
+            <span class="prelude-val">Ok</span>(<span class="ident">HEXUPPER</span>.<span class="ident">encode</span>(<span class="ident">attr</span>.<span class="ident">as_bytes</span>()))
         }
     }
 }
@@ -1227,36 +1226,26 @@
     })
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">parse_signature_value</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">X509Result</span><span class="op">&lt;</span><span class="ident">BitStringObject</span><span class="op">&gt;</span> {
-    <span class="ident">map_res</span>(<span class="ident">parse_der_bitstring</span>, <span class="op">|</span><span class="ident">x</span>: <span class="ident">DerObject</span><span class="op">|</span> {
-        <span class="kw">match</span> <span class="ident">x</span>.<span class="ident">content</span> {
-            <span class="ident">DerObjectContent::BitString</span>(<span class="kw">_</span>, <span class="kw-2">ref</span> <span class="ident">b</span>) =&gt; <span class="prelude-val">Ok</span>(<span class="ident">b</span>.<span class="ident">to_owned</span>()), <span class="comment">// XXX padding ignored</span>
-            <span class="kw">_</span> =&gt; <span class="prelude-val">Err</span>(<span class="ident">BerError::BerTypeError</span>),
-        }
-    })(<span class="ident">i</span>)
-    .<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">Err::Error</span>(<span class="ident">X509Error::InvalidSignatureValue</span>)))
+<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">parse_signature_value</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">X509Result</span><span class="op">&lt;</span><span class="ident">BitString</span><span class="op">&gt;</span> {
+    <span class="ident">BitString::from_der</span>(<span class="ident">i</span>).<span class="ident">or</span>(<span class="prelude-val">Err</span>(<span class="ident">Err::Error</span>(<span class="ident">X509Error::InvalidSignatureValue</span>)))
 }
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn</span> <span class="ident">parse_serial</span>(<span class="ident">i</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) -&gt; <span class="ident">X509Result</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="ident">BigUint</span>)<span class="op">&gt;</span> {
-    <span class="comment">// This should be parse_der_integer, but some certificates encode leading zeroes</span>
-    <span class="ident">map_opt</span>(<span class="ident">parse_ber_integer</span>, <span class="ident">get_serial_info</span>)(<span class="ident">i</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">X509Error::InvalidSerial</span>.<span class="ident">into</span>())
-}
-
-<span class="kw">fn</span> <span class="ident">get_serial_info</span>(<span class="ident">o</span>: <span class="ident">DerObject</span>) -&gt; <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="ident">BigUint</span>)<span class="op">&gt;</span> {
+    <span class="kw">let</span> (<span class="ident">rem</span>, <span class="ident">any</span>) <span class="op">=</span> <span class="ident">Any::from_ber</span>(<span class="ident">i</span>).<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">X509Error::InvalidSerial</span>)<span class="question-mark">?</span>;
     <span class="comment">// RFC 5280 4.1.2.2: &quot;The serial number MUST be a positive integer&quot;</span>
     <span class="comment">// however, many CAs do not respect this and send integers with MSB set,</span>
     <span class="comment">// so we do not use `as_biguint()`</span>
-    <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="ident">o</span>.<span class="ident">as_slice</span>().<span class="ident">ok</span>()<span class="question-mark">?</span>;
+    <span class="ident">any</span>.<span class="ident">tag</span>()
+        .<span class="ident">assert_eq</span>(<span class="ident">Tag::Integer</span>)
+        .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">X509Error::InvalidSerial</span>)<span class="question-mark">?</span>;
+    <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="ident">any</span>.<span class="ident">data</span>;
     <span class="kw">let</span> <span class="ident">big</span> <span class="op">=</span> <span class="ident">BigUint::from_bytes_be</span>(<span class="ident">slice</span>);
-
-    <span class="prelude-val">Some</span>((<span class="ident">slice</span>, <span class="ident">big</span>))
+    <span class="prelude-val">Ok</span>((<span class="ident">rem</span>, (<span class="ident">slice</span>, <span class="ident">big</span>)))
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
     <span class="kw">use</span> <span class="kw">super</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="ident">der_parser::ber::BerObjectContent</span>;
-    <span class="kw">use</span> <span class="ident">der_parser::oid</span>;
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">test_x509_name</span>() {
@@ -1264,39 +1253,34 @@
             <span class="ident">rdn_seq</span>: <span class="macro">vec!</span>[
                 <span class="ident">RelativeDistinguishedName</span> {
                     <span class="ident">set</span>: <span class="macro">vec!</span>[<span class="ident">AttributeTypeAndValue</span> {
-                        <span class="ident">attr_type</span>: <span class="macro">oid!</span>(<span class="number">2.5</span>.<span class="number">4</span> .<span class="number">6</span>), <span class="comment">// countryName</span>
-                        <span class="ident">attr_value</span>: <span class="ident">DerObject::from_obj</span>(<span class="ident">BerObjectContent::PrintableString</span>(<span class="string">&quot;FR&quot;</span>)),
+                        <span class="ident">attr_type</span>: <span class="macro">oid!</span> {<span class="number">2.5</span>.<span class="number">4.6</span>}, <span class="comment">// countryName</span>
+                        <span class="ident">attr_value</span>: <span class="ident">Any::from_tag_and_data</span>(<span class="ident">Tag::PrintableString</span>, <span class="string">b&quot;FR&quot;</span>),
                     }],
                 },
                 <span class="ident">RelativeDistinguishedName</span> {
                     <span class="ident">set</span>: <span class="macro">vec!</span>[<span class="ident">AttributeTypeAndValue</span> {
-                        <span class="ident">attr_type</span>: <span class="macro">oid!</span>(<span class="number">2.5</span>.<span class="number">4</span> .<span class="number">8</span>), <span class="comment">// stateOrProvinceName</span>
-                        <span class="ident">attr_value</span>: <span class="ident">DerObject::from_obj</span>(<span class="ident">BerObjectContent::PrintableString</span>(
-                            <span class="string">&quot;Some-State&quot;</span>,
-                        )),
+                        <span class="ident">attr_type</span>: <span class="macro">oid!</span> {<span class="number">2.5</span>.<span class="number">4.8</span>}, <span class="comment">// stateOrProvinceName</span>
+                        <span class="ident">attr_value</span>: <span class="ident">Any::from_tag_and_data</span>(<span class="ident">Tag::PrintableString</span>, <span class="string">b&quot;Some-State&quot;</span>),
                     }],
                 },
                 <span class="ident">RelativeDistinguishedName</span> {
                     <span class="ident">set</span>: <span class="macro">vec!</span>[<span class="ident">AttributeTypeAndValue</span> {
-                        <span class="ident">attr_type</span>: <span class="macro">oid!</span>(<span class="number">2.5</span>.<span class="number">4</span> .<span class="number">10</span>), <span class="comment">// organizationName</span>
-                        <span class="ident">attr_value</span>: <span class="ident">DerObject::from_obj</span>(<span class="ident">BerObjectContent::PrintableString</span>(
-                            <span class="string">&quot;Internet Widgits Pty Ltd&quot;</span>,
-                        )),
+                        <span class="ident">attr_type</span>: <span class="macro">oid!</span> {<span class="number">2.5</span>.<span class="number">4.10</span>}, <span class="comment">// organizationName</span>
+                        <span class="ident">attr_value</span>: <span class="ident">Any::from_tag_and_data</span>(
+                            <span class="ident">Tag::PrintableString</span>,
+                            <span class="string">b&quot;Internet Widgits Pty Ltd&quot;</span>,
+                        ),
                     }],
                 },
                 <span class="ident">RelativeDistinguishedName</span> {
                     <span class="ident">set</span>: <span class="macro">vec!</span>[
                         <span class="ident">AttributeTypeAndValue</span> {
-                            <span class="ident">attr_type</span>: <span class="macro">oid!</span>(<span class="number">2.5</span>.<span class="number">4</span> .<span class="number">3</span>), <span class="comment">// CN</span>
-                            <span class="ident">attr_value</span>: <span class="ident">DerObject::from_obj</span>(<span class="ident">BerObjectContent::PrintableString</span>(
-                                <span class="string">&quot;Test1&quot;</span>,
-                            )),
+                            <span class="ident">attr_type</span>: <span class="macro">oid!</span> {<span class="number">2.5</span>.<span class="number">4.3</span>}, <span class="comment">// CN</span>
+                            <span class="ident">attr_value</span>: <span class="ident">Any::from_tag_and_data</span>(<span class="ident">Tag::PrintableString</span>, <span class="string">b&quot;Test1&quot;</span>),
                         },
                         <span class="ident">AttributeTypeAndValue</span> {
-                            <span class="ident">attr_type</span>: <span class="macro">oid!</span>(<span class="number">2.5</span>.<span class="number">4</span> .<span class="number">3</span>), <span class="comment">// CN</span>
-                            <span class="ident">attr_value</span>: <span class="ident">DerObject::from_obj</span>(<span class="ident">BerObjectContent::PrintableString</span>(
-                                <span class="string">&quot;Test2&quot;</span>,
-                            )),
+                            <span class="ident">attr_type</span>: <span class="macro">oid!</span> {<span class="number">2.5</span>.<span class="number">4.3</span>}, <span class="comment">// CN</span>
+                            <span class="ident">attr_value</span>: <span class="ident">Any::from_tag_and_data</span>(<span class="ident">Tag::PrintableString</span>, <span class="string">b&quot;Test2&quot;</span>),
                         },
                     ],
                 },

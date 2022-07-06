@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/asn1-rs-0.3.1/src/asn1_types/integer.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>integer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/asn1-rs-0.5.1/src/asn1_types/integer.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>integer.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../../storage.js"></script><script src="../../../crates.js"></script><script defer src="../../../main.js"></script><script defer src="../../../source-script.js"></script><script defer src="../../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../../asn1_rs/index.html"><div class="logo-container"><img class="rust-logo" src="../../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -622,6 +622,36 @@
 <span id="617">617</span>
 <span id="618">618</span>
 <span id="619">619</span>
+<span id="620">620</span>
+<span id="621">621</span>
+<span id="622">622</span>
+<span id="623">623</span>
+<span id="624">624</span>
+<span id="625">625</span>
+<span id="626">626</span>
+<span id="627">627</span>
+<span id="628">628</span>
+<span id="629">629</span>
+<span id="630">630</span>
+<span id="631">631</span>
+<span id="632">632</span>
+<span id="633">633</span>
+<span id="634">634</span>
+<span id="635">635</span>
+<span id="636">636</span>
+<span id="637">637</span>
+<span id="638">638</span>
+<span id="639">639</span>
+<span id="640">640</span>
+<span id="641">641</span>
+<span id="642">642</span>
+<span id="643">643</span>
+<span id="644">644</span>
+<span id="645">645</span>
+<span id="646">646</span>
+<span id="647">647</span>
+<span id="648">648</span>
+<span id="649">649</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="kw">crate</span>::<span class="kw-2">*</span>;
 <span class="kw">use</span> <span class="ident">alloc::borrow::Cow</span>;
 <span class="kw">use</span> <span class="ident">alloc::vec</span>;
@@ -633,7 +663,7 @@
 
 <span class="doccomment">/// Decode an unsigned integer into a big endian byte slice with all leading</span>
 <span class="doccomment">/// zeroes removed (if positive) and extra 0xff remove (if negative)</span>
-<span class="kw">fn</span> <span class="ident">trim_slice</span>(<span class="ident">any</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">trim_slice</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">any</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>]<span class="op">&gt;</span> {
     <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">any</span>.<span class="ident">data</span>;
 
     <span class="kw">if</span> <span class="ident">bytes</span>.<span class="ident">is_empty</span>() <span class="op">|</span><span class="op">|</span> (<span class="ident">bytes</span>[<span class="number">0</span>] <span class="op">!</span><span class="op">=</span> <span class="number">0x00</span> <span class="op">&amp;&amp;</span> <span class="ident">bytes</span>[<span class="number">0</span>] <span class="op">!</span><span class="op">=</span> <span class="number">0xff</span>) {
@@ -665,7 +695,7 @@
 
 <span class="doccomment">/// Decode an unsigned integer into a byte array of the requested size</span>
 <span class="doccomment">/// containing a big endian integer.</span>
-<span class="kw">fn</span> <span class="ident">decode_array_uint</span><span class="op">&lt;</span><span class="kw">const</span> <span class="ident">N</span>: <span class="ident">usize</span><span class="op">&gt;</span>(<span class="ident">any</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="ident">N</span>]<span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">decode_array_uint</span><span class="op">&lt;</span><span class="kw">const</span> <span class="ident">N</span>: <span class="ident">usize</span><span class="op">&gt;</span>(<span class="ident">any</span>: <span class="kw-2">&amp;</span><span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="ident">N</span>]<span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">is_highest_bit_set</span>(<span class="ident">any</span>.<span class="ident">data</span>) {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::IntegerNegative</span>);
     }
@@ -685,7 +715,7 @@
 <span class="doccomment">/// Decode an unsigned integer of the specified size.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// Returns a byte array of the requested size containing a big endian integer.</span>
-<span class="kw">fn</span> <span class="ident">decode_array_int</span><span class="op">&lt;</span><span class="kw">const</span> <span class="ident">N</span>: <span class="ident">usize</span><span class="op">&gt;</span>(<span class="ident">any</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="ident">N</span>]<span class="op">&gt;</span> {
+<span class="kw">fn</span> <span class="ident">decode_array_int</span><span class="op">&lt;</span><span class="kw">const</span> <span class="ident">N</span>: <span class="ident">usize</span><span class="op">&gt;</span>(<span class="ident">any</span>: <span class="kw-2">&amp;</span><span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>[<span class="ident">u8</span>; <span class="ident">N</span>]<span class="op">&gt;</span> {
     <span class="kw">if</span> <span class="ident">any</span>.<span class="ident">data</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="ident">N</span> {
         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error::IntegerTooLarge</span>);
     }
@@ -712,21 +742,32 @@
             <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
 
             <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">any</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+                <span class="ident">TryFrom::try_from</span>(<span class="kw-2">&amp;</span><span class="ident">any</span>)
+            }
+        }
+
+        <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span> {
+            <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+
+            <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">any</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="ident">any</span>.<span class="ident">tag</span>().<span class="ident">assert_eq</span>(<span class="ident"><span class="self">Self</span>::TAG</span>)<span class="question-mark">?</span>;
                 <span class="ident">any</span>.<span class="ident">header</span>.<span class="ident">assert_primitive</span>()<span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">is_highest_bit_set</span>(<span class="ident">any</span>.<span class="ident">as_bytes</span>()) {
-                    <span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span><span class="op">&gt;</span><span class="ident">::from_be_bytes</span>(<span class="ident">decode_array_int</span>(<span class="ident">any</span>)<span class="question-mark">?</span>) <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span>
+                    <span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">uint</span><span class="op">&gt;</span><span class="ident">::from_be_bytes</span>(<span class="ident">decode_array_int</span>(<span class="kw-2">&amp;</span><span class="ident">any</span>)<span class="question-mark">?</span>) <span class="kw">as</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span>
                 } <span class="kw">else</span> {
-                    <span class="ident"><span class="self">Self</span>::from_be_bytes</span>(<span class="ident">decode_array_uint</span>(<span class="ident">any</span>)<span class="question-mark">?</span>)
+                    <span class="ident"><span class="self">Self</span>::from_be_bytes</span>(<span class="ident">decode_array_uint</span>(<span class="kw-2">&amp;</span><span class="ident">any</span>)<span class="question-mark">?</span>)
                 };
                 <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
             }
         }
+
         <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">CheckDerConstraints</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span> {
             <span class="kw">fn</span> <span class="ident">check_constraints</span>(<span class="ident">any</span>: <span class="kw-2">&amp;</span><span class="ident">Any</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
                 <span class="ident">check_der_int_constraints</span>(<span class="ident">any</span>)
             }
         }
+
+        <span class="kw">impl</span> <span class="ident">DerAutoDerive</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span> {}
 
         <span class="kw">impl</span> <span class="ident">Tagged</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">int</span> {
             <span class="kw">const</span> <span class="ident">TAG</span>: <span class="ident">Tag</span> <span class="op">=</span> <span class="ident">Tag::Integer</span>;
@@ -763,6 +804,13 @@
             <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
 
             <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">any</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
+                <span class="ident">TryFrom::try_from</span>(<span class="kw-2">&amp;</span><span class="ident">any</span>)
+            }
+        }
+        <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span> {
+            <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+
+            <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">any</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span> {
                 <span class="ident">any</span>.<span class="ident">tag</span>().<span class="ident">assert_eq</span>(<span class="ident"><span class="self">Self</span>::TAG</span>)<span class="question-mark">?</span>;
                 <span class="ident">any</span>.<span class="ident">header</span>.<span class="ident">assert_primitive</span>()<span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident"><span class="self">Self</span>::from_be_bytes</span>(<span class="ident">decode_array_uint</span>(<span class="ident">any</span>)<span class="question-mark">?</span>);
@@ -774,6 +822,8 @@
                 <span class="ident">check_der_int_constraints</span>(<span class="ident">any</span>)
             }
         }
+
+        <span class="kw">impl</span> <span class="ident">DerAutoDerive</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span> {}
 
         <span class="kw">impl</span> <span class="ident">Tagged</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">ty</span> {
             <span class="kw">const</span> <span class="ident">TAG</span>: <span class="ident">Tag</span> <span class="op">=</span> <span class="ident">Tag::Integer</span>;
@@ -1032,6 +1082,14 @@
     <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
 
     <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">any</span>: <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Integer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
+        <span class="ident">TryFrom::try_from</span>(<span class="kw-2">&amp;</span><span class="ident">any</span>)
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="lifetime">&#39;b</span><span class="op">&gt;</span> <span class="ident">TryFrom</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Integer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Error</span> <span class="op">=</span> <span class="ident">Error</span>;
+
+    <span class="kw">fn</span> <span class="ident">try_from</span>(<span class="ident">any</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;b</span> <span class="ident">Any</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Integer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="ident">any</span>.<span class="ident">tag</span>().<span class="ident">assert_eq</span>(<span class="ident"><span class="self">Self</span>::TAG</span>)<span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(<span class="ident">Integer</span> {
             <span class="ident">data</span>: <span class="ident">Cow::Borrowed</span>(<span class="ident">any</span>.<span class="ident">data</span>),
@@ -1062,6 +1120,8 @@
         <span class="kw">_</span> =&gt; <span class="prelude-val">Ok</span>(()),
     }
 }
+
+<span class="kw">impl</span> <span class="ident">DerAutoDerive</span> <span class="kw">for</span> <span class="ident">Integer</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span> {}
 
 <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">Tagged</span> <span class="kw">for</span> <span class="ident">Integer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="kw">const</span> <span class="ident">TAG</span>: <span class="ident">Tag</span> <span class="op">=</span> <span class="ident">Tag::Integer</span>;
@@ -1208,37 +1268,37 @@
         <span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="ident">Header::new_simple</span>(<span class="ident">Tag</span>(<span class="number">0</span>));
         <span class="comment">// no zero nor ff - nothing to remove</span>
         <span class="kw">let</span> <span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="number">0x7f</span>, <span class="number">0xff</span>, <span class="number">0x00</span>, <span class="number">0x02</span>];
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="ident">input</span>), <span class="ident">trim_slice</span>(<span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="ident">input</span>), <span class="ident">trim_slice</span>(<span class="kw-2">&amp;</span><span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
         <span class="comment">//</span>
         <span class="comment">// 0x00</span>
         <span class="comment">//</span>
         <span class="comment">// empty - nothing to remove</span>
         <span class="kw">let</span> <span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[];
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="ident">input</span>), <span class="ident">trim_slice</span>(<span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="ident">input</span>), <span class="ident">trim_slice</span>(<span class="kw-2">&amp;</span><span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
         <span class="comment">// one zero - nothing to remove</span>
         <span class="kw">let</span> <span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="ident">input</span>), <span class="ident">trim_slice</span>(<span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="ident">input</span>), <span class="ident">trim_slice</span>(<span class="kw-2">&amp;</span><span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
         <span class="comment">// all zeroes - keep only one</span>
         <span class="kw">let</span> <span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>];
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>[<span class="number">2</span>..]), <span class="ident">trim_slice</span>(<span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>[<span class="number">2</span>..]), <span class="ident">trim_slice</span>(<span class="kw-2">&amp;</span><span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
         <span class="comment">// some zeroes - keep only the non-zero part</span>
         <span class="kw">let</span> <span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>];
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>[<span class="number">2</span>..]), <span class="ident">trim_slice</span>(<span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>[<span class="number">2</span>..]), <span class="ident">trim_slice</span>(<span class="kw-2">&amp;</span><span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
         <span class="comment">//</span>
         <span class="comment">// 0xff</span>
         <span class="comment">//</span>
         <span class="comment">// one ff - nothing to remove</span>
         <span class="kw">let</span> <span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="number">0xff</span>];
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="ident">input</span>), <span class="ident">trim_slice</span>(<span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="ident">input</span>), <span class="ident">trim_slice</span>(<span class="kw-2">&amp;</span><span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
         <span class="comment">// all ff - keep only one</span>
         <span class="kw">let</span> <span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0xff</span>];
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>[<span class="number">2</span>..]), <span class="ident">trim_slice</span>(<span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>[<span class="number">2</span>..]), <span class="ident">trim_slice</span>(<span class="kw-2">&amp;</span><span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
         <span class="comment">// some ff - keep only the non-zero part</span>
         <span class="kw">let</span> <span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">1</span>];
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>[<span class="number">1</span>..]), <span class="ident">trim_slice</span>(<span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>[<span class="number">1</span>..]), <span class="ident">trim_slice</span>(<span class="kw-2">&amp;</span><span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
         <span class="comment">// some ff and a MSB 1 - keep only the non-zero part</span>
         <span class="kw">let</span> <span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="kw-2">&amp;</span>[<span class="number">0xff</span>, <span class="number">0xff</span>, <span class="number">0x80</span>, <span class="number">1</span>];
-        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>[<span class="number">2</span>..]), <span class="ident">trim_slice</span>(<span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
+        <span class="macro">assert_eq!</span>(<span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="ident">input</span>[<span class="number">2</span>..]), <span class="ident">trim_slice</span>(<span class="kw-2">&amp;</span><span class="ident">Any::new</span>(<span class="ident">h</span>.<span class="ident">clone</span>(), <span class="ident">input</span>)));
     }
 }
 </code></pre></div>

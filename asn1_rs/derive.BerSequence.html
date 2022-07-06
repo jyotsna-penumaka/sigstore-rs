@@ -8,6 +8,12 @@
 {
     // Attributes available to this derive:
     #[debug_derive]
+    #[default]
+    #[optional]
+    #[tag_explicit]
+    #[tag_implicit]
+    #[error]
+    #[map_err]
 }
 </code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="bersequence-custom-derive"><a href="#bersequence-custom-derive">BerSequence custom derive</a></h2>
 <p><code>BerSequence</code> is a custom derive attribute, to derive a BER <a href="struct.Sequence.html"><code>Sequence</code></a> parser automatically from the structure definition.
@@ -19,6 +25,7 @@ This attribute will automatically derive implementations for the following trait
 <p><code>DerSequence</code> implies <code>BerSequence</code>, and will conflict with this custom derive. Use <code>BerSequence</code> when you only want the
 above traits derived.</p>
 <p>Parsers will be automatically derived from struct fields. Every field type must implement the <a href="trait.FromBer.html"><code>FromBer</code></a> trait.</p>
+<p>See <a href="doc/derive/index.html"><code>derive</code></a> documentation for more examples and documentation.</p>
 <h3 id="examples"><a href="#examples">Examples</a></h3>
 <p>To parse the following ASN.1 structure:</p>
 <pre>

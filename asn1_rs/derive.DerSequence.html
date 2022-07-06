@@ -8,6 +8,12 @@
 {
     // Attributes available to this derive:
     #[debug_derive]
+    #[default]
+    #[optional]
+    #[tag_explicit]
+    #[tag_implicit]
+    #[error]
+    #[map_err]
 }
 </code></pre></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><h2 id="dersequence-custom-derive"><a href="#dersequence-custom-derive">DerSequence custom derive</a></h2>
 <p><code>DerSequence</code> is a custom derive attribute, to derive both BER and DER <a href="struct.Sequence.html"><code>Sequence</code></a> parsers automatically from the structure definition.
@@ -15,10 +21,12 @@ This attribute will automatically derive implementations for the following trait
 <ul>
 <li><a href="struct.Any.html"><code>TryFrom&lt;Any&gt;</code></a>, also providing <a href="trait.FromBer.html"><code>FromBer</code></a></li>
 <li><a href="trait.Tagged.html"><code>Tagged</code></a></li>
+<li><a href="trait.CheckDerConstraints.html"><code>CheckDerConstraints</code></a></li>
 <li><a href="trait.FromDer.html"><code>FromDer</code></a></li>
 </ul>
 <p><code>DerSequence</code> implies <code>BerSequence</code>, and will conflict with this custom derive.</p>
 <p>Parsers will be automatically derived from struct fields. Every field type must implement the <a href="trait.FromDer.html"><code>FromDer</code></a> trait.</p>
+<p>See <a href="doc/derive/index.html"><code>derive</code></a> documentation for more examples and documentation.</p>
 <h3 id="examples"><a href="#examples">Examples</a></h3>
 <p>To parse the following ASN.1 structure:</p>
 <pre>
