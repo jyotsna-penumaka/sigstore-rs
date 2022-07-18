@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/open-3.0.1/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/open-3.0.2/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../open/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -213,11 +213,23 @@
 <span id="208">208</span>
 <span id="209">209</span>
 <span id="210">210</span>
-</pre><pre class="rust"><code><span class="doccomment">//! Use this library to open a path or URL using the program configured on the system.</span>
+<span id="211">211</span>
+<span id="212">212</span>
+<span id="213">213</span>
+<span id="214">214</span>
+<span id="215">215</span>
+<span id="216">216</span>
+<span id="217">217</span>
+<span id="218">218</span>
+<span id="219">219</span>
+<span id="220">220</span>
+<span id="221">221</span>
+<span id="222">222</span>
+</pre><pre class="rust"><code><span class="doccomment">//! Use this library to open a path or URL using the program configured on the system in a non-blocking fashion.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Usage</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! Open the given URL in the default web browser.</span>
+<span class="doccomment">//! Open the given URL in the default web browser, without blocking.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```no_run</span>
 <span class="doccomment">//! open::that(&quot;http://rust-lang.org&quot;).unwrap();</span>
@@ -231,8 +243,17 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! # Notes</span>
 <span class="doccomment">//!</span>
+<span class="doccomment">//! ## Nonblocking operation</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! The functions provided are nonblocking as it will return even though the</span>
+<span class="doccomment">//! launched child process is still running. Note that depending on the operating</span>
+<span class="doccomment">//! system, spawning launch helpers, which this library does under the hood,</span>
+<span class="doccomment">//! might still take 100&#39;s of milliseconds.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ## Error handling</span>
+<span class="doccomment">//!</span>
 <span class="doccomment">//! As an operating system program is used, the open operation can fail.</span>
-<span class="doccomment">//! Therefore, you are advised to at least check the result and behave</span>
+<span class="doccomment">//! Therefore, you are advised to check the result and behave</span>
 <span class="doccomment">//! accordingly, e.g. by letting the user know that the open operation failed.</span>
 <span class="doccomment">//!</span>
 <span class="doccomment">//! ```no_run</span>
@@ -291,7 +312,7 @@
     <span class="ident">thread</span>,
 };
 
-<span class="doccomment">/// Open path with the default application.</span>
+<span class="doccomment">/// Open path with the default application without blocking.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>
@@ -313,6 +334,9 @@
 }
 
 <span class="doccomment">/// Open path with the given application.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This function may block if the application doesn&#39;t detach itself.</span>
+<span class="doccomment">/// In that case, consider using [`with_in_background()`].</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Examples</span>
 <span class="doccomment">///</span>

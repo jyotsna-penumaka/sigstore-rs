@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/cached_proc_macro-0.13.0/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `/home/runner/.cargo/registry/src/github.com-1ecc6299db9ec823/cached_proc_macro-0.14.0/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled><link rel="stylesheet" type="text/css" href="../../dark.css" disabled><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../../storage.js"></script><script src="../../crates.js"></script><script defer src="../../main.js"></script><script defer src="../../source-script.js"></script><script defer src="../../source-files.js"></script>
     <noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../../favicon.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../../cached_proc_macro/index.html"><div class="logo-container"><img class="rust-logo" src="../../rust-logo.svg" alt="logo"></div>
         </a><h2 class="location"></h2>
     </nav>
@@ -1509,6 +1509,12 @@
 <span id="1504">1504</span>
 <span id="1505">1505</span>
 <span id="1506">1506</span>
+<span id="1507">1507</span>
+<span id="1508">1508</span>
+<span id="1509">1509</span>
+<span id="1510">1510</span>
+<span id="1511">1511</span>
+<span id="1512">1512</span>
 </pre><pre class="rust"><code><span class="kw">use</span> <span class="ident">darling::FromMeta</span>;
 <span class="kw">use</span> <span class="ident">proc_macro::TokenStream</span>;
 <span class="kw">use</span> <span class="ident">quote::quote</span>;
@@ -1986,6 +1992,7 @@
             }
             <span class="comment">// Prime cached function</span>
             <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">prime_fn_indent_doc</span>]</span>
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
             #<span class="ident">visibility</span> #<span class="ident">prime_sig</span> {
                 <span class="kw">use</span> <span class="ident">cached::Cached</span>;
                 <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> #<span class="ident">key_convert_block</span>;
@@ -2013,6 +2020,7 @@
             }
             <span class="comment">// Prime cached function</span>
             <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">prime_fn_indent_doc</span>]</span>
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
             #<span class="ident">visibility</span> #<span class="ident">prime_sig</span> {
                 <span class="kw">use</span> <span class="ident">cached::Cached</span>;
                 <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> #<span class="ident">key_convert_block</span>;
@@ -2436,6 +2444,7 @@
             }
             <span class="comment">// Prime cached function</span>
             <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">prime_fn_indent_doc</span>]</span>
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
             #<span class="ident">visibility</span> #<span class="ident">prime_sig</span> {
                 <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">::cached::instant::Instant::now</span>();
                 #<span class="ident">prime_do_set_return_block</span>
@@ -2461,6 +2470,7 @@
             }
             <span class="comment">// Prime cached function</span>
             <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">prime_fn_indent_doc</span>]</span>
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
             #<span class="ident">visibility</span> #<span class="ident">prime_sig</span> {
                 <span class="kw">let</span> <span class="ident">now</span> <span class="op">=</span> <span class="ident">::cached::instant::Instant::now</span>();
                 #<span class="ident">prime_do_set_return_block</span>
@@ -2978,6 +2988,7 @@
             }
             <span class="comment">// Prime cached function</span>
             <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">prime_fn_indent_doc</span>]</span>
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
             #<span class="ident">visibility</span> #<span class="ident">prime_sig</span> {
                 <span class="kw">use</span> <span class="ident">cached::IOCachedAsync</span>;
                 <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> #<span class="ident">key_convert_block</span>;
@@ -3005,6 +3016,7 @@
             }
             <span class="comment">// Prime cached function</span>
             <span class="attribute">#[<span class="ident">doc</span> <span class="op">=</span> #<span class="ident">prime_fn_indent_doc</span>]</span>
+            <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
             #<span class="ident">visibility</span> #<span class="ident">prime_sig</span> {
                 <span class="kw">use</span> <span class="ident">cached::IOCached</span>;
                 <span class="kw">let</span> <span class="ident">key</span> <span class="op">=</span> #<span class="ident">key_convert_block</span>;
